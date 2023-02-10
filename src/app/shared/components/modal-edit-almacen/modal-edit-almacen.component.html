@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Editar Cantidad de almacen</h2>
+<mat-dialog-content>
+  <section class="motorizado">
+    <section class="">
+      <div class="">
+        <label for="phone" class="form-main-label">Cantidad</label>
+        <input
+          type="number"
+          class="form-control form-main-input"
+          name="cantidad"
+          id="cantidad"
+          [(ngModel)]="cantidad"
+          [ngModelOptions]="{ standalone: true }"
+          maxlength="9"
+        />
+      </div>
+    </section>
+  </section>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-yellow mr-3" mat-button mat-dialog-close>
+    Cancelar
+  </button>
+  <button class="btn btn-green" mat-button (click)="updateSolicitud()">
+    Guardar
+  </button>
+</mat-dialog-actions>

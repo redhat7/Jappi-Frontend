@@ -1,0 +1,177 @@
+<h2 mat-dialog-title>Editar Usuario</h2>
+<mat-dialog-content>
+  <form class="entrega">
+    <section class="client__entrega">
+      <div class="row">
+        <p class="col-md-12">DATOS DE LOS CLIENTES</p>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name" class="form-main-label">
+              Nombre del dueño
+            </label>
+            <input
+              type="text"
+              class="form-control form-main-input"
+              name="name"
+              id="name"
+              [(ngModel)]="duenio"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="nombreEmpresa" class="form-main-label"> Nombre de la Empresa </label>
+            <input
+              type="text"
+              class="form-control form-main-input"
+              name="nombreEmpresa"
+              id="nombreEmpresa"
+              [(ngModel)]="nombre"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="Correo" class="form-main-label"> Correo </label>
+            <input
+              type="text"
+              class="form-control form-main-input"
+              name="Correo"
+              id="Correo"
+              [(ngModel)]="correo"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="pass" class="form-main-label"> Contraseña </label>
+            <input
+              type="text"
+              class="form-control form-main-input"
+              name="pass"
+              id="pass"
+              [(ngModel)]="pass"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="dni" class="form-main-label"> DNI </label>
+            <input
+              type="text"
+              class="form-control form-main-input"
+              name="dni"
+              id="dni"
+              [(ngModel)]="dni"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="phone" class="form-main-label"> Telefono </label>
+            <input
+              type="number"
+              class="form-control form-main-input"
+              name="phone"
+              id="phone"
+              [(ngModel)]="telefono"
+              [ngModelOptions]="{ standalone: true }"
+              maxlength="9"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="address" class="form-main-label">
+              Dirección de entrega
+            </label>
+            <input
+              type="text"
+              class="form-control form-main-input"
+              name="address"
+              id="address"
+              [(ngModel)]="direccion"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="banco" class="form-main-label">
+            Banco
+          </label>
+          <select
+            class="form-control form-main-select"
+            name="banco"
+            id="banco"
+            [(ngModel)]="IDbanco"
+          >
+            <option
+              [value]="option.value"
+              *ngFor="let option of optionsBanco"
+            >
+              {{ option.value }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="cuenta" class="form-main-label"> N° de Cuenta </label>
+            <input
+              type="text"
+              class="form-control form-main-input"
+              name="cuenta"
+              id="cuenta"
+              [(ngModel)]="cuenta"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="titular" class="form-main-label"> Titular de la cuenta </label>
+            <input
+              type="text"
+              class="form-control form-main-input"
+              name="titular"
+              id="titular"
+              [(ngModel)]="titular"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="distrito" class="form-main-label"> Distrito </label>
+          <select
+            class="form-control form-main-select"
+            name="distrito"
+            id="distrito"
+            [(ngModel)]="IDDistrito"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <option [value]="distrito.value" *ngFor="let distrito of distritos">
+              {{ distrito.name }}
+            </option>
+          </select>
+          
+        </div>
+        
+      </div>
+    </section>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-yellow mr-3" mat-button mat-dialog-close>
+    Cancelar
+  </button>
+  <button class="btn btn-green" mat-button (click)="updateUsuario()">
+    Guardar
+  </button>
+</mat-dialog-actions>
+
+<!-- https://backend-japi.herokuapp.com/empresa/editarEnvio mandas token,id_envio,nombrePersona,direccion,telefono,latitud,longitud,descripcion,cantidad ,modo_entrega,metodo_pago,monto_total,fecha_entrega,observacion -->

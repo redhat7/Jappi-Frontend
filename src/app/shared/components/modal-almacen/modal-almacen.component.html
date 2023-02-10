@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>Actualizar almacen</h1>
+<div mat-dialog-content style="overflow: initial">
+  <div class="container-fluid mx-auto">
+    <div class="row">
+      <div class="col-12 form-group">
+        <input
+          type="text"
+          class="form-control form-main-input"
+          placeholder="descripcion"
+          [(ngModel)]="descripcion"
+          id="descripcion-input"
+        />
+      </div>
+      <div class="col-6 form-group">
+        <input
+          type="number"
+          class="form-control form-main-input"
+          placeholder="Cantidad"
+          [(ngModel)]="cantidad"
+          id="cantidad-input"
+        />
+      </div>
+      <div class="col-6 form-group">
+        <input
+          type="number"
+          class="form-control form-main-input"
+          placeholder="Precio Unitario"
+          [(ngModel)]="precio"
+          id="precio-input"
+        />
+      </div>
+      <div
+        class="col-12 form-group d-flex justify-space-between"
+        mat-dialog-actions
+      >
+        <button
+          class="btn btn-yellow mr-3"
+          mat-dialog-close
+          [mat-dialog-close]="false"
+        >
+          Cancelar
+        </button>
+        <button class="btn btn-green" (click)="addProduct()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

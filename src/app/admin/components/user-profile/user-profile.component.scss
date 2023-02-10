@@ -1,0 +1,22 @@
+input {
+  &:disabled {
+    background: var(--white);
+    border: 1px solid #e3e3e3;
+    cursor: initial;
+  }
+}
+
+.avatar{
+  background: var(--green-clr);
+  padding: 14px;
+}
+.actualizacion{
+  color: blueviolet;
+  font-weight: bold;
+  padding-left: 1rem;
+}
+.negative{
+  color: red;
+  font-weight: bold;
+  padding-left: 1rem;
+}

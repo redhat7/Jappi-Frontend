@@ -1,0 +1,131 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Cargando ...</p>
+</ngx-spinner>
+<div class="row">
+  
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body d-flex align-items-center">
+        <select
+          class="form-select form-main-select col-md-3 mr-2"
+          id="entrega"
+          (change)="selectOptions($event.target.value)"
+        >
+          <option [value]="option.id" *ngFor="let option of almacenEntregas">
+            {{ option.descripcion }}
+          </option>
+        </select>
+        <input
+          type="text"
+          name="search"
+          id="search"
+          class="form-control form-main-input col-md-3 mr-2"
+          [(ngModel)]="searchInput"
+          placeholder="Buscar"
+        />
+        <button
+          class="btn btn-green"
+          id="btn-search-date"
+          (click)="filterList()"
+        >
+          Filtrar
+        </button>
+      </div>
+
+      <div class="card-header">
+        <h2 class="card-title">Lista de Entregas</h2>
+      </div>
+      <div class="card-body">
+        <div *ngIf="dataFilter.length !== 0" class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-head">
+              <th>N°</th>
+              <th>Vendedor</th>
+              <th>Producto</th>
+              <th>Cant</th>
+              <th class="size">Comprador</th>
+              <th class="size">Teléfono Comprador</th>
+              <th class="size">Dirección de entrega</th>
+              <th class="size">Monto Total</th>
+              <th class="size">Fecha entrega</th>
+              <th class="size">Método de pago</th>
+              <th class="size">Modo de Entrega</th>
+              <th class="size">Distrito</th>
+              <th>Motorizado</th>
+              <th>Estado</th>
+              <th>Opciones</th>
+              <th>Fecha de registro</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let entrega of dataFilter; index as i">
+                <td>{{ i + 1 }}</td>
+                <td>{{ entrega.vendedor }}</td>
+                <td>{{ entrega.descripcion }}</td>
+                <td>{{ entrega.cantidad }}</td>
+                <td>{{ entrega.comprador }}</td>
+                <td>{{ entrega.telefono }}</td>
+                <td>
+                  <a
+                    href="{{ entrega.url }}"
+                    class="table-link"
+                    target="_blank"
+                    *ngIf="entrega.check"
+                  >
+                    {{ entrega.direccion }}
+                  </a>
+                  <span *ngIf="!entrega.check"> {{ entrega.direccion }} </span>
+                </td>
+                <td>{{ entrega.monto_total | currency: "S/" }}</td>
+                <td>{{ entrega.fecha_entrega }}</td>
+                <td>{{ entrega.metodo_pago || "No tiene" }}</td>
+                <td>{{ entrega.modo_entrega }}</td>
+                <td>{{ entrega.nombre_distrito}}</td>
+                <td>
+                  {{ entrega.motorizado || "No tiene" }}
+                </td>
+                <td>{{ entrega.nombre_estado }}</td>
+                <td class="d-flex align-items-center">
+                  <button
+                    *ngIf="entrega.estado"
+                    class="btn btn-yellow mr-2"
+                    (click)="clickModalEdit(entrega)"
+                  >
+                    Editar Motorizado
+                  </button>
+                  <button
+                    *ngIf="!entrega.estado"
+                    class="btn btn-green mr-2"
+                    (click)="clickModalEdit(entrega)"
+                  >
+                    Asignar Motorizado
+                  </button>
+                  <button
+                    class="btn btn-success mr-2"
+                    (click)="clickModalEditEntrega(entrega)"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    (click)="openModalDelete(entrega)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+                <td> {{ entrega.fecha_registro | date:'medium' }} </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="dataFilter.length === 0">
+          <p>No tienes entregas el día de hoy</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

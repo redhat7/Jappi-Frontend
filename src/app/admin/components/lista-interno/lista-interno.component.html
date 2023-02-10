@@ -1,0 +1,96 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Cargando ...</p>
+</ngx-spinner>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body d-flex align-items-center">
+        <select
+          class="form-select form-main-select col-md-3 mr-2"
+          id="entrega"
+          style="display: block"
+          (change)="selectSpinner($event.target.value)"
+        >
+          <option [value]="o.id" *ngFor="let o of spinner">
+            {{ o.descripcion }}
+          </option>
+        </select>
+        <input
+          type="text"
+          name="search"
+          id="search"
+          class="form-control form-main-input col-md-3 mr-2"
+          [(ngModel)]="searchTxt"
+          placeholder="Buscar"
+        />
+        <button
+          class="btn btn-green"
+          id="btn-search-date"
+          (click)="filterList()"
+        >
+          Filtrar
+        </button>
+      </div>
+      <div class="card-header">
+        <h2 class="card-title">Lista de Colaboradores Internos de Japi</h2>
+      </div>
+      <div class="card-body">
+        <div *ngIf="data.length !== 0" class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-head">
+              <th scope="col"></th>
+              <th scope="col">Nombre del Motorizado</th>
+              <th scope="col">DNI</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Contraseña</th>
+              <th scope="col">Placa Moto</th>
+              <th scope="col">Marca Moto</th>
+              <th scope="col">Numero de Licencia</th>
+              <th scope="col">Distritos Recojo</th>
+              <th scope="col">Distritos Entrega</th>
+              <th scope="col">Opciones</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of data; index as i">
+                <td>{{ i + 1 }}</td>
+                <td>{{ usuario.nombres }}</td>
+                <td>{{ usuario.dni }}</td>
+                <td>{{ usuario.correo }}</td>
+                <td>{{ usuario.pass }}</td>
+                <td>{{ usuario.placaMoto }}</td>
+                <td>{{ usuario.marcaMoto }}</td>
+                <td>{{ usuario.numLicencia }}</td>
+                <td>{{ usuario.recojo }}</td>
+                <td>{{ usuario.entrega }}</td>
+                <td>
+                  <div class="dis">
+                  <button
+                    class="btn btn-yellow"
+                    (click)="editMotorizado(usuario)"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    class="btn btn-danger ml-1"
+                    (click)="deleteMotorizado(usuario)"
+                  >
+                    Eliminar
+                  </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="data.length === 0">
+          <p>Usuarios internos ...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

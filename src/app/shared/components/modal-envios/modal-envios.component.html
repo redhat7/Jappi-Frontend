@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Agregar motivo</h2>
+<mat-dialog-content>
+  <section class="observacion">
+    <div class="form-group">
+      <label class="form-main-label" for="obs"> Detalles </label>
+      <textarea
+        id="obs"
+        rows="4"
+        cols="80"
+        class="form-control form-main-input"
+        placeholder="Escribe aqui lo que sucedío detalladamente"
+        [(ngModel)]="observacion"
+        [ngModelOptions]="{ standalone: true }"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="" class="form-main-label"> Actualizar estado </label>
+      <select
+        name="estado"
+        id="estado"
+        class="form-select form-main-select"
+        [(ngModel)]="estadoSelected"
+      >
+        <option value="0">Selecciona un estado</option>
+        <option [value]="estado.value" *ngFor="let estado of estados">
+          {{ estado.estado }}
+        </option>
+      </select>
+    </div>
+  </section>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    class="btn btn-green mr-3"
+    mat-button
+    mat-dialog-close
+    [mat-dialog-close]="false"
+  >
+    Cancelar
+  </button>
+  <button class="btn btn-yellow" mat-button (click)="addObservacion()">
+    Agregar Motivo
+  </button>
+</mat-dialog-actions>

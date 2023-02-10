@@ -1,0 +1,146 @@
+<h2 mat-dialog-title>Agregar motivo</h2>
+<mat-dialog-content>
+  <section class="modal-edit-moto">
+    <form>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="email">Correo</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="form-control form-main-input"
+              [(ngModel)]="correo"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="pass">Contraseña</label>
+            <input
+              type="password"
+              name="pass"
+              id="pass"
+              class="form-control form-main-input"
+              [(ngModel)]="pass"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name">Nombre del Motorizado</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="form-control form-main-input"
+              [(ngModel)]="nombreMoto"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="dni">DNI del Motorizado</label>
+            <input
+              type="text"
+              name="dni"
+              id="dni"
+              class="form-control form-main-input"
+              [(ngModel)]="dni"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill" style="width: 100%">
+            <mat-label>Distritos de Recojo</mat-label>
+            <mat-select
+              multiple
+              [(ngModel)]="distrito1"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <mat-option
+                *ngFor="let distrito of distritos"
+                [value]="distrito.value"
+              >
+                {{ distrito.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="fill" style="width: 100%">
+            <mat-label>Distritos Entrega</mat-label>
+            <mat-select
+              multiple
+              [(ngModel)]="distrito2"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <mat-option
+                *ngFor="let distrito of distritos"
+                [value]="distrito.value"
+              >
+                {{ distrito.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="email">Numero de Licencia</label>
+            <input
+              type="text"
+              name="licencia"
+              id="licencia"
+              class="form-control form-main-input"
+              [(ngModel)]="licencia"
+            />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="pass">Placa de la Moto</label>
+            <input
+              type="text"
+              name="placa"
+              id="placa"
+              class="form-control form-main-input"
+              [(ngModel)]="placa"
+            />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="email">Marca de la Moto</label>
+            <input
+              type="text"
+              name="marca"
+              id="marca"
+              class="form-control form-main-input"
+              [(ngModel)]="marca"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="btn btn-yellow mr-3" mat-button (click)="editMotorizado()">
+    Actualizar
+  </button>
+  <button
+    class="btn btn-green"
+    mat-button
+    mat-dialog-close
+    [mat-dialog-close]="false"
+  >
+    Cancelar
+  </button>
+</mat-dialog-actions>

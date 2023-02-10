@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <section class="motorizado">
+    <div *ngIf="data.validate === 0">
+      <p>Cargando motorizados ...</p>
+    </div>
+    <div *ngIf="data.validate !== 0">
+      <h4>Lista de motorizados</h4>
+      <select
+        class="form-select form-main-select"
+        name="motorizado"
+        id="motorizado"
+        [(ngModel)]="motorizadoSelected"
+      >
+        <option value="0">Selecciona un motorizado</option>
+        <option [value]="motorizado.id" *ngFor="let motorizado of motorizados">
+          {{ motorizado.nombres }}
+        </option>
+      </select>
+    </div>
+  </section>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-yellow mr-3" mat-button mat-dialog-close>
+    Cancelar
+  </button>
+  <button class="btn btn-green" mat-button (click)="updateMotorizado()">
+    Guardar
+  </button>
+</mat-dialog-actions>

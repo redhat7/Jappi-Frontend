@@ -1,0 +1,94 @@
+<ngx-spinner
+  [name]="spinner1"
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white; margin-top: 0.5em">Cargando ...</p>
+</ngx-spinner>
+<ngx-spinner
+  [name]="spinner2"
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white; margin-top: 0.5em">Cargando ...</p>
+</ngx-spinner>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <h2 class="card-title">Mi Almacen Japi</h2>
+        <button class="btn btn-green" (click)="openModal()">
+          Solicitud de abastecimiento de almacen
+        </button>
+      </div>
+      <div class="card-header">
+        <h3 class="h3 m-0">Programa tus envíos desde almacen</h3>
+        <div>
+          <input
+            type="file"
+            hidden
+            id="file-input"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            multiple="false"
+            (change)="changeInputEvent()"
+          />
+          <a
+            class="btn btn-green mr-3"
+            target="_blank"
+            href="https://drive.google.com/file/d/1YjZsXy7oEEElmO1VwliaCHr6MCXawjGC/view?usp=sharing"
+            >Descargar plantilla
+          </a>
+          <button class="btn btn-yellow" (click)="uploadFile()">
+            Cargar archivo
+          </button>
+        </div>
+        <div>
+          <p id="message-error" class="text-danger font-weight-bold"></p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div *ngIf="data.length !== 0" class="table-responsive">
+          <table class="table">
+            <thead class="table-head">
+              <th>ID Producto</th>
+              <th>Producto</th>
+              <th>Cant</th>
+              <th>Precio Unitario</th>
+              <th>Estado</th>
+              <th>Fecha Actualización</th>
+            </thead>
+            <tbody *ngFor="let data of data">
+              <tr>
+                <td>
+                  {{ data.idalmacen }}
+                </td>
+                <td>
+                  {{ data.descripcion }}
+                </td>
+                <td>
+                  {{ data.cantidad }}
+                </td>
+                <td>
+                  {{ data.precio | currency: "S/" }}
+                </td>
+                <td>
+                  {{ data.nombre_estado }}
+                </td>
+                <td>
+                  {{ data.fecha }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="data.length === 0">
+          <p>No tienes productos en tu almacen</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

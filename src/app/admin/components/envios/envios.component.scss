@@ -1,0 +1,42 @@
+.dis{
+    display: flex;
+}
+.dis p{
+    margin-left: 10px
+}
+.dis button{
+    align-self: center;
+    height: 60px;
+}
+thead  th { 
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #ffffff;
+}
+
+.table-responsive { 
+    height:600px;
+    overflow:scroll;
+}
+.display{
+    display: flex;
+    justify-content: space-between;
+}
+.part{
+    margin-left: 2rem;
+}
+.part button{
+    width: 10px;
+    height:10px;
+    font-size: 10px;
+    padding: 0 auto;
+    text-align: center;
+    align-self: center;
+}
+.size{
+    min-width: 110px;
+}
+.aia{
+    display: flex;
+}

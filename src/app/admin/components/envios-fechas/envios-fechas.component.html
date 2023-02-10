@@ -1,0 +1,157 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Cargando ...</p>
+</ngx-spinner>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body d-flex align-items-center">
+        <input
+          id="date-start"
+          type="date"
+          class="form-control form-main-input col-md-3 mr-2"
+          placeholder="dd/mm/yyyy"
+        />
+        <input
+          id="date-end"
+          type="date"
+          class="form-control form-main-input col-md-3 mr-2"
+          placeholder="dd/mm/yyyy"
+        />
+        <button
+          class="btn btn-green"
+          id="btn-search-date"
+          (click)="searchByDate($event)"
+        >
+          Consultar
+        </button>
+      </div>
+      <div class="card-body d-flex align-items-center">
+        <select
+          class="form-select form-main-select col-md-3 mr-2"
+          id="entrega"
+          style="display: block"
+          (change)="selectSpinner($event.target.value)"
+        >
+          <option [value]="o.id" *ngFor="let o of spinner">
+            {{ o.descripcion }}
+          </option>
+        </select>
+        <input
+          type="text"
+          name="search"
+          id="search"
+          class="form-control form-main-input col-md-3 mr-2"
+          [(ngModel)]="searchTxt"
+          placeholder="Buscar"
+        />
+        <button
+          class="btn btn-green"
+          id="btn-search-date"
+          (click)="filterList()"
+        >
+          Filtrar
+        </button>
+      </div>
+      <div class="card-header">
+        <h2 class="card-title">Envios por Fechas</h2>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-head">
+              <th scope="col">N°</th>
+              <th scope="col">Vendedor</th>
+              <th scope="col">Producto</th>
+              <th scope="col">Cant</th>
+              <th class="size" scope="col">Fecha de entrega</th>
+              <th scope="col">Comprador</th>
+              <th class="size" scope="col">Telefono comprador</th>
+              <th class="size" scope="col">Dirección de entrega</th>
+              <th class="size" scope="col">Monto a cobrar</th>
+              <th class="size" scope="col">Método de pago</th>
+              <th class="size" scope="col">Modo de entrega</th>
+              <th scope="col">Servicio</th>
+              <th class="size" scope="col">Rango de horario</th>
+              <th scope="col">Observaciones</th>
+              <th scope="col">Distrito</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Delivery</th>
+              <th scope="col">Motivo</th>
+              <th scope="col">Moto</th>
+              <th scope="col">Opciones</th>
+              <th scope="col">Modificación</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let envio of data; index as i">
+                <th>{{ i + 1 }}</th>
+                <td>{{ envio.nombre }}</td>
+                <td>{{ envio.descripcion }}</td>
+                <td>{{ envio.cantidad }}</td>
+                <td>{{ envio.fecha_entrega }}</td>
+                <td>{{ envio.nombres }}</td>
+                <td>{{ envio.tele_entrega }}</td>
+                <td>{{ envio.d_entrega }}</td>
+                <td>{{ envio.monto_total | currency: "S/" }}</td>
+                <td>{{ envio.metodo_pago || "No tiene" }}</td>
+                <td>{{ envio.modo_entrega }}</td>
+                <td>{{ envio.tipo_servicio }}</td>
+                <td>{{ envio.horario }}</td>
+                <td>{{ envio.observacion || "No tiene" }}</td>
+                <td>{{ envio.distritoName }}</td>
+
+                <td>
+                  <div *ngIf="envio.nombre_estado == 'entregado'" class="verde">
+                    {{ envio.nombre_estado }}
+                  </div>
+                  <div *ngIf="envio.nombre_estado == 'programado' || envio.nombre_estado == 'pendiente' || envio.nombre_estado == 'en ruta' || envio.nombre_estado == 'Observado'" class="blanco">
+                    {{ envio.nombre_estado }}
+                  </div>
+                  <div
+                    *ngIf="
+                      envio.nombre_estado == 'reprogramado' ||
+                      envio.nombre_estado == 'repro. por cobrar'
+                    "
+                    class="amarillo"
+                  >
+                    {{ envio.nombre_estado }}
+                  </div>
+                  <div
+                    *ngIf="
+                      envio.nombre_estado == 'caída' ||
+                      envio.nombre_estado == 'Caida por cobrar'
+                    "
+                    class="red"
+                  >
+                    {{ envio.nombre_estado }}
+                  </div>
+                </td>
+                <td>{{ envio.delivery | currency: "S/" }}</td>
+                <td>{{ envio.motivo || "No tiene" }}</td>
+                <td>{{ envio.nombre_motorizado || "No tiene" }}</td>
+                <td>
+                  <div class="contain_fecha">
+                    <button class="btn btn-green" (click)="editarEnvio(envio)">
+                      Editar
+                    </button>
+                    <button
+                      class="btn btn-danger ml-1"
+                      (click)="openModalDelete(envio)"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </td>
+                <td>{{ envio.modificacion || "No tiene" }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

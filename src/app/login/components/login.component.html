@@ -1,0 +1,89 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Cargando ...</p>
+</ngx-spinner>
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0 form-main">
+  <div class="container">
+    <div class="card form-main-card">
+      <div class="row">
+        <div class="col-md-5 form-main-logo-container">
+          <img
+            src="./assets/img/form-image.png"
+            alt="login"
+            class="form-main-img"
+          />
+          <img
+            src="./assets/img/japi-verde.png"
+            alt="logo"
+            class="form-main-logo"
+          />
+        </div>
+        <div class="col-md-7">
+          <div class="form-main-body">
+            <p class="form-main-description">Iniciar Sesión</p>
+            <form action="#!" class="form-main-container">
+              <div class="form-group">
+                <label for="email" class="sr-only">Correo</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="form-control form-main-input"
+                  [(ngModel)]="mail"
+                  placeholder="Correo Electrónico"
+                />
+                <span id="email-message" class="form-main-input-error"> </span>
+              </div>
+              <div class="form-group mb-4">
+                <label for="password" class="sr-only">Contraseña</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  class="form-control form-main-input"
+                  [(ngModel)]="pass"
+                  placeholder="***********"
+                />
+                <span id="password-message" class="form-main-input-error">
+                </span>
+              </div>
+              <div class="form-group">
+                <button
+                  type="submit"
+                  name="login"
+                  id="login"
+                  class="btn btn-block form-main-btn"
+                  type="input"
+                  (click)="loginService()"
+                >
+                  Iniciar Sesión
+                </button>
+                <span
+                  id="button-message"
+                  class="form-main-input-error text-center"
+                >
+                </span>
+              </div>
+            </form>
+            <p class="form-main-footer">
+              No tengo cuenta?
+              <a [routerLink]="['/registro']" class="text-link"
+                >Registrarme aquí</a
+              >
+            </p>
+            <a
+              class="form-main-terms text-link"
+              target="_blank"
+              href="https://drive.google.com/file/d/1MHvTB9t3uQervfF1MYtHC_3nA8oyllcA/view?usp=sharing"
+              >Términos y condiciones</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

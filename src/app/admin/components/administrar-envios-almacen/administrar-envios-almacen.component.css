@@ -1,0 +1,17 @@
+.table-responsive{
+    height: 38rem;
+}
+.preparado{
+background-color: gray;
+font-weight: bold;
+font-size: 18px;
+}
+.sinpreparar{
+background-color: greenyellow;
+font-weight: bold;
+font-size: 18px;
+
+}
+.width{
+    width: 9rem;
+}

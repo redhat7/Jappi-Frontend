@@ -1,0 +1,53 @@
+.center{
+    align-items: center;
+}
+
+.size{
+    min-width: 110px;
+}
+.contain_fecha{
+    display: flex;
+}
+thead  th { 
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #ffffff;
+}
+
+.table-responsive { 
+    height:600px;
+    overflow:scroll;
+}
+.verde{
+    background-color: #1beb11;
+    font-weight: bold;
+    font-size: 15px;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+.blanco{
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 15px;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+.amarillo{
+    background-color: yellow;
+    font-weight: bold;
+    font-size: 15px;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+.red{
+    background-color: red;
+    font-weight: bold;
+    font-size: 15px;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}

@@ -1,0 +1,183 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Perfil</h2>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Empresa</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  placeholder="Empresa"
+                  value="{{ nameEmpresa }}"
+                  [(ngModel)]="nameEmpresa"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input
+                  name="email"
+                  id="email"
+                  type="email"
+                  class="form-control"
+                  disabled
+                  placeholder="Correo electrónico"
+                  value="{{ mail }}"
+                  [(ngModel)]="mail"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nombre</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  placeholder="Nombre"
+                  value="{{ name }}"
+                  [(ngModel)]="name"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Contraseña</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  placeholder="*********"
+                  value="{{ pass }}"
+                  [(ngModel)]="pass"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Celular</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  placeholder="Celular"
+                  value="{{ phone }}"
+                  [(ngModel)]="phone"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Banco</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  placeholder="Banco(opcional)"
+                  value="{{ banco }}"
+                  [(ngModel)]="banco"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Cuenta en el banco</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  placeholder="N° de Cuenta"
+                  value="{{ cuenta }}"
+                  [(ngModel)]="cuenta"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Titular de la Cuenta</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  placeholder="titular"
+                  value="{{ titular }}"
+                  [(ngModel)]="titular"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+              
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <button class="btn btn-success" (click)="getUbicacion()">Actualizar Ubicacion</button>
+                <p class="actualizacion" *ngIf="validator==1">Cambio exitoso</p>
+                <p class="negative" *ngIf="validator==2">Active la ubicación e intente nuevamente</p>
+              </div>
+              
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card card-user">
+      <div class="image">
+        <img src="../assets/img/bg5.jpg" alt="..." />
+      </div>
+      <div class="card-body">
+        <div class="author">
+          <div class="avatar" style="margin: 0 auto">
+            <img
+              src="../assets/img/logo-japi.png"
+              width="100%"
+              height="100%"
+              alt="..."
+            />
+            <h3 class="h3 text-primary mb-0">{{ name }}</h3>
+          </div>
+          <p class="description">
+            {{ mail }}
+          </p>
+        </div>
+        <p class="description text-center">
+          <span class="d-block my-2"> Celular: {{ phone }} </span>
+          <span class="d-block my-2"> N° de cuenta: {{ cuenta }} </span>
+        </p>
+      </div>
+      <hr />
+      <div class="button-container">
+        <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+          <i class="fab fa-facebook" style="font-size: 1.2rem"></i>
+        </button>
+        <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+          <i class="fab fa-twitter" style="font-size: 1.2rem"></i>
+        </button>
+        <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+          <i class="fab fa-google-plus-g" style="font-size: 1.2rem"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

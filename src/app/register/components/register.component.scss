@@ -1,0 +1,9 @@
+input.form-control,
+input.form-select {
+  text-transform: uppercase;
+}
+
+input.form-control[type="email"],
+input.form-control[type="password"] {
+  text-transform: initial;
+}

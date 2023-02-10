@@ -1,0 +1,14 @@
+thead  th { 
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #ffffff;
+}
+
+.table-responsive { 
+    height:600px;
+    overflow:scroll;
+}
+.size{
+    min-width: 110px;
+}

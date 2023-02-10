@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <h4>Estados disponibles</h4>
+  <select
+    class="form-select form-main-select"
+    name="estado"
+    id="estado"
+    [(ngModel)]="estadoSelected"
+  >
+    <option value="0">Selecciona un estado</option>
+    <option [value]="estado.value" *ngFor="let estado of estados">
+      {{ estado.estado }}
+    </option>
+  </select>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-yellow mr-3" mat-button mat-dialog-close>
+    Cancelar
+  </button>
+  <button class="btn btn-green" mat-button (click)="updateEstado()">
+    Guardar
+  </button>
+</mat-dialog-actions>

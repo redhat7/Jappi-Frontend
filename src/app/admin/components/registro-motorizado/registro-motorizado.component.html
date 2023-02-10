@@ -1,0 +1,178 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Cargando ...</p>
+</ngx-spinner>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Registro de Motorizados</h2>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Correo</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="form-control form-main-input"
+                  [(ngModel)]="correo"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="pass">Contraseña</label>
+                <input
+                  type="password"
+                  name="pass"
+                  id="pass"
+                  class="form-control form-main-input"
+                  [(ngModel)]="pass"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="name">Nombre del Motorizado</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  class="form-control form-main-input"
+                  [(ngModel)]="nombreMoto"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="dni">DNI del Motorizado</label>
+                <input
+                  type="text"
+                  name="dni"
+                  id="dni"
+                  class="form-control form-main-input"
+                  [(ngModel)]="dni"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>Distritos de Recojo</mat-label>
+                <mat-select
+                  multiple
+                  [(ngModel)]="distrito2"
+                  [ngModelOptions]="{ standalone: true }"
+                >
+                  <mat-option
+                    *ngFor="let distrito of distritos"
+                    [value]="distrito.value"
+                  >
+                    {{ distrito.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>Distritos Entrega</mat-label>
+                <mat-select
+                  multiple
+                  [(ngModel)]="distrito1"
+                  [ngModelOptions]="{ standalone: true }"
+                >
+                  <mat-option
+                    *ngFor="let distrito of distritos"
+                    [value]="distrito.value"
+                  >
+                    {{ distrito.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="email">Numero de Licencia</label>
+                <input
+                  type="text"
+                  name="licencia"
+                  id="licencia"
+                  class="form-control form-main-input"
+                  [(ngModel)]="licencia"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="pass">Placa de la Moto</label>
+                <input
+                  type="text"
+                  name="placa"
+                  id="placa"
+                  class="form-control form-main-input"
+                  [(ngModel)]="placa"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="email">Marca de la Moto</label>
+                <input
+                  type="text"
+                  name="marca"
+                  id="marca"
+                  class="form-control form-main-input"
+                  [(ngModel)]="marca"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="name">Codigo de Comercio</label>
+                <input
+                  type="text"
+                  name="codigo"
+                  id="codigo"
+                  class="form-control form-main-input"
+                  [(ngModel)]="codigo"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <button
+                class="btn btn-green m-auto"
+                (click)="registroMotorizado()"
+              >
+                Registrar
+              </button>
+            </div>
+            <div class="col-md-12">
+              <p class="text-danger mt-2 font-weight-bold" *ngIf="error">
+                {{ errorMessage }}
+              </p>
+              <p class="text-success mt-2 font-weight-bold" *ngIf="success">
+                Lo regístraste satisfactoriamente!
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

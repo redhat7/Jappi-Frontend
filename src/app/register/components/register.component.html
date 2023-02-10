@@ -1,0 +1,221 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Registrando Empresa ...</p>
+</ngx-spinner>
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0 form-main">
+  <div class="container mx-auto">
+    <div class="card form-main-card">
+      <div class="row">
+        <div class="col-md-5 login-logo-container">
+          <img
+            src="./assets/img/form-image.png"
+            alt="login"
+            class="form-main-img"
+          />
+          <img
+            src="./assets/img/logo-japi.png"
+            alt="logo"
+            class="form-main-logo"
+          />
+        </div>
+        <div class="col-md-7 p-4">
+          <p class="form-main-description">Registro</p>
+          <form>
+            <p>Datos Personales</p>
+            <div class="p-2 m-2 rounded">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <input
+                    type="text"
+                    class="form-control form-main-input"
+                    placeholder="Nombres"
+                    id="Nombres"
+                    [(ngModel)]="nombre"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <input
+                    type="number"
+                    class="form-control form-main-input"
+                    placeholder="DNI"
+                    id="dni"
+                    min="0"
+                    pattern="[0-9]*"
+                    inputmode="numeric"
+                    [(ngModel)]="dni"
+                    [ngModelOptions]="{ standalone: true }"
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    maxlength="8"
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <input
+                    type="email"
+                    class="form-control form-main-input"
+                    placeholder="Correo Electrónico"
+                    id="correo"
+                    [(ngModel)]="mail"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <input
+                    type="password"
+                    class="form-control form-main-input"
+                    placeholder="Contraseña"
+                    id="password"
+                    [(ngModel)]="pass"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </div>
+              </div>
+            </div>
+            <p>Datos de la Empresa</p>
+            <div class="p-2 m-2 rounded">
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <input
+                    type="text"
+                    class="form-control form-main-input"
+                    id="empresa"
+                    placeholder="Nombre Empresa"
+                    [(ngModel)]="nameEmpresa"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                  <input
+                    type="number"
+                    class="form-control form-main-input"
+                    id="Telefono"
+                    placeholder="Teléfono"
+                    [(ngModel)]="phone"
+                    [ngModelOptions]="{ standalone: true }"
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    maxlength="9"
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                  <input
+                    type="number"
+                    class="form-control form-main-input"
+                    id="RUC"
+                    placeholder="RUC (opcional)"
+                    [(ngModel)]="ruc"
+                    [ngModelOptions]="{ standalone: true }"
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    maxlength="11"
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <input
+                    type="text"
+                    class="form-control form-main-input"
+                    id="Direccion"
+                    placeholder="Dirección"
+                    [(ngModel)]="direction"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <select
+                    class="form-select form-main-select"
+                    id="distrito"
+                    style="display: block"
+                    (change)="selectDistric($event.target.value)"
+                  >
+                    <option [value]="o.value" *ngFor="let o of distric">
+                      {{ o.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <select
+                    class="form-select form-main-select"
+                    id="banco"
+                    (change)="selectOption($event.target.value)"
+                  >
+                    <option [value]="o.value" *ngFor="let o of options">
+                      {{ o.name }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <input
+                    type="number"
+                    class="form-control form-main-input"
+                    id="cuenta"
+                    placeholder="Número de Cuenta"
+                    [(ngModel)]="numCuenta"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                  <input
+                    type="text"
+                    class="form-control form-main-input"
+                    id="Titular"
+                    placeholder="Titular"
+                    [(ngModel)]="titular"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </div>
+                <div
+                  class="d-flex justify-content-center"
+                  style="margin: 0 auto"
+                >
+                  <input
+                    type="checkbox"
+                    id="cbox2"
+                    value="second_checkbox"
+                    class="mr-2"
+                    [(ngModel)]="isChecked"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="(!isChecked)"
+                  />
+
+                  <a
+                    class="form-main-terms text-link"
+                    target="_blank"
+                    href="https://drive.google.com/file/d/1MHvTB9t3uQervfF1MYtHC_3nA8oyllcA/view?usp=sharing"
+                    >Términos y condiciones</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group d-flex flex-column align-items-center">
+              <p>
+                Debes de aceptar los términos y condiciones para poder acceder al sistema Japi
+              </p>
+              <button
+                type="submit"
+                class="btn form-main-btn col-md-6 m-0"
+                (click)="register()"
+              >
+                Registrarme
+              </button>
+
+              <span
+                id="button-message"
+                class="form-main-input-error text-center"
+              >
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

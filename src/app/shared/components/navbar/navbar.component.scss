@@ -1,0 +1,37 @@
+// To fix some elements
+.navbar.bg-white:not(.navbar-transparent) button.dropdown-button {
+  width: 100%;
+  color: #888;
+  text-align: left;
+}
+.dropdown {
+  &-button {
+    min-width: 46.38px;
+    background: transparent;
+    color: var(--white);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    &.nav-link {
+      margin-right: 0;
+    }
+    &:focus,
+    &:active,
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 0.1875rem;
+    }
+  }
+  &-item {
+    color: #888;
+    font-size: 0.8571em;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    &:focus,
+    &:active,
+    &:hover {
+      color: #16181b;
+      background-color: #f8f9fa;
+    }
+  }
+}

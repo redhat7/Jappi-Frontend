@@ -1,0 +1,222 @@
+<h2 mat-dialog-title>Editar entrega</h2>
+<mat-dialog-content>
+  <form class="entrega">
+    <section class="client__entrega">
+      <div class="row">
+        <p class="col-md-12">DATOS DE QUIEN RECIBE EL PRODUCTO</p>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name" class="form-main-label">
+              Nombre de la persona quien recibe
+            </label>
+            <input
+              type="text"
+              class="form-control form-main-input"
+              name="name"
+              id="name"
+              [(ngModel)]="nombrePersona"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="phone" class="form-main-label"> Celular </label>
+            <input
+              type="number"
+              class="form-control form-main-input"
+              name="phone"
+              id="phone"
+              [(ngModel)]="telefono"
+              [ngModelOptions]="{ standalone: true }"
+              maxlength="9"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="address" class="form-main-label">
+              Dirección de entrega
+            </label>
+            <input
+              type="text"
+              class="form-control form-main-input"
+              name="address"
+              id="address"
+              [(ngModel)]="direccion"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="distrito" class="form-main-label"> Distrito </label>
+          <select
+            class="form-control form-main-select"
+            name="distrito"
+            id="distrito"
+            [(ngModel)]="IDDistrito"
+            [ngModelOptions]="{ standalone: true }"
+            (change)="changeDistrito($event)"
+          >
+            <option [value]="distrito.value" *ngFor="let distrito of distritos">
+              {{ distrito.name }}
+            </option>
+          </select>
+          <span
+            *ngIf="IDDistrito != 0"
+            id="delivery-price"
+            class="d-block mt-1"
+          >
+            Precio de Delivery:
+            <span>{{ deliveryPrecio | currency: "S/" }}</span>
+          </span>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="url" class="form-main-label">
+              URL de Google Maps
+            </label>
+            <input
+              type="text"
+              class="form-control form-main-input"
+              name="url"
+              id="url"
+              [(ngModel)]="url"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="product__entrega">
+      <div class="row">
+        <p class="col-md-12">DATOS DEL PRODUCTO</p>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="product" class="form-main-label">
+              Descripción del producto
+            </label>
+            <input
+              type="text"
+              class="form-control form-main-input"
+              name="product"
+              id="product"
+              [(ngModel)]="descripcion"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="price" class="form-main-label">
+              Precio del producto
+            </label>
+            <input
+              type="number"
+              class="form-control form-main-input"
+              name="price"
+              id="price"
+              [(ngModel)]="precio"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="amount" class="form-main-label">
+              Cantidad del producto
+            </label>
+            <input
+              type="number"
+              class="form-control form-main-input"
+              name="amount"
+              id="amount"
+              [(ngModel)]="cantidad"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="send__entrega">
+      <div class="row">
+        <p class="col-md-12">DATOS DEL ENVIO</p>
+        <div class="col-md-6">
+          <label for="modo-entrega" class="form-main-label">
+            Modo de Entrega
+          </label>
+          <select
+            class="form-control form-main-select"
+            name="modo-entrega"
+            id="modo-entrega"
+            [(ngModel)]="IDModoEntrega"
+            (change)="changeModoEntrega($event)"
+          >
+            <option
+              [value]="option.id"
+              *ngFor="let option of optionsModoEntrega"
+            >
+              {{ option.value }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="date" class="form-main-label"> Fecha de Entrega </label>
+            <input
+              type="date"
+              class="form-control form-main-input"
+              placeholder="dd/mm/yyyy"
+              id="date"
+              [(ngModel)]="fechaEntrega"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6" *ngIf="validator === 1">
+          <label for="date" class="form-main-label"> Método de pago </label>
+          <select
+            class="form-control form-main-select"
+            id="modo-pago"
+            [(ngModel)]="IDMetodoPago"
+            [ngModelOptions]="{ standalone: true }"
+            (change)="changeMetodoPago($event)"
+          >
+            <option
+              [value]="option.id"
+              *ngFor="let option of optionsMetodoPago"
+            >
+              {{ option.value }}
+            </option>
+          </select>
+          <span class="text-primary">
+            El cobro con tarjeta es con recargo del 5%.
+          </span>
+        </div>
+        <div class="col-md-12 mt-3">
+          <div class="form-group">
+            <label for="obs" class="form-main-label"> Observaciones </label>
+            <textarea
+              rows="4"
+              cols="80"
+              class="form-control border-aqua form-main-input"
+              placeholder="Escribe aqui tus observaciones"
+              [(ngModel)]="observacion"
+              [ngModelOptions]="{ standalone: true }"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-yellow mr-3" mat-button mat-dialog-close>
+    Cancelar
+  </button>
+  <button class="btn btn-green" mat-button (click)="updateEntrega()">
+    Guardar
+  </button>
+</mat-dialog-actions>
+
+<!-- https://backend-japi.herokuapp.com/empresa/editarEnvio mandas token,id_envio,nombrePersona,direccion,telefono,latitud,longitud,descripcion,cantidad ,modo_entrega,metodo_pago,monto_total,fecha_entrega,observacion -->

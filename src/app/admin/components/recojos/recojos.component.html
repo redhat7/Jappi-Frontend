@@ -1,0 +1,126 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Cargando ...</p>
+</ngx-spinner>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body d-flex align-items-center">
+        <select
+          class="form-select form-main-select col-md-3 mr-2"
+          id="entrega"
+          (change)="selectOptions($event.target.value)"
+        >
+          <option [value]="option.id" *ngFor="let option of almacenRecojos">
+            {{ option.descripcion }}
+          </option>
+        </select>
+        <input
+          type="text"
+          name="search"
+          id="search"
+          class="form-control form-main-input col-md-3 mr-2"
+          [(ngModel)]="searchInput"
+          placeholder="Buscar"
+        />
+        <button
+          class="btn btn-green"
+          id="btn-search-date"
+          (click)="filterList()"
+        >
+          Filtrar
+        </button>
+      </div>
+
+      <div class="card-header">
+        <h2 class="card-title">Lista de Recojos</h2>
+      </div>
+      <div class="card-body">
+        <div *ngIf="dataFilter.length !== 0" class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-head">
+              <th>N°</th>
+              <th>Vendedor</th>
+              <th>Cant</th>
+              <th class="size">Nombres y Apellidos</th>
+              <th class="size">Dirección</th>
+              <th class="size">Distrito</th>
+              <th class="size">Fecha recojo</th>
+              <th>Teléfono</th>
+              <th class="size">Motorizado</th>
+              <th>Estado</th>
+              <th>Opciones</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let recojo of dataFilter; index as i">
+                <td>{{ i + 1 }}</td>
+                <td>{{ recojo.nombre_empresa }}</td>
+                <td>{{ recojo.cantidad }}</td>
+                <td>{{ recojo.cliente }}</td>
+                <td>
+                  <a
+                    href="{{ recojo.url }}"
+                    class="table-link"
+                    target="_blank"
+                    *ngIf="recojo.check"
+                  >
+                    {{ recojo.direccion }}
+                  </a>
+                  <span *ngIf="!recojo.check"> {{ recojo.direccion }} </span>
+                </td>
+                <td>{{ recojo.nombre_distrito }}</td>
+                <td>{{ recojo.fecha_entrega }}</td>
+                <td>{{ recojo.telefono }}</td>
+                <td>{{ recojo.motorizado || "No hay motorizado" }}</td>
+                <td>{{ recojo.nombre_estado }}</td>
+                <td>
+                  <div class="botones">
+                  <button
+                    *ngIf="recojo.estado"
+                    class="btn btn-yellow mr-1"
+                    (click)="clickModalEdit(recojo)"
+                  >
+                    Editar Motorizado
+                  </button>
+                  <button
+                  class="btn btn-success ml-1 mr-1"
+                  (click)="recibido(recojo)"
+                >
+                  Recibido
+                </button>
+                  <button
+                    class="btn btn-info"
+                    (click)="clickModalObs(recojo)"
+                  >
+                    Editar Estado
+                  </button>
+                  <button
+                  class="btn btn-danger ml-1 mr-1"
+                  (click)="Eliminar(recojo)"
+                >
+                  Eliminar  
+                </button>
+                  <button
+                    *ngIf="!recojo.estado"
+                    class="btn btn-green"
+                    (click)="clickModalEdit(recojo)"
+                  >
+                    Asignar Motorizado
+                  </button>
+                </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="dataFilter.length === 0">
+          <p>No tienes recojos el día de hoy</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

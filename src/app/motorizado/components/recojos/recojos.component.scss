@@ -1,0 +1,27 @@
+.empresas{
+    padding-top: 15px;
+}
+.botones{
+    display: flex;
+}
+.botoncito{
+    width: 7rem;
+    
+}
+@media (max-width: 600px) {
+  .cabeza{
+      flex-direction: column;
+  }
+  }
+
+  thead  th { 
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #ffffff;
+}
+
+.table-responsive { 
+    height:600px;
+    overflow:scroll;
+}

@@ -1,0 +1,87 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Cargando ...</p>
+</ngx-spinner>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body d-flex align-items-center">
+        <select
+          class="form-select form-main-select col-md-3 mr-2"
+          id="entrega"
+          style="display: block"
+          (change)="selectSpinner($event.target.value)"
+        >
+          <option [value]="o.id" *ngFor="let o of spinner">
+            {{ o.descripcion }}
+          </option>
+        </select>
+        <input
+          type="text"
+          name="search"
+          id="search"
+          class="form-control form-main-input col-md-3 mr-2"
+          [(ngModel)]="searchTxt"
+          placeholder="Buscar"
+        />
+        <button
+          class="btn btn-green"
+          id="btn-search-date"
+          (click)="filterList()"
+        >
+          Filtrar
+        </button>
+      </div>
+      <div class="card-header">
+        <h2 class="card-title">Lista de Entregas de Almacen</h2>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive" *ngIf="datos.length !== 0">
+          <table class="table table-hover">
+            <thead class="table-head">
+              <th scope="col">N°</th>
+              <th scope="col">Empresa</th>
+              <th scope="col">Comprador</th>
+              <th scope="col">Distrito</th>
+              <th scope="col">Telefono Vendedor</th>
+              <th scope="col">Cant</th>
+              <th scope="col">Producto</th>
+              <th scope="col">Fecha de Entrega</th>
+              <th scope="col">Observación</th>
+              <th scope="col">Procedencia</th>
+              <th scope="col">Preparación</th>
+              <th scope="col">Preparado</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of datos; index as i">
+                <td>{{ i + 1 }}</td>
+                <td>{{ usuario.empresa }}</td>
+                <td>{{ usuario.comprador }}</td>
+                <td>{{ usuario.nombreDistrito }}</td>
+                <td>{{ usuario.telefono }}</td>
+                <td>{{ usuario.cantidad }}</td>
+                <td>{{ usuario.producto }}</td>
+                <td>{{ usuario.fecha_entrega }}</td>
+                <td>{{ usuario.observacion }}</td>
+                <td>{{ usuario.procedencia }}</td>
+                <td>
+                  <p *ngIf="usuario.preparacion=='Preparado' " class="preparado">  {{ usuario.preparacion }}</p>
+                  <p *ngIf="usuario.preparacion=='Falta Preparar'" class="sinpreparar">  {{ usuario.preparacion }}</p>
+                 </td>
+                <td><button class="btn btn-success"  (click)="modificarEstado(usuario)">Preparado</button></td>
+                <td><button class="btn btn-info width"  (click)="modificarEstadoFalta(usuario)">Falta preparar</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="datos.length == 0">
+          <p>Usuarios internos ...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

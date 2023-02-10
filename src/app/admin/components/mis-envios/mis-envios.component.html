@@ -1,0 +1,128 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Cargando ...</p>
+</ngx-spinner>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body d-flex align-items-center">
+        <input
+          id="date-start"
+          type="date"
+          class="form-control form-main-input col-md-3 mr-2"
+          [(ngModel)]="dateFilter"
+          placeholder="dd/mm/yyyy"
+        />
+        <button
+          class="btn btn-green"
+          id="btn-search-date"
+          (click)="searchByDate($event)"
+        >
+          Consultar
+        </button>
+      </div>
+      <div class="card-body d-flex align-items-center">
+        <select
+          class="form-select form-main-select col-md-3 mr-2"
+          id="entrega"
+          style="display: block"
+          (change)="selectSpinner($event.target.value)"
+        >
+          <option [value]="o.id" *ngFor="let o of spinner">
+            {{ o.descripcion }}
+          </option>
+        </select>
+        <input
+          type="text"
+          name="search"
+          id="search"
+          class="form-control form-main-input col-md-3 mr-2"
+          [(ngModel)]="searchTxt"
+          placeholder="Buscar"
+        />
+        <button
+          class="btn btn-green"
+          id="btn-search-date"
+          (click)="filterList()"
+        >
+          Filtrar
+        </button>
+      </div>
+      <div class="card-header">
+        <h2 class="card-title">Mis Envios</h2>
+      </div>
+      <div class="card-body">
+        <div *ngIf="data.length !== 0" class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-head">
+              <th>N°</th>
+              <th scope="col">Vendedor</th>
+              <th scope="col">Producto</th>
+              <th scope="col">Cant</th>
+              <th scope="col">Fecha de entrega</th>
+              <th scope="col">Comprador</th>
+              <th scope="col">Telefono</th>
+              <th>Monto Total</th>
+              <th>Método de pago</th>
+              <th>Modo de Entrega</th>
+              <th scope="col">Distrito</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Delivery</th>
+              <th scope="col">DNI Moto</th>
+              <th scope="col">Motorizado</th>
+              <th scope="col">Placa</th>
+              <th scope="col">Motivo</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let envio of data; index as i">
+                <th>{{ i + 1 }}</th>
+                <td>{{ envio.vendedor }}</td>
+                <td>{{ envio.descripcion }}</td>
+                <td>{{ envio.cantidad }}</td>
+                <td>{{ envio.fecha_entrega }}</td>
+                <td>{{ envio.comprador }}</td>
+                <td>{{ envio.telefono }}</td>
+                <td>{{ envio.monto_total | currency: "S/" }}</td>
+                <td>{{ envio.metodo_pago || "No tiene" }}</td>
+                <td>{{ envio.modo_entrega }}</td>
+                <td>{{ envio.distritoName }}</td>
+                <td>{{ envio.estado }}</td>
+                <td>{{ envio.delivery | currency: "S/" }}</td>
+                <td>{{ envio.dni_motorizado || "No tiene" }}</td>
+                <td>{{ envio.nombre_motorizado || "No tiene" }}</td>
+                <td>{{ envio.placaMoto || "No tiene" }}</td>
+                <td>{{ envio.motivo || "No tiene" }}</td>
+              </tr>
+              <tr>
+                <th></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <th>Precio</th>
+                <th>{{ precio | currency: "S/" }}</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="data.length === 0">
+          <p>No tienes envíos</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

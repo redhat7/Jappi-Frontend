@@ -1,0 +1,156 @@
+<h2 mat-dialog-title>Editar Envío</h2>
+<mat-dialog-content>
+  <section class="envio">
+    <div *ngIf="data.validate === 0">
+      <p>Cargando datos ...</p>
+    </div>
+    <section *ngIf="data.validate !== 0">
+      <div class="row">
+        <div class="col-md-6">
+          <label for="motorizado" class="form-main-label">Motorizado</label>
+          <select
+            class="form-select form-main-select"
+            name="motorizado"
+            id="motorizado"
+            [(ngModel)]="idMotorizado"
+          >
+            <option value="0">Selecciona un motorizado</option>
+            <option
+              [value]="motorizado.id"
+              *ngFor="let motorizado of motorizados"
+            >
+              {{ motorizado.nombres }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="estado" class="form-main-label">Estado</label>
+          <select
+            class="form-select form-main-select"
+            name="estado"
+            id="estado"
+            [(ngModel)]="idEstadoEntrega"
+          >
+            <option value="0">Selecciona un estado</option>
+            <option
+              [value]="estado.value"
+              *ngFor="let estado of estadosEntrega"
+            >
+              {{ estado.estado }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="modo" class="form-main-label">Modo Entrega</label>
+          <select
+            class="form-select form-main-select"
+            name="modo"
+            id="modo"
+            [(ngModel)]="idModoEntrega"
+            (change)="changeModoEntrega($event)"
+          >
+            <option value="0">Selecciona un método</option>
+            <option [value]="modo.id" *ngFor="let modo of modoEntrega">
+              {{ modo.value }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="metodo" class="form-main-label">Método de pago</label>
+          <select
+            class="form-select form-main-select"
+            name="metodo"
+            id="metodo"
+            [(ngModel)]="idMetodoPago"
+            (change)="changeMetodoPago($event)"
+          >
+            <option value="0">Selecciona un método</option>
+            <option [value]="metodo.id" *ngFor="let metodo of metodoPago">
+              {{ metodo.value }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="date" class="form-main-label"> Fecha de Entrega </label>
+            <input
+              type="date"
+              class="form-control form-main-input"
+              placeholder="dd/mm/yyyy"
+              id="date"
+              [(ngModel)]="fechaEntrega"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="delivery" class="form-main-label"> Delivery </label>
+          <input
+            type="number"
+            class="form-control form-main-input"
+            name="delivery"
+            id="delivery"
+            [(ngModel)]="delivery"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="monto" class="form-main-label"> Monto total </label>
+          <input
+            type="number"
+            class="form-control form-main-input"
+            name="monto"
+            id="monto"
+            [(ngModel)]="montoTotal"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="distrito" class="form-main-label"> Distrito </label>
+          <select
+            class="form-control form-main-select"
+            name="distrito"
+            id="distrito"
+            [(ngModel)]="IDDistrito"
+            [ngModelOptions]="{ standalone: true }"
+            (change)="changeDistrito($event)"
+          >
+            <option [value]="distrito.value" *ngFor="let distrito of distritos">
+              {{ distrito.name }}
+            </option>
+          </select>
+          <span
+            *ngIf="IDDistrito != 0"
+            id="delivery-price"
+            class="d-block mt-1"
+          >
+            Precio de Delivery:
+            <span>{{ delivery | currency: "S/" }}</span>
+          </span>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="obs" class="form-main-label">Motivo</label>
+            <textarea
+              rows="4"
+              cols="80"
+              id="obs"
+              class="form-control border-aqua form-main-input"
+              placeholder="Escribe aqui tus observaciones"
+              [(ngModel)]="motivo"
+              [ngModelOptions]="{ standalone: true }"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-yellow mr-3" mat-button mat-dialog-close>
+    Cancelar
+  </button>
+  <button class="btn btn-green" mat-button (click)="updateEnvioFecha()">
+    Guardar
+  </button>
+</mat-dialog-actions>
