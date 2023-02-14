@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  url_api:'https://backend-japi.herokuapp.com'
+  // url_api:'https://backend-japi.herokuapp.com'
+  url_api: 'http://127.0.0.1:3000'
 };
