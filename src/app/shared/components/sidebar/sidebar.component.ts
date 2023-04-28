@@ -21,6 +21,10 @@ export class SidebarComponent implements OnInit {
       this.menuItems = this.routesService.getRutasUsuario();
     } else if (currentUser.tipo == 2) {
       this.menuItems = this.routesService.getRutasEmpresa();
+    } else if (currentUser.tipo == 4) {
+      this.menuItems = this.routesService.getRutasAlmacen();
+    } else if (currentUser.tipo == 5) {
+      this.menuItems = this.routesService.getRutasCoordinacion();
     } else {
       this.menuItems = this.routesService.getRutasMotorizado();
     }

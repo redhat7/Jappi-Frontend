@@ -75,6 +75,10 @@ export class LoginComponent implements OnInit {
               this.router.navigate(["/envios"]);
             } else if (currentUser.tipo == 3) {
               this.router.navigate(["/entregas-motorizado"]);
+            } else if (currentUser.tipo == 4) {
+              this.router.navigate(["/almacen"]);
+            } else if (currentUser.tipo == 5) {
+              this.router.navigate(["/envios"]);
             }
           } else if (message.toLowerCase() === "correo invalido") {
             this.spinnnerService.hide();

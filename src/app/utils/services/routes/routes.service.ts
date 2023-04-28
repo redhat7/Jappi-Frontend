@@ -46,7 +46,7 @@ export class RoutesService {
       title: "Envios por fecha",
       class: "",
       icon: "ui-1_calendar-60",
-    },{
+    }, {
       path: "/envios",
       title: "Envios del dia",
       class: "",
@@ -75,22 +75,22 @@ export class RoutesService {
       class: "",
       icon: "design_app",
     },
- 
+
     {
       path: "/Entregas-Almacen",
       title: "Administrar Entregas Almacen",
       class: "",
       icon: "objects_spaceship",
     },
-   
-  
+
+
     {
       path: "/activacion",
       title: "Activación de Cuentas",
       class: "",
       icon: "ui-1_check",
     },
-   
+
     {
       path: "/lista-externo",
       title: "Listas Usuarios Externos",
@@ -108,12 +108,12 @@ export class RoutesService {
       title: "Listas Colaboradores",
       class: "",
       icon: "education_agenda-bookmark",
-    },{
+    }, {
       path: "/lista-admin",
       title: "Lista Administradores",
       class: "",
       icon: "education_agenda-bookmark",
-    },{
+    }, {
       path: "/Historial-Recojos",
       title: "Historial Recojos",
       class: "",
@@ -160,7 +160,48 @@ export class RoutesService {
     },
   ];
 
-  constructor() {}
+  private rutasAlmacen: Routes[] = [
+    {
+      path: "/solicitudes-almacen",
+      title: "Solicitud de Almacen",
+      class: "",
+      icon: "shopping_basket",
+    },
+    {
+      path: "/almacen-japi",
+      title: "Almacen Japi",
+      class: "",
+      icon: "design_app",
+    },
+    {
+      path: "/login",
+      title: "Cerrar Sesión",
+      class: "active",
+      icon: "ui-1_send",
+    },
+  ]
+
+  private rutasCoordinacion: Routes[] = [
+    {
+      path: "/envios",
+      title: "Envios del dia",
+      class: "",
+      icon: "ui-1_calendar-60",
+    }, {
+      path: "/recojos",
+      title: "Administrar Recojos",
+      class: "",
+      icon: "shopping_basket",
+    },
+    {
+      path: "/login",
+      title: "Cerrar Sesión",
+      class: "active",
+      icon: "ui-1_send",
+    },
+  ]
+
+  constructor() { }
 
   getRutasUsuario() {
     return this.rutasUsuario;
@@ -170,5 +211,11 @@ export class RoutesService {
   }
   getRutasEmpresa() {
     return this.rutasEmpresa;
+  }
+  getRutasAlmacen() {
+    return this.rutasAlmacen;
+  }
+  getRutasCoordinacion() {
+    return this.rutasCoordinacion;
   }
 }
