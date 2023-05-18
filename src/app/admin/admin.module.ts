@@ -28,6 +28,9 @@ import { ListaAdminComponent } from './components/lista-admin/lista-admin.compon
 import { AdministrarEnviosAlmacenComponent } from './components/administrar-envios-almacen/administrar-envios-almacen.component';
 import { HistorialRecojosComponent } from './components/historial-recojos/historial-recojos.component';
 
+import { FormatPhonePipe } from "./../shared/pipes/formatphone.pipe";
+import { CapitalizeFirstLetterPipe } from "./../shared/pipes/capitalizefirstletter.pipe"
+
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -48,6 +51,8 @@ import { HistorialRecojosComponent } from './components/historial-recojos/histor
     ListaAdminComponent,
     AdministrarEnviosAlmacenComponent,
     HistorialRecojosComponent,
+    FormatPhonePipe,
+    CapitalizeFirstLetterPipe
   ],
   imports: [
     CommonModule,
@@ -58,4 +63,4 @@ import { HistorialRecojosComponent } from './components/historial-recojos/histor
     NgxSpinnerModule,
   ],
 })
-export class AdminModule {}
+export class AdminModule { }

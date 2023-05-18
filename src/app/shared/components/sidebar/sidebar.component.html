@@ -1,24 +1,32 @@
-<div class="logo">
-  <a href="/" class="simple-text logo-mini">
-    <div class=" logo-japi">
-      <img src="./assets/img/japi-verde.png" />
-    </div>
-  </a>
-  <a href="/" class=" pad  logo-normal font-weight-bold">
-    Japi Express
-  </a>
+<div class="logo-name">
+  <div class="logo-image">
+    <img src="./assets/img/logo.png" alt="">
+  </div>
+  <span class="logo_name">Japi Express</span>
 </div>
-<div class="sidebar-wrapper">
-  <ul class="nav">
-    <li
-      routerLinkActive="active"
-      *ngFor="let menuItem of menuItems"
-      class="{{ menuItem.class }} nav-item"
-    >
+<div class="menu-items">
+  <ul class="nav-links">
+    <li routerLinkActive="active" *ngFor="let menuItem of menuItems">
       <a [routerLink]="[menuItem.path]">
-        <i class="now-ui-icons {{ menuItem.icon }}"></i>
-        <p>{{ menuItem.title }}</p>
+        <i class="{{ menuItem.icon }}"></i>
+        <span class="link-name">{{ menuItem.title }}</span>
       </a>
+    </li>
+  </ul>
+  <ul class="logout-mode">
+    <li>
+      <a href="#">
+        <i class="uil uil-signout"></i>
+        <span class="link-name">CERRAR SESIÓN</span>
+      </a>
+    <li class="mode">
+      <!-- <a href="#">
+        <i class="uil uil-moon"></i>
+        <span class="link-name">MODO OSCURO</span>
+      </a>
+      <div class="mode-toggle">
+        <span class="switch"></span>
+      </div> -->
     </li>
   </ul>
 </div>

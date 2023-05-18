@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, ViewChild, ElementRef, Output, EventEmitter } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { NgxSpinnerService } from "ngx-spinner";
 
@@ -17,13 +17,17 @@ import { environment } from './../../../../environments/environment';
 })
 export class EnviosFechasComponent implements OnInit {
   token: string;
-  
+
   data: [];
   datos: [];
   id: any;
   distritos: Distrito[];
   estadoEntrega: any[];
   zonas: any[];
+
+  @ViewChild('dateStartInput', { static: true }) dateStartInput: ElementRef<HTMLInputElement>;
+  @ViewChild('dateEndInput', { static: true }) dateEndInput: ElementRef<HTMLInputElement>;
+  @Output() searchClick: EventEmitter<void> = new EventEmitter<void>();
 
   @Input() valorSpinner: string;
   @Input() spinner = [
@@ -135,11 +139,11 @@ export class EnviosFechasComponent implements OnInit {
     }
   }
 
-  searchByDate(evt: Event) {
-    const inputStart: HTMLInputElement = document.querySelector("#date-start");
-    const inputEnd: HTMLInputElement = document.querySelector("#date-end");
+  searchByDate() {
+    const inputStart: string = this.dateStartInput.nativeElement.value;
+    const inputEnd: string = this.dateEndInput.nativeElement.value;
 
-    this.validateNavigator(inputStart.value, inputEnd.value);
+    this.validateNavigator(inputStart, inputEnd);
   }
 
   validateNavigator(dateStart: string, dateEnd: string) {
@@ -172,9 +176,7 @@ export class EnviosFechasComponent implements OnInit {
     if (sys.toLowerCase() === "apple") {
       return date.replace(/[/]/g, "-");
     } else {
-      return `${date.split("-")[2]}-${date.split("-")[1]}-${
-        date.split("-")[0]
-      }`;
+      return `${date.split("-")[2]}-${date.split("-")[1]}-${date.split("-")[0]}`;
     }
   }
 
@@ -198,21 +200,20 @@ export class EnviosFechasComponent implements OnInit {
       .subscribe((result: any) => {
         console.log(result);
         if (result.success) {
-         
+
           const dataFormat = result.data.map((distritoData) => {
             let { name } = this.distritos.find(
               (distrito) => distritoData.distrito_entrega === distrito.value
             );
-            var fondo:number;
+            var fondo: number;
             let { estado } = this.estadoEntrega.find(
               (estado) => estado.value === distritoData.estado
             );
-            if (estado=='entregado') {
-              fondo=1;
-            }else{
-              if (estado=='caída' ) {
-                fondo=2;
-              
+            if (estado == 'entregado') {
+              fondo = 1;
+            } else {
+              if (estado == 'caída') {
+                fondo = 2;
               }
             }
             return {
@@ -220,9 +221,9 @@ export class EnviosFechasComponent implements OnInit {
               nombre_estado: estado,
               distritoName: name,
             };
-         
+
           });
-          
+
           console.log(dataFormat);
           this.data = dataFormat;
           this.datos = dataFormat;

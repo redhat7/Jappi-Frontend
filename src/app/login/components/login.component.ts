@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private _location: LocationService,
     private spinnnerService: NgxSpinnerService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this._location.getLocationService().then((resp) => {
@@ -42,53 +42,83 @@ export class LoginComponent implements OnInit {
     localStorage.setItem("correo-chido", this.mail);
 
     if (!this.mail || !this.pass) {
-      this.buttonSpan.textContent =
-        "Por favor complete los campos de correo y contraseña";
-      this.emailInput.classList.add("error");
-      this.passInput.classList.add("error");
+      this.setErrorState("Por favor complete los campos de correo y contraseña");
     } else {
-      this.emailInput.classList.remove("error");
-      this.passInput.classList.remove("error");
-      this.buttonSpan.textContent = "";
+      this.clearErrorState();
       this.spinnnerService.show();
       let data = JSON.stringify({ email: this.mail, pass: this.pass });
 
-      this.http
-        .post(`${environment.url_api}/usuario/login`, data, {
-           
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Methods": "POST",
-            "Access-Control-Allow-Credentials": "true",
-            "Access-Control-Allow-Origin": "http://localhost:4200/*",
-          },
-        })
-        .subscribe((result: any) => {
+      this.http.post(`${environment.url_api}/usuario/login`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Methods": "POST",
+          "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Allow-Origin": "http://localhost:4200/*",
+        },
+      }).subscribe(
+        (result: any) => {
           const { success, message, data } = result;
-          if (success) {
-            localStorage.setItem("auth", JSON.stringify(data[0]));
-            this.spinnnerService.hide();
-            const currentUser = JSON.parse(localStorage.getItem("auth"));
-            if (currentUser.tipo == 1) {
-              this.router.navigate(["/registro-envio"]);
-            } else if (currentUser.tipo == 2) {
-              this.router.navigate(["/envios"]);
-            } else if (currentUser.tipo == 3) {
-              this.router.navigate(["/entregas-motorizado"]);
-            }
-          } else if (message.toLowerCase() === "correo invalido") {
-            this.spinnnerService.hide();
-            this.buttonSpan.textContent =
-              "El correo o la contraseña son incorrectos. Por favor inténtelo de nuevo";
-            this.emailInput.classList.add("error");
-            this.passInput.classList.add("error");
-          } else if (message.toLowerCase() === "su correo falta activar") {
-            this.spinnnerService.hide();
-            this.router.navigate(["/validar"], {
-              queryParams: { emailValidar: this.mail },
-            });
-          }
-        });
+          this.handleLoginResult(success, message, data);
+        },
+        (error) => {
+          this.handleError(error.message);
+        }
+      );
     }
+  }
+
+  private handleLoginResult(success: boolean, message: string, data: any) {
+    if (success) {
+      localStorage.setItem("auth", JSON.stringify(data[0]));
+      this.spinnnerService.hide();
+      const currentUser = JSON.parse(localStorage.getItem("auth"));
+      this.navigateBasedOnTipo(currentUser.tipo);
+    } else {
+      this.handleError(message.toLowerCase());
+    }
+  }
+
+  private navigateBasedOnTipo(tipo: number) {
+    switch (tipo) {
+      case 1:
+        this.router.navigate(["/registro-envio"]);
+        break;
+      case 2:
+      case 4:
+      case 5:
+      case 6:
+        this.router.navigate(["/envios-fecha"]);
+        break;
+      case 3:
+        this.router.navigate(["/entregas-motorizado"]);
+        break;
+      default:
+        // Handle unexpected tipo value
+        break;
+    }
+  }
+
+  private handleError(errorMessage: string) {
+    this.spinnnerService.hide();
+
+    if (errorMessage === "correo invalido") {
+      this.setErrorState("El correo o la contraseña son incorrectos. Por favor inténtelo de nuevo");
+    } else if (errorMessage === "su correo falta activar") {
+      this.router.navigate(["/validar"], {
+        queryParams: { emailValidar: this.mail },
+      });
+    }
+  }
+
+  private setErrorState(errorMessage: string) {
+    this.buttonSpan.textContent = errorMessage;
+    this.emailInput.classList.add("error");
+    this.passInput.classList.add("error");
+  }
+
+  private clearErrorState() {
+    this.buttonSpan.textContent = "";
+    this.emailInput.classList.remove("error");
+    this.passInput.classList.remove("error");
   }
 }

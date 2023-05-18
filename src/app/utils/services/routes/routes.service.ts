@@ -43,87 +43,81 @@ export class RoutesService {
   private rutasEmpresa: Routes[] = [
     {
       path: "/envios-fecha",
-      title: "Envios por fecha",
+      title: "ENVÍOS POR FECHA",
       class: "",
-      icon: "ui-1_calendar-60",
-    },{
-      path: "/envios",
-      title: "Envios del dia",
-      class: "",
-      icon: "ui-1_calendar-60",
-    }, {
+      icon: "uil uil-calendar-alt",
+    },
+    // {
+    //   path: "/envios",
+    //   title: "ENVÍOS POR DÍA",
+    //   class: "",
+    //   icon: "uil uil-calender",
+    // },
+    {
       path: "/recojos",
-      title: "Administrar Recojos",
+      title: "ADMINISTRAR RECOJOS",
       class: "",
-      icon: "shopping_basket",
+      icon: "uil uil-truck",
     },
     {
-      path: "/entregas",
-      title: "Administrar entregas",
+      path: "/Entregas-Almacen",
+      title: "ADMINISTRAR ENTREGAS",
       class: "",
-      icon: "objects_spaceship",
+      icon: "uil uil-shopping-bag",
     },
     {
       path: "/solicitudes-almacen",
-      title: "Solicitud de Almacen",
+      title: "SOLICITUD DE ALMACÉN",
       class: "",
-      icon: "shopping_basket",
+      icon: "uil uil-store-alt",
     },
     {
       path: "/almacen-japi",
-      title: "Almacen Japi",
+      title: "ALMACÉN JAPI",
       class: "",
-      icon: "design_app",
+      icon: "uil uil-store",
     },
- 
     {
-      path: "/Entregas-Almacen",
-      title: "Administrar Entregas Almacen",
+      path: "/entregas",
+      title: "ADMINISTRAR ENTREGAS ALMACÉN",
       class: "",
-      icon: "objects_spaceship",
+      icon: "uil uil-shopping-cart-alt",
     },
-   
-  
     {
       path: "/activacion",
-      title: "Activación de Cuentas",
+      title: "ACTIVACIÓN DE CUENTAS",
       class: "",
-      icon: "ui-1_check",
+      icon: "uil uil-check-circle",
     },
-   
     {
       path: "/lista-externo",
-      title: "Listas Usuarios Externos",
+      title: "USUARIOS EXTERNOS",
       class: "",
-      icon: "education_agenda-bookmark",
+      icon: "uil uil-user-exclamation",
     },
     {
       path: "/registro-motorizado",
-      title: "Registro Motorizado",
+      title: "REGISTRO MOTORIZADO",
       class: "",
-      icon: "design_bullet-list-67",
+      icon: "uil uil-user-plus",
     },
     {
       path: "/lista-interno",
-      title: "Listas Colaboradores",
+      title: "LISTA DE COLABORADORES",
       class: "",
-      icon: "education_agenda-bookmark",
-    },{
-      path: "/lista-admin",
-      title: "Lista Administradores",
-      class: "",
-      icon: "education_agenda-bookmark",
-    },{
-      path: "/Historial-Recojos",
-      title: "Historial Recojos",
-      class: "",
-      icon: "education_agenda-bookmark",
+      icon: "uil uil-clipboard-notes",
     },
     {
-      path: "/login",
-      title: "Cerrar Sesión",
-      class: "active",
-      icon: "ui-1_send",
+      path: "/lista-admin",
+      title: "LISTA DE ADMINISTRADORES",
+      class: "",
+      icon: "uil uil-shield-check",
+    },
+    {
+      path: "/Historial-Recojos",
+      title: "HISTORIAL RECOJOS",
+      class: "",
+      icon: "uil uil-shopping-cart-alt",
     },
   ];
 
@@ -160,15 +154,99 @@ export class RoutesService {
     },
   ];
 
-  constructor() {}
+  private rutasAlmacen: Routes[] = [
+    {
+      path: "/envios-fecha",
+      title: "ENVÍOS POR FECHA",
+      class: "",
+      icon: "uil uil-calendar-alt",
+    },
+    {
+      path: "/recojos",
+      title: "ADMINISTRAR RECOJOS",
+      class: "",
+      icon: "uil uil-truck",
+    },
+    {
+      path: "/solicitudes-almacen",
+      title: "SOLICITUD DE ALMACÉN",
+      class: "",
+      icon: "uil uil-store-alt",
+    },
+    {
+      path: "/almacen-japi",
+      title: "ALMACÉN JAPI",
+      class: "",
+      icon: "uil uil-store",
+    },
+    {
+      path: "/entregas",
+      title: "ADMINISTRAR PREPARACIÓN",
+      class: "",
+      icon: "uil uil-shopping-cart-alt",
+    },
+  ];
 
-  getRutasUsuario() {
-    return this.rutasUsuario;
-  }
-  getRutasMotorizado() {
-    return this.rutasMotorizado;
-  }
-  getRutasEmpresa() {
-    return this.rutasEmpresa;
-  }
+  private rutasCoordinacion: Routes[] = [
+    {
+      path: "/envios-fecha",
+      title: "ENVÍOS POR FECHA",
+      class: "",
+      icon: "uil uil-calendar-alt",
+    },
+    {
+      path: "/recojos",
+      title: "ADMINISTRAR RECOJOS",
+      class: "",
+      icon: "uil uil-truck",
+    },
+    {
+      path: "/solicitudes-almacen",
+      title: "SOLICITUD DE ALMACÉN",
+      class: "",
+      icon: "uil uil-store-alt",
+    },
+    {
+      path: "/lista-externo",
+      title: "USUARIOS EXTERNOS",
+      class: "",
+      icon: "uil uil-user-exclamation",
+    },
+  ];
+
+  private rutasRecursosHumanos: Routes[] = [
+    {
+      path: "/lista-admin",
+      title: "LISTA DE ADMINISTRADORES",
+      class: "",
+      icon: "uil uil-shield-check",
+    },
+    // Módulos no existentes (creo - xanadu)
+    {
+      path: "/recojos",
+      title: "LISTA DE MOTORIZADOS",
+      class: "",
+      icon: "uil uil-truck",
+    },
+    {
+      path: "/lista-externo",
+      title: "USUARIOS EXTERNOS",
+      class: "",
+      icon: "uil uil-user-exclamation",
+    },
+  ];
+
+  constructor() { }
+
+  getRutasUsuario() { return this.rutasUsuario; }
+
+  getRutasMotorizado() { return this.rutasMotorizado; }
+
+  getRutasEmpresa() { return this.rutasEmpresa; }
+
+  getRutasAlmacen() { return this.rutasAlmacen; }
+
+  getRutasCoordinacion() { return this.rutasCoordinacion; }
+
+  getRutasRecursosHumanos() { return this.rutasRecursosHumanos }
 }
