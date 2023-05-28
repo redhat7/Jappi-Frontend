@@ -22,27 +22,28 @@
           <input id="date-end" #dateEndInput type="date" placeholder="dd/mm/yyyy" class="wid-100">
         </div>
         <div class="date">
-          <a class="button-search button-fix" (click)="searchByDate()"> Buscar </a>
+          <a class="button-search button-fix" (click)="searchByDate()"> Consultar </a>
         </div>
       </div>
       <div class="div-row">
         <div class="date-class form-input">
           <form id="form" action="post" class="mar-top-12 wid-100">
-            <select class="list pad-list wid-100" name="select1" id="entrega">
-              <option value="disabled selected">Elige un campo</option>
-              <option value="ejemplo1">Descripción del producto</option>
-              <option value="ejemplo2">Distrito</option>
-              <option value="ejemplo3">Estado</option>
-              <option value="ejemplo4">Modo de entrega</option>
-              <option value="ejemplo5">Nombre del comprador</option>
-              <option value="ejemplo5">Nombre del motorizado</option>
-              <option value="ejemplo5">Teléfono del comprador</option>
+            <select class="list pad-list wid-100" name="select1" id="entrega" (change)="selectSpinner($event.target.value)">
+              <option value="">Elige un campo</option>
+              <option value="descripcion">Descripción del producto</option>
+              <option value="distritoName">Distrito</option>
+              <option value="nombre_estado">Estado</option>
+              <option value="modo_entrega">Modo de entrega</option>
+              <option value="nombre">Nombre de la empresa</option>
+              <option value="nombres">Nombre del comprador</option>
+              <option value="nombre_motorizado">Nombre del motorizado</option>
+              <option value="tele_entrega">Teléfono del comprador</option>
             </select>
           </form>
         </div>
         <input type="text" placeholder="Buscar..." [(ngModel)]="searchTxt" class="search-box3 mar-top-12">
         <div class="date">
-          <a class="button-search button-fix" (click)="searchByDate()">Filtrar </a>
+          <a class="button-search button-fix" (click)="filterList()">Filtrar </a>
         </div>
       </div>
     </div>
@@ -177,7 +178,7 @@
             <a href="#" class="button-index-red"> Eliminar </a>
           </td>
           <td data-label="Detalle">
-            <a href="#" class="button-detail  test" id="open-modal">
+            <a href="#" class="button-detail detail__button" id="open-modal">
               <i class="uil uil-edit"></i>
             </a>
             <div class="detail__modal">
