@@ -283,42 +283,15 @@ export class FormService {
   ];
 
   private estadoEntrega = [
-    {
-      estado: "pendiente",
-      value: 0,
-    },
-    {
-      estado: "programado",
-      value: 1,
-    },
-    {
-      estado: "en ruta",
-      value: 2,
-    },
-    {
-      estado: "entregado",
-      value: 3,
-    },
-    {
-      estado: "caída",
-      value: 4,
-    },
-    {
-      estado: "reprogramado",
-      value: 5,
-    },
-    {
-      estado: "repro. por cobrar",
-      value: 6,
-    },
-    {
-      estado: "Observado",
-      value: 7,
-    },
-    {
-      estado: "Caida por cobrar",
-      value: 8,
-    },
+    { estado: "Pendiente", value: 0 },
+    { estado: "Programado", value: 1 },
+    { estado: "En ruta", value: 2 },
+    { estado: "Entregado", value: 3 },
+    { estado: "Caída", value: 4 },
+    { estado: "Reprogramado", value: 5 },
+    { estado: "Repro. por cobrar", value: 6 },
+    { estado: "Observado", value: 7 },
+    { estado: "Caída por cobrar", value: 8 },
   ];
 
   private estadoEntregaModalAdmin = [
@@ -402,7 +375,7 @@ export class FormService {
     { id: 4, value: "Abono a Japi" },
   ];
 
-  constructor() {}
+  constructor() { }
 
   getModoEntrega(): any[] {
     return this.modoEntrega;

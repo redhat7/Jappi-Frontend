@@ -56,7 +56,7 @@
             id="distrito"
             [(ngModel)]="IDDistrito"
             [ngModelOptions]="{ standalone: true }"
-            (change)="changeDistrito($event)"
+            (change)="changeDistrito()"
           >
             <option [value]="distrito.value" *ngFor="let distrito of distritos">
               {{ distrito.name }}

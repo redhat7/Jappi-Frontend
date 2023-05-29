@@ -1,9 +1,26 @@
-.content img{
-    width: 100px;
+.content img {
+  width: 40px;
 }
-.content{
-    display: flex;
-    flex-direction: column;
-    justify-content:center ;
-    align-items: center;
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.delete__mod-subtitle {
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.delete__mod-title {
+  text-align: left;
+  font-size: 16px;
+  font-weight: var(--font-bold);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: 0px !important;
+  color: var(--text-color-title);
+}
+
+.delete__mod-button-container {
+  text-align: end;
 }

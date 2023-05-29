@@ -2,9 +2,10 @@
   <p style="font-size: 20px; color: white">Cargando ...</p>
 </ngx-spinner>
 <div class="top">
-  <i class="uil uil-bars sidebar-toggle"> <span class="title-pages"> Envios por fecha </span></i>
+  <i class="uil uil-bars sidebar-toggle" (click)="toggleNavClass()">
+    <span class="title-pages"> Envios por fecha </span>
+  </i>
   <div class="search-box">
-    <!-- <i class="uil uil-search"></i> -->
     <input type="text" placeholder="Buscar" class="search-box3">
   </div>
   <img src="assets/img/foto1.jpg" alt="">
@@ -28,7 +29,8 @@
       <div class="div-row">
         <div class="date-class form-input">
           <form id="form" action="post" class="mar-top-12 wid-100">
-            <select class="list pad-list wid-100" name="select1" id="entrega" (change)="selectSpinner($event.target.value)">
+            <select class="list pad-list wid-100" name="select1" id="entrega"
+              (change)="selectSpinner($event.target.value)">
               <option value="">Elige un campo</option>
               <option value="descripcion">Descripción del producto</option>
               <option value="distritoName">Distrito</option>
@@ -47,93 +49,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="div-column">
-      <div class="date">
-        <p class="subtitle-pages">DESDE</p>
-        <input id="date-start" #dateStartInput type="date" placeholder="dd/mm/yyyy">
-      </div>
-      <div class="space">
-        <form id="form" action="post">
-          <select class="list" name="select1" id="entrega">
-            <option value="disabled selected">Elige un campo</option>
-            <option value="ejemplo1">Descripción del producto</option>
-            <option value="ejemplo2">Distrito</option>
-            <option value="ejemplo3">Estado</option>
-            <option value="ejemplo4">Modo de entrega</option>
-            <option value="ejemplo5">Nombre del comprador</option>
-            <option value="ejemplo5">Nombre del motorizado</option>
-            <option value="ejemplo5">Teléfono del comprador</option>
-          </select>
-        </form>
-      </div>
-    </div>
-    <div>
-      <div class="date">
-        <p class="subtitle-pages">HASTA</p>
-        <input id="date-end" #dateEndInput type="date" placeholder="dd/mm/yyyy">
-      </div>
-      <div class="search-box2">
-        <input type="text" placeholder="Buscar..." [(ngModel)]="searchTxt">
-      </div>
-    </div>
-    <div>
-      <div class="right-button">
-        <a class="button-search button-fix" (click)="searchByDate()"> Buscar </a>
-      </div>
-      <div class="right-button">
-        <a class="button-search"> Filtrar </a>
-      </div>
-    </div> -->
-    <!-- <div>
-      <div class="text">
-        <span class="text">
-          <h2>Filtrar</h2>
-        </span>
-        <div class="text-search">
-          <div class="space">
-            <span class="text">
-              <h3>FECHA DE CONSULTA</h3>
-            </span>
-            <div class="date">
-              <h4>DESDE</h4>
-              <input id="date-start" #dateStartInput type="date" placeholder="dd/mm/yyyy">
-            </div>
-            <div class="date">
-              <h4>HASTA</h4>
-              <input id="date-end" #dateEndInput type="date" placeholder="dd/mm/yyyy">
-            </div>
-          </div>
-          <div class="space">
-            <span class="text">
-              <h3> ELIGE UN CAMPO </h3>
-            </span>
-            <form id="form" action="post" class="form">
-              <select class="list" name="select1" id="entrega">
-                <option value="disabled selected">Elige un campo</option>
-                <option value="ejemplo1">Descripción del producto</option>
-                <option value="ejemplo2">Distrito</option>
-                <option value="ejemplo3">Estado</option>
-                <option value="ejemplo4">Modo de entrega</option>
-                <option value="ejemplo5">Nombre del comprador</option>
-                <option value="ejemplo5">Nombre del motorizado</option>
-                <option value="ejemplo5">Teléfono del comprador</option>
-              </select>
-            </form>
-          </div>
-          <div>
-            <span class="text">
-              <h3>FILTRAR </h3>
-              <div class="search-box2">
-                <input type="text" placeholder="Buscar..." [(ngModel)]="searchTxt">
-              </div>
-            </span>
-          </div>
-          <div class="right-button">
-            <a class="button-search" (click)="searchByDate()"> Filtrar </a>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
   <div class="tabla-container">
     <table class="tabla__content">
@@ -150,105 +65,33 @@
           <th class="separacion"> Distrito </th>
           <th class="separacion"> Estado </th>
           <th class="separacion"> Moto </th>
+          <th class="separacion"> Opciones</th>
           <th class="separacion"> Detalle </th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let envio of data; index as i">
           <td data-label="N°"> {{i+1}} </td>
-          <td data-label="Vendedor"> {{envio.nombre | uppercase}} </td>
+          <td data-label="Vendedor"> {{envio.vendedor | uppercase}} </td>
           <td data-label="Comprador"> {{envio.nombres | uppercase}} </td>
-          <td data-label="Comprador"> {{envio.telefono | formatphone}} </td>
+          <td data-label="Telefono"> {{envio.tele_entrega | formatphone}} </td>
           <td data-label="Monto total"> {{envio.monto_total | currency: "S/ "}} </td>
           <td data-label="Método de pago"> {{envio.metodo_pago || "No tiene"}} </td>
-          <td data-label="Modo de entrega"> {{envio.modo_entrega}} </td>
-          <td data-label="Producto"> {{envio.observacion || "No tiene"}} </td>
+          <td data-label="Modo de entrega"> {{envio.modo_entrega | capitalizefirstletter}} </td>
+          <td data-label="Producto"> {{envio.observacion | capitalizefirstletter}} </td>
           <td data-label="Cantidad"> {{envio.distritoName}} </td>
           <td data-label="Estado">
-            <p *ngIf="envio.nombre_estado == 'entregado'"> {{envio.nombre_estado}} </p>
-            <div *ngIf="envio.nombre_estado == 'programado' 
-              || envio.nombre_estado == 'pendiente' 
-              || envio.nombre_estado == 'en ruta' 
-              || envio.nombre_estado == 'Observado'" class="verde"> {{envio.nombre_estado | capitalizefirstletter}}
-            </div>
-            <!-- entregado  -->
+            <span [ngClass]="getStateClass(envio.nombre_estado)">{{ envio.nombre_estado }}</span>
           </td>
+          <td data-label="Motorizado"> {{envio.nombre_motorizado}} </td>
           <td data-label="Opciones" class="td-button">
-            <a href="#" class="button-index-green"> Editar </a>
-            <a href="#" class="button-index-red"> Eliminar </a>
+            <a class="button-index-green white" (click)="editarEnvio(envio)"> Editar </a>
+            <a class="button-index-red white" (click)="openModalDelete(envio)"> Eliminar </a>
           </td>
           <td data-label="Detalle">
-            <a href="#" class="button-detail detail__button" id="open-modal">
+            <a class="button-detail detail__button" id="open-modal" (click)="showModalShipmentDetail(envio)">
               <i class="uil uil-edit"></i>
             </a>
-            <div class="detail__modal">
-              <div class="detail__modal-content detail__modal--bd">
-                <h3 class="detail__modal-title">DETALLE POR FECHA</h3>
-                <i class="uil uil-times detail__modal-close"></i>
-                <div class="division-grid">
-                  <div>
-                    <h3 class="detail__title">datos generales</h3>
-                    <div class="space__h4 date-grid">
-                      <h4>N° Producto</h4>
-                      <h4>1</h4>
-                      <h4>Vendedor</h4>
-                      <h4>Juan monje</h4>
-                      <h4>Producto</h4>
-                      <h4>Gaseosa</h4>
-                      <h4>Cantidad</h4>
-                      <h4>2</h4>
-                      <h4>Fecha de entrega</h4>
-                      <h4>26</h4>
-                      <h4>Monto a cobrar</h4>
-                      <h4>4</h4>
-                      <h4>Método de pago</h4>
-                      <h4>Efectivo</h4>
-                      <h4>Estado</h4>
-                      <h4>Entregado</h4>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 class="detail__title">Datos del cliente</h3>
-                    <div class="space__h4 date-grid">
-                      <h4>Comprador</h4>
-                      <h4>Mario Hart</h4>
-                      <h4>Distrito</h4>
-                      <h4>Ate</h4>
-                      <h4>Dirección de entrega</h4>
-                      <h4>Calle las gencianas 150</h4>
-                      <h4>Telefono comprador</h4>
-                      <h4>987 656 678</h4>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 class="detail__title">Datos de envio</h3>
-                    <div class="space__h4 date-grid">
-                      <h4>Delivery</h4>
-                      <h4>s/.5.00</h4>
-                      <h4>Motivo</h4>
-                      <h4>No tiene</h4>
-                      <h4>Motorizado</h4>
-                      <h4>Pedro Muñoz</h4>
-                      <h4>Modificación</h4>
-                      <h4>No tiene</h4>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 class="detail__title">Datos adicionales</h3>
-                    <div class="space__h4 date-grid">
-                      <h4>Modo de entrega</h4>
-                      <h4>Contra-entrega</h4>
-                      <h4>Servicio</h4>
-                      <h4>Regular</h4>
-                      <h4>Rango de horario</h4>
-                      <h4>9:00am -6:00pm</h4>
-                      <h4>Observaciones</h4>
-                      <h4>Pagará con tarjeta</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </td>
         </tr>
       </tbody>
@@ -362,7 +205,10 @@
                   <div *ngIf="envio.nombre_estado == 'entregado'" class="verde">
                     {{ envio.nombre_estado }}
                   </div>
-                  <div *ngIf="envio.nombre_estado == 'programado' || envio.nombre_estado == 'pendiente' || envio.nombre_estado == 'en ruta' || envio.nombre_estado == 'Observado'" class="blanco">
+                  <div *ngIf="envio.nombre_estado == 'programado' 
+                  || envio.nombre_estado == 'pendiente' 
+                  || envio.nombre_estado == 'en ruta' 
+                  || envio.nombre_estado == 'Observado'" class="blanco">
                     {{ envio.nombre_estado }}
                   </div>
                   <div

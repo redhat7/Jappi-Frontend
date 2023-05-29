@@ -103,7 +103,7 @@ export class RoutesService {
     },
     {
       path: "/lista-interno",
-      title: "LISTA DE COLABORADORES",
+      title: "LISTA MOTORIZADOS",
       class: "",
       icon: "uil uil-clipboard-notes",
     },
@@ -205,6 +205,12 @@ export class RoutesService {
       title: "SOLICITUD DE ALMACÉN",
       class: "",
       icon: "uil uil-store-alt",
+    },
+    {
+      path: "/lista-interno",
+      title: "LISTA MOTORIZADOS",
+      class: "",
+      icon: "uil uil-clipboard-notes",
     },
     {
       path: "/lista-externo",

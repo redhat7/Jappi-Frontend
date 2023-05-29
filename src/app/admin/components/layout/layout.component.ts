@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { SharedDataService } from "../../../utils/services/shared-data.service";
 
 @Component({
   selector: "app-layout",
@@ -6,7 +7,13 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./layout.component.scss"],
 })
 export class LayoutComponent implements OnInit {
-  constructor() {}
+  closeNav: boolean;
 
-  ngOnInit(): void {}
+  constructor(private sharedDataService: SharedDataService) { }
+
+  ngOnInit(): void {
+    this.sharedDataService.closeNav$.subscribe(closeNav => {
+      this.closeNav = closeNav;
+    });
+  }
 }

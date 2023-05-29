@@ -1,0 +1,8 @@
+.delete__mod-title {
+    text-align: left;
+    font-size: 16px;
+    font-weight: var(--font-bold);
+    font-weight: var(--font-semi-bold);
+    margin-bottom: 0px !important;
+    color: var(--text-color-title);
+  }

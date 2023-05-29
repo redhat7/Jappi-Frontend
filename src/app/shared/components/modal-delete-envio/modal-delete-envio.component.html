@@ -1,10 +1,10 @@
 <div class="container">
-    <div class="content">
-        <img src="../../../../assets/img/remove.png" alt="">
-        <h3>¿Seguro que quieres eliminar el envio seleccionado? </h3>
-        <div>
-            <button class="btn btn-success" mat-button mat-dialog-close>Cancelar</button>
-            <button class="btn btn-danger" (click)="deleteEntrega(envio)">Eliminar</button>
-        </div>
+  <div class="content">
+    <p class="delete__mod-title">ELIMINAR ENVÍO</p>
+    <p class="delete__mod-subtitle">¿Seguro que desea eliminar el envío seleccionado? </p>
+    <div class="delete__mod-button-container">
+      <button class="button-index-green" mat-button mat-dialog-close>Cancelar</button>
+      <button class="button-index-red" (click)="deleteEntrega()">Eliminar</button>
     </div>
+  </div>
 </div>

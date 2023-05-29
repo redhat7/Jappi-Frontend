@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
   private navigateBasedOnTipo(tipo: number) {
     switch (tipo) {
       case 1:
-        this.router.navigate(["/registro-envio"]);
+        this.router.navigate(["/almacen"]);
         break;
       case 2:
       case 4:
@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(["/envios-fecha"]);
         break;
       case 3:
-        this.router.navigate(["/entregas-motorizado"]);
+        this.router.navigate(["/historial"]);
         break;
       default:
         // Handle unexpected tipo value

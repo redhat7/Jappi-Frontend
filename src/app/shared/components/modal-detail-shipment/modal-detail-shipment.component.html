@@ -1,0 +1,39 @@
+<div class="detail__mod-content">
+  <div class="detail__mod-title-container">
+    <p class="detail__mod-title">DETALLE</p>
+    <button mat-dialog-close class="mat-dialog-close">
+      <i class="uil uil-times detail__mod-title-close"></i>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <div class="division-grid">
+      <div>
+        <p class="detail__title">Datos generales</p>
+        <div class="space__h4 date-grid">
+          <p>Producto</p>
+          <p>{{ envio.descripcion | uppercase }}</p>
+          <p>Cantidad</p>
+          <p>{{ envio.cantidad }}</p>
+          <p>Fecha de entrega</p>
+          <p>{{ envio.fecha_entrega }}</p>
+          <p>Dirección de entrega</p>
+          <p>{{ envio.d_entrega }}</p>
+          <p>Servicio</p>
+          <p>{{ envio.tipo_servicio }}</p>
+          <p>Rango de horario</p>
+          <p>{{ envio.horario }}</p>
+          <p>Delivery</p>
+          <p>S/ {{ envio.delivery }}</p>
+          <p>Motivo</p>
+          <p>{{ envio.motivo || '' }}</p>
+          <p>Asesor</p>
+          <p>{{ envio.motivo || 'xanadu' }}</p>
+          <p>Ultima modificación</p>
+          <p>{{ envio.modificacion || '' }}</p>
+          <p>Hora y fecha de creación</p>
+          <p>{{ envio.fecha_registro || '' }}</p>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

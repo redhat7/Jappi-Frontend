@@ -12,10 +12,9 @@
   </div>
 </div> -->
 <!-- código nuevo -->
-<nav >
+<nav [ngClass]="{ 'close': closeNav }" class="fix-close">
   <app-sidebar></app-sidebar>
 </nav>
 <section class="dashboard">
   <router-outlet></router-outlet>
 </section>
-

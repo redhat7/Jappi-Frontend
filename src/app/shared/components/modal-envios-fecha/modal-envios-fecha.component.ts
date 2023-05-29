@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+
+import { formatApiDate, formatApiToNativeDate } from '../../../shared/helpers/helpers';
+
 import { FormService } from "../../../utils/services/form/form.service";
 import { environment } from './../../../../environments/environment';
 
@@ -26,14 +29,14 @@ export class ModalEnviosFechaComponent implements OnInit {
   motorizados: any[];
   metodoPago: any[];
   distritos: any[];
-  modoEntrega:any[];
+  modoEntrega: any[];
   pago: string;
   modoe: string;
   idEnvio: string;
   zonas: any[];
   zonaEmpresa: any = 0;
   @Input() IDDistrito: any = 0;
-  
+
   IDDistritoEmpresa: any = 0;
   deliveryPrecio: any = 0;
   constructor(
@@ -41,26 +44,25 @@ export class ModalEnviosFechaComponent implements OnInit {
     public dialogRef: MatDialogRef<ModalEnviosFechaComponent>,
     private http: HttpClient,
     private formService: FormService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-   
-    const { envio, token,distritos,zonas } = this.data;
+    const { envio, token, distritos, zonas } = this.data;
 
     this.token = token;
     this.estadosEntrega = this.formService.getEstadoEntregaModalAdmin();
     this.metodoPago = this.formService.getMetodoPago();
-    this.modoEntrega= this.formService.getModoEntrega();
-    this.pago=envio.metodo_pago;
-    this.modoe=envio.modo_entrega;
-    this.idEnvio=envio.id_envio;
+    this.modoEntrega = this.formService.getModoEntrega();
+    this.pago = envio.metodo_pago;
+    this.modoe = envio.modo_entrega;
+    this.idEnvio = envio.id_envio;
     this.idEstadoEntrega = envio.estado;
-    
+
     this.idMotorizado = envio.moto || parseInt("0");
-    
-    this.idModoEntrega=this.findModoEntrega("value", envio.modo_entrega).id;
+
+    this.idModoEntrega = this.findModoEntrega("value", envio.modo_entrega).id;
     this.idMetodoPago = this.findMetodoPago("value", envio.metodo_pago).id;
-    this.fechaEntrega = this.formatDate(envio.fecha_entrega);
+    this.fechaEntrega = formatApiToNativeDate(envio.fecha_entrega)
 
     this.zonas = zonas;
     this.distritos = distritos;
@@ -107,7 +109,7 @@ export class ModalEnviosFechaComponent implements OnInit {
     return deliveryPrice ? deliveryPrice : 0;
   }
   formatDate(date: string) {
-    return `${date.split("-")[2]}-${date.split("-")[1]}-${date.split("-")[0]}` ;
+    return `${date.split("-")[2]}-${date.split("-")[1]}-${date.split("-")[0]}`;
   }
 
   findModoEntrega(key, value = "") {
@@ -116,7 +118,7 @@ export class ModalEnviosFechaComponent implements OnInit {
       return this.modoEntrega.find(
         (modo) => modo[key].toLowerCase() === valueToSearch.toLowerCase().trim()
       );
-      
+
     } else return this.modoEntrega.find((modo) => modo[key] == value);
   }
   findMetodoPago(key, value = "") {
@@ -125,7 +127,7 @@ export class ModalEnviosFechaComponent implements OnInit {
       return this.metodoPago.find(
         (modo) => modo[key].toLowerCase() === valueToSearch.toLowerCase().trim()
       );
-      
+
     } else return this.metodoPago.find((modo) => modo[key] == value);
   }
 
@@ -142,9 +144,8 @@ export class ModalEnviosFechaComponent implements OnInit {
     if (navigatorVendor.toLowerCase().includes("apple")) {
       return date.replace(/[/]/g, "-");
     } else {
-      return `${date.split("-")[2]}-${date.split("-")[1]}-${
-        date.split("-")[0]
-      }`;
+      return `${date.split("-")[2]}-${date.split("-")[1]}-${date.split("-")[0]
+        }`;
     }
   }
 
@@ -180,46 +181,39 @@ export class ModalEnviosFechaComponent implements OnInit {
   }
 
   updateEnvioFecha() {
-    let fechaEntrega1 = this.convertDateToString(this.fechaEntrega);
-  
-    
+    const newFechaEntrega = formatApiDate('string', this.fechaEntrega)
     const distritoToNumber = Number(this.IDDistrito);
+
     const data = {
       token: this.token,
       moto: this.idMotorizado,
-      metodo:this.pago,
-      estado:this.idEstadoEntrega,
-      delivery:this.delivery,
+      metodo: this.pago,
+      estado: this.idEstadoEntrega,
+      delivery: this.delivery,
       monto: this.montoTotal,
-      motivo:this.motivo,
-      id_envio:this.idEnvio,
-      modo_entrega:this.modoe,
-      fecha:fechaEntrega1,
-      distrito:distritoToNumber
+      motivo: this.motivo,
+      id_envio: this.idEnvio,
+      modo_entrega: this.modoe,
+      fecha: newFechaEntrega,
+      distrito: distritoToNumber
     };
-    console.log(data);
-    console.log(JSON.stringify(data));
-    this.http
-      .post(
-        `${environment.url_api}/empresa/UpdateEnviosFecha`,
-        // "https://backend-japi.herokuapp.com/empresa/UpdateEnviosFecha",
-        JSON.stringify(data),
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Methods": "POST",
-          },
-        }
-      )
-      .subscribe((result: any) => {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Methods': 'POST'
+    });
+
+    this.http.post(`${environment.url_api}/empresa/UpdateEnviosFecha`, data, { headers }).subscribe(
+      (result: any) => {
         if (result.success) {
           this.dialogRef.close(true);
         } else {
           console.log("Error update estado");
           this.dialogRef.close(false);
         }
+      }, (error) => {
+        console.error('Error:', error);
+        this.dialogRef.close(false);
       });
-   
-   
   }
 }

@@ -6,8 +6,12 @@ import { FormService } from "../../../utils/services/form/form.service";
 import { Distrito } from "../../../utils/models/distritos.model";
 import { MatDialog } from "@angular/material/dialog";
 
+import { formatApiDate } from '../../../shared/helpers/helpers';
+
 import { ModalEnviosFechaComponent } from "../../../shared/components/modal-envios-fecha/modal-envios-fecha.component";
+import { ModalDetailShipmentComponent } from '../../../shared/components/modal-detail-shipment/modal-detail-shipment.component';
 import { ModalDeleteEnvioComponent } from "../../../shared/components/modal-delete-envio/modal-delete-envio.component";
+import { SharedDataService } from "../../../utils/services/shared-data.service";
 import { environment } from './../../../../environments/environment';
 
 @Component({
@@ -37,9 +41,13 @@ export class EnviosFechasComponent implements OnInit {
     private http: HttpClient,
     private formService: FormService,
     private spinnerService: NgxSpinnerService,
-    public dialog: MatDialog
-  ) {
-    this.id = document.getElementById("modal1");
+    private sharedDataService: SharedDataService,
+
+    public dialog: MatDialog,
+  ) { }
+
+  toggleNavClass() {
+    this.sharedDataService.toggleNavClass();
   }
 
   ngOnInit(): void {
@@ -53,30 +61,8 @@ export class EnviosFechasComponent implements OnInit {
   }
 
   getCurrentDate() {
-    const currentDate = this.formatApíDate('date', new Date());
+    const currentDate = formatApiDate('date', new Date());
     return currentDate;
-  }
-
-  formatApíDate(type: 'date' | 'string', value: any): string {
-    let day: string;
-    let month: string;
-    let year: string;
-
-    if (type === 'date') {
-      const dateValue = new Date(value);
-      day = ('0' + dateValue.getDate()).slice(-2);
-      month = ('0' + (dateValue.getMonth() + 1)).slice(-2);
-      year = String(dateValue.getFullYear());
-    }
-
-    if (type === 'string') {
-      const [yearStr, monthStr, dayStr] = value.split('-');
-      day = dayStr;
-      month = monthStr;
-      year = yearStr;
-    }
-
-    return `${day}-${month}-${year}`;
   }
 
   selectSpinner(value: string) { this.valorSpinner = value; }
@@ -99,8 +85,8 @@ export class EnviosFechasComponent implements OnInit {
     const { value: inputEnd } = this.dateEndInput.nativeElement;
 
     const currentDate = this.getCurrentDate();
-    const formattedStart = inputStart ? this.formatApíDate('string', inputStart) : currentDate;
-    const formattedEnd = inputEnd ? this.formatApíDate('string', inputEnd) : currentDate;
+    const formattedStart = inputStart ? formatApiDate('string', inputStart) : currentDate;
+    const formattedEnd = inputEnd ? formatApiDate('string', inputEnd) : currentDate;
 
     this.getDataByDate(this.token, formattedStart, formattedEnd);
   }
@@ -146,7 +132,7 @@ export class EnviosFechasComponent implements OnInit {
               ...distritoData,
               nombre_estado: estado,
               distritoName: name,
-            };  
+            };
           });
 
           this.data = dataFormat;
@@ -162,63 +148,100 @@ export class EnviosFechasComponent implements OnInit {
     );
   }
 
-  // editarEnvio(envio: any) {
-  //   console.log(envio);
-  //   const param = {
-  //     envio,
-  //     token: this.token,
-  //     distritos: this.distritos,
-  //     zonas: this.zonas,
-  //   };
-  //   this.ModalEditEnvios(param);
-  // }
+  getStateClass(nombreEstado: string): string {
+    let classNames = ['estado'];
 
-  // ModalEditEnvios({ envio, token, distritos, zonas }) {
-  //   const validate = 0;
-  //   const modalRef = this.dialog.open(ModalEnviosFechaComponent, {
-  //     data: {
-  //       envio,
-  //       token,
-  //       validate,
-  //       distritos,
-  //       zonas,
-  //     },
-  //     minWidth: "400px",
-  //     maxWidth: "800px",
-  //   });
-  //   modalRef.afterClosed().subscribe((result) => {
-  //     console.log("cerrando modal");
-  //     console.log(result);
-  //     const currentDate = this.convertNewDateToString();
-  //     result
-  //       ? this.getDataByDate(this.token, currentDate, currentDate)
-  //       : console.log("Error al actualizar o cancelaste el modal");
-  //   });
-  // }
-  // openModalDelete(envio: any) {
-  //   console.log(envio);
-  //   const param = {
-  //     id_envio: envio.id_envio,
-  //     token: this.token,
-  //   };
-  //   this.deleteEntrega(param);
-  // }
-  // deleteEntrega({ id_envio, token }) {
-  //   const modalRef = this.dialog.open(ModalDeleteEnvioComponent, {
-  //     data: {
-  //       id_envio,
-  //       token,
-  //     },
-  //     minWidth: "400px",
-  //     maxWidth: "800px",
-  //   });
-  //   modalRef.afterClosed().subscribe((result) => {
-  //     console.log("cerrando modal");
-  //     console.log(result);
-  //     const currentDate = this.convertNewDateToString();
-  //     result
-  //       ? this.getDataByDate(this.token, currentDate, currentDate)
-  //       : console.log("Error al actualizar o cancelaste el modal");
-  //   });
-  // }
+    switch (nombreEstado) {
+      case 'Entregado':
+        classNames.push('verde');
+        break;
+      case 'Reprogramado':
+      case 'Repro. por cobrar':
+        classNames.push('amarillo');
+        break;
+      case 'Caída':
+      case 'Caída por cobrar':
+        classNames.push('red');
+        break;
+      default:
+        break;
+    }
+
+    return classNames.join(' ');
+  }
+
+  showModalShipmentDetail(envio: any): void {
+    this.dialog.open(ModalDetailShipmentComponent,
+      {
+        panelClass: 'custom-dialog-container',
+        data: { envio },
+        minWidth: "300px",
+        maxWidth: "600px"
+      })
+  }
+
+  editarEnvio(envio: any) {
+    const param = {
+      envio,
+      token: this.token,
+      distritos: this.distritos,
+      zonas: this.zonas,
+    };
+
+    this.ModalEditEnvios(param);
+  }
+
+  ModalEditEnvios({ envio, token, distritos, zonas }) {
+    const validate = 0;
+    const modalRef = this.dialog.open(ModalEnviosFechaComponent, {
+      data: {
+        envio,
+        token,
+        validate,
+        distritos,
+        zonas,
+      },
+      minWidth: "400px",
+      maxWidth: "800px",
+    });
+
+    modalRef.afterClosed().subscribe((result) => {
+      console.log("cerrando modal");
+      const currentDate = this.currentDate;
+
+      if (result) {
+        this.getDataByDate(this.token, currentDate, currentDate);
+      } else {
+        console.log("Error al actualizar o cancelaste el modal");
+      }
+    });
+  }
+
+  openModalDelete(envio: any) {
+    // console.log(envio);
+    const param = { id_envio: envio.id_envio, token: this.token };
+    this.deleteEntrega(param);
+  }
+
+  deleteEntrega({ id_envio, token }) {
+    const modalRef = this.dialog.open(ModalDeleteEnvioComponent, {
+      data: {
+        id_envio,
+        token,
+      },
+      minWidth: "400px",
+      maxWidth: "800px",
+    });
+    modalRef.afterClosed().subscribe((result) => {
+      console.log("cerrando modal");
+      // console.log(result);
+      const currentDate = this.currentDate;
+
+      if (result) {
+        this.getDataByDate(this.token, currentDate, currentDate);
+      } else {
+        console.log("Error al actualizar o cancelaste el modal");
+      }
+    });
+  }
 }

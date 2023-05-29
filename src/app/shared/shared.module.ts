@@ -23,6 +23,7 @@ import { ModalEditAlmacenComponent } from './components/modal-edit-almacen/modal
 import { ModalEnviosFechaComponent } from './components/modal-envios-fecha/modal-envios-fecha.component';
 import { ModalEstadoRecojoComponent } from './components/modal-estado-recojo/modal-estado-recojo.component';
 import { ModalDeleteEnvioComponent } from './components/modal-delete-envio/modal-delete-envio.component';
+import { ModalDetailShipmentComponent } from "./components/modal-detail-shipment/modal-detail-shipment.component";
 
 const sharedComponents = [
   NavbarComponent,
@@ -49,6 +50,7 @@ const sharedComponents = [
     ModalEnviosFechaComponent,
     ModalEstadoRecojoComponent,
     ModalDeleteEnvioComponent,
+    ModalDetailShipmentComponent,
   ],
   imports: [CommonModule, RouterModule, MaterialModule, FormsModule],
   exports: [sharedComponents],
