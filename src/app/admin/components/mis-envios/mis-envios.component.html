@@ -20,7 +20,7 @@
         <button
           class="btn btn-green"
           id="btn-search-date"
-          (click)="searchByDate($event)"
+          (click)="searchByDate()"
         >
           Consultar
         </button>
@@ -65,6 +65,7 @@
               <th scope="col">Cant</th>
               <th scope="col">Fecha de entrega</th>
               <th scope="col">Comprador</th>
+              <th scope="col">Dirección</th>
               <th scope="col">Telefono</th>
               <th>Monto Total</th>
               <th>Método de pago</th>
@@ -85,6 +86,7 @@
                 <td>{{ envio.cantidad }}</td>
                 <td>{{ envio.fecha_entrega }}</td>
                 <td>{{ envio.comprador }}</td>
+                <td>{{ envio.direccion }}</td>
                 <td>{{ envio.telefono }}</td>
                 <td>{{ envio.monto_total | currency: "S/" }}</td>
                 <td>{{ envio.metodo_pago || "No tiene" }}</td>

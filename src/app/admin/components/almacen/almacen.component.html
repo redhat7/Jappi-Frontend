@@ -1,50 +1,28 @@
-<ngx-spinner
-  [name]="spinner1"
-  bdColor="rgba(51,51,51,0.8)"
-  size="medium"
-  color="#fff"
-  type="ball-scale-multiple"
->
+<!-- <ngx-spinner [name]="spinner1" bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
   <p style="font-size: 20px; color: white; margin-top: 0.5em">Cargando ...</p>
 </ngx-spinner>
-<ngx-spinner
-  [name]="spinner2"
-  bdColor="rgba(51,51,51,0.8)"
-  size="medium"
-  color="#fff"
-  type="ball-scale-multiple"
->
+
+<ngx-spinner [name]="spinner2" bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
   <p style="font-size: 20px; color: white; margin-top: 0.5em">Cargando ...</p>
 </ngx-spinner>
+
 <div class="row">
   <div class="col-md-12">
     <div class="card">
       <div class="card-header d-flex justify-content-between">
         <h2 class="card-title">Mi Almacen Japi</h2>
-        <button class="btn btn-green" (click)="openModal()">
-          Solicitud de abastecimiento de almacen
-        </button>
+        <button class="btn btn-green" (click)="openModal()"> Solicitud de abastecimiento de almacen </button>
       </div>
       <div class="card-header">
         <h3 class="h3 m-0">Programa tus envíos desde almacen</h3>
         <div>
-          <input
-            type="file"
-            hidden
-            id="file-input"
-            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            multiple="false"
-            (change)="changeInputEvent()"
-          />
-          <a
-            class="btn btn-green mr-3"
-            target="_blank"
-            href="https://drive.google.com/file/d/1YjZsXy7oEEElmO1VwliaCHr6MCXawjGC/view?usp=sharing"
-            >Descargar plantilla
-          </a>
-          <button class="btn btn-yellow" (click)="uploadFile()">
-            Cargar archivo
-          </button>
+          <input type="file" hidden id="file-input"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple="false"
+            (change)="changeInputEvent()" />
+          <a class="btn btn-green mr-3" target="_blank"
+            href="https://drive.google.com/file/d/1YjZsXy7oEEElmO1VwliaCHr6MCXawjGC/view?usp=sharing">Descargar
+            plantilla </a>
+          <button class="btn btn-yellow" (click)="uploadFile()"> Cargar archivo </button>
         </div>
         <div>
           <p id="message-error" class="text-danger font-weight-bold"></p>
@@ -63,24 +41,12 @@
             </thead>
             <tbody *ngFor="let data of data">
               <tr>
-                <td>
-                  {{ data.idalmacen }}
-                </td>
-                <td>
-                  {{ data.descripcion }}
-                </td>
-                <td>
-                  {{ data.cantidad }}
-                </td>
-                <td>
-                  {{ data.precio | currency: "S/" }}
-                </td>
-                <td>
-                  {{ data.nombre_estado }}
-                </td>
-                <td>
-                  {{ data.fecha }}
-                </td>
+                <td> {{ data.idalmacen }} </td>
+                <td> {{ data.descripcion }} </td>
+                <td> {{ data.cantidad }} </td>
+                <td> {{ data.precio | currency: "S/" }} </td>
+                <td> {{ data.nombre_estado }} </td>
+                <td> {{ data.fecha }} </td>
               </tr>
             </tbody>
           </table>
@@ -91,4 +57,68 @@
       </div>
     </div>
   </div>
+</div> -->
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Cargando ...</p>
+</ngx-spinner>
+<div class="top">
+  <i class="uil uil-bars sidebar-toggle" (click)="toggleNavClass()"></i>
+  <a class="button-overview green"> Solicitud de abastecimiento </a>
+</div>
+<div class="dash-content">
+  <div class="overview overview-fix ">
+    <div class="div-row gap-0">
+      <a class="button-overview green" target="_blank"
+        href="https://drive.google.com/file/d/1YjZsXy7oEEElmO1VwliaCHr6MCXawjGC/view?usp=sharing"> Descargar plantilla
+      </a>
+      <a class="button-overview yellow" (click)="uploadFile()"> Cargar archivo </a>
+    </div>
+  </div>
+  <!-- <div class="tabla-container">
+    <table class="tabla__content">
+      <thead>
+        <tr>
+          <th class="separacion"> N° </th>
+          <th class="separacion"> Vendedor </th>
+          <th class="separacion"> Comprador </th>
+          <th class="separacion"> Teléfono</th>
+          <th class="separacion"> Monto cobrar</th>
+          <th class="separacion"> Método pago</th>
+          <th class="separacion"> Modo entrega</th>
+          <th class="separacion"> Observaciones </th>
+          <th class="separacion"> Distrito </th>
+          <th class="separacion"> Estado </th>
+          <th class="separacion"> Moto </th>
+          <th class="separacion"> Opciones</th>
+          <th class="separacion"> Detalle </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let envio of data; index as i">
+          <td data-label="N°"> {{i+1}} </td>
+          <td data-label="Vendedor"> {{envio.vendedor | uppercase}} </td>
+          <td data-label="Comprador"> {{envio.nombres | uppercase}} </td>
+          <td data-label="Telefono"> {{envio.tele_entrega | formatphone}} </td>
+          <td data-label="Monto total"> {{envio.monto_total | currency: "S/ "}} </td>
+          <td data-label="Método de pago"> {{envio.metodo_pago || "No tiene"}} </td>
+          <td data-label="Modo de entrega"> {{envio.modo_entrega | capitalizefirstletter}} </td>
+          <td data-label="Producto"> {{envio.observacion | capitalizefirstletter}} </td>
+          <td data-label="Cantidad"> {{envio.distritoName}} </td>
+          <td data-label="Estado">
+            <span [ngClass]="getStateClass(envio.nombre_estado)">{{ envio.nombre_estado }}</span>
+          </td>
+          <td data-label="Motorizado"> {{envio.nombre_motorizado}} </td>
+          <td data-label="Opciones" class="td-button">
+            <a class="button-index-green white" (click)="editarEnvio(envio)"> Editar </a>
+            <a class="button-index-red white" (click)="openModalDelete(envio)"> Eliminar </a>
+          </td>
+          <td data-label="Detalle">
+            <a class="button-detail detail__button" id="open-modal" (click)="showModalShipmentDetail(envio)">
+              <i class="uil uil-edit"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
 </div>

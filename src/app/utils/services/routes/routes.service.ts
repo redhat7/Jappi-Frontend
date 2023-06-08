@@ -10,34 +10,28 @@ export class RoutesService {
   private rutasUsuario: Routes[] = [
     {
       path: "/almacen",
-      title: "Almacen",
+      title: "ALMACÉN",
       class: "",
-      icon: "design_bullet-list-67",
+      icon: "uil uil-store",
     },
     {
       path: "/mis-envios",
-      title: "Mis Envios",
+      title: "MIS ENVÍOS",
       class: "",
-      icon: "shopping_delivery-fast",
+      icon: "uil uil-truck",
     },
     {
       path: "/perfil",
-      title: "Perfil",
+      title: "PERFIL",
       class: "",
-      icon: "users_single-02",
+      icon: "uil uil-user",
     },
     {
       path: "/registro-envio",
-      title: "Registrar Envios",
+      title: "REGISTRAR ENVÍOS",
       class: "",
-      icon: "shopping_box",
-    },
-    {
-      path: "/login",
-      title: "Cerrar Sesión",
-      class: "active",
-      icon: "ui-1_send",
-    },
+      icon: "uil uil-clipboard-notes",
+    }
   ];
 
   private rutasEmpresa: Routes[] = [

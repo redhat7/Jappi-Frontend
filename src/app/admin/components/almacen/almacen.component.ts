@@ -6,11 +6,14 @@ import { WorkBook, WorkSheet, read, utils } from "xlsx";
 // Services
 import { NgxSpinnerService } from "ngx-spinner";
 import { FormService } from "../../../utils/services/form/form.service";
+import { SharedDataService } from "../../../../app/utils/services/shared-data.service";
+
 import { Distrito } from "../../../utils/models/distritos.model";
 import { Zona } from "../../../utils/models/zonas.model";
 import { environment } from './../../../../environments/environment';
 // Modal Component
 import { ModalAlmacenComponent } from "../../../shared/components/modal-almacen/modal-almacen.component";
+
 
 @Component({
   selector: "app-almacen",
@@ -37,11 +40,12 @@ export class AlmacenComponent implements OnInit {
     private http: HttpClient,
     public dialog: MatDialog,
     private spinnerService: NgxSpinnerService,
-    private formService: FormService
+    private formService: FormService,
+    private sharedDataService: SharedDataService,
   ) {
-    try{
+    try {
       this.loadFile = this.loadFile.bind(this);
-    } catch(e){
+    } catch (e) {
       console.log(e.message);
     }
   }
@@ -196,15 +200,15 @@ export class AlmacenComponent implements OnInit {
               latitudValue = latitud;
               longitudValue = longitud;
             }
-          
+
           }
           let montoTotal = Number(dato[7]) * Number(dato[1]);
-          let modo1='cambio con costo';
-          let modo2='contra-entrega';
-          if (modo1===String(dato[9]) || modo2===String(dato[9]) ) {
+          let modo1 = 'cambio con costo';
+          let modo2 = 'contra-entrega';
+          if (modo1 === String(dato[9]) || modo2 === String(dato[9])) {
             montoTotal += deliveryPrice;
           }
-         
+
           const metodoPago = String(dato[8]) || "";
           if (metodoPago.toLowerCase() === "tarjeta") {
             montoTotal += montoTotal * 0.05;
@@ -297,5 +301,9 @@ export class AlmacenComponent implements OnInit {
       if (result) this.getData(this.token);
       else console.log("cancelaste el modal");
     });
+  }
+
+  toggleNavClass() {
+    this.sharedDataService.toggleNavClass();
   }
 }

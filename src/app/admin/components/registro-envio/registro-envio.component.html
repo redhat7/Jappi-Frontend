@@ -1,270 +1,132 @@
-<ngx-spinner
-  bdColor="rgba(51,51,51,0.8)"
-  size="medium"
-  color="#fff"
-  type="ball-scale-multiple"
->
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
   <p style="font-size: 20px; color: white">Cargando ...</p>
 </ngx-spinner>
 <div class="row">
   <div class="col-md-8">
     <div class="card">
-      <div class="card-header">
-        <h2 class="card-title">Registro de Envíos</h2>
-      </div>
       <div class="card-body">
+        <h3 class="card-title">Registro de Envíos</h3>
         <form>
-          <p>DATOS DE QUIEN RECIBE EL PRODUCTO</p>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="form-main-label"
-                  >Nombre de la persona quien recibe</label
-                >
-                <input
-                  type="text"
-                  class="form-control form-main-input"
-                  [(ngModel)]="name"
-                  [ngModelOptions]="{ standalone: true }"
-                />
+          <div>
+            <p class="margenTop bold">DATOS DE QUIEN RECIBE EL PRODUCTO</p>
+            <div class="row">
+              <div class="col-md-5">
+                <input type="text" class="fix-input" placeholder="Nombre de la persona quién recibe" [(ngModel)]="name"
+                  [ngModelOptions]="{ standalone: true }" />
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Celular</label>
-                <input
-                  type="number"
-                  class="form-control form-main-input"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="number"
+              <div class="col-md-3">
+                <input type="number" class="fix-input" placeholder="Celular" maxlength="9" [(ngModel)]="number"
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                  maxlength="9"
-                />
+                  [ngModelOptions]="{ standalone: true }" />
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="direction">Dirección de Entrega</label>
-                <input
-                  type="text"
-                  class="form-control form-main-input"
-                  [(ngModel)]="direction"
-                  [ngModelOptions]="{ standalone: true }"
-                />
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="email">Distrito</label>
-                <select
-                  class="form-select form-main-select"
-                  id="distrito"
-                  (change)="selectDistrito($event.target.value)"
-                >
-                  <option
-                    [value]="distrito.value"
-                    *ngFor="let distrito of distritos"
-                  >
-                    {{ distrito.name }}
-                  </option>
+              <div class="col-md-4">
+                <select class="fix-input" id="distrito" placeHolder="Seleccione un distrito"
+                  (change)="selectDistrito($event.target.value)">
+                  <option [value]="distrito.value" *ngFor="let distrito of distritos"> {{ distrito.name }} </option>
                 </select>
-                <span
-                  *ngIf="distrito"
-                  id="delivery-price"
-                  class="mt-2 text-primary"
-                >
-                  Precio de Delivery:
-                  <span>{{ deliveryPrecio | currency: "S/" }}</span>
+                <span *ngIf="distrito" id="delivery-price" class="mt-2 text-primary small-font"> Precio de Delivery:
+                  <span>{{deliveryPrecio | currency: "S/" }}</span>
                 </span>
               </div>
-            </div>
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="email">URL Google Maps </label>
-                <input
-                  type="text"
-                  class="form-control form-main-input"
-                  [(ngModel)]="directionMaps"
-                  [ngModelOptions]="{ standalone: true }"
-                />
-                <!-- <label class="text-primary d-inline-block mt-1 w-100">
-                  Ejemplo de URL:
-                  https://www.google.com/maps/place/11%C2%B058'47.7%22S+77%C2%B006'20.7%22W/@LATITUD,LONGITUD,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d-11.979908!4d-77.1057497?hl=es
-                </label> -->
+              <br><br>
+              <div class="col-md-12">
+                <input type="text" class="fix-input" placeholder="Dirección de entrega" [(ngModel)]="direction"
+                  [ngModelOptions]="{ standalone: true }" />
               </div>
             </div>
           </div>
-          <p class="margenTop">DATOS DEL ENVIO</p>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Modo de Entrega</label>
-                <select
-                  class="form-control form-main-select"
-                  id="entrega"
-                  style="display: block"
-                  (change)="selectOption($event.target.value)"
-                >
-                  <option [value]="o.id" *ngFor="let o of options">
-                    {{ o.value }}
-                  </option>
+          <hr class="hr-estilo">
+          <div *ngIf="verificarCamposLlenosReceptor()">
+            <p class="margenTop bold">DATOS DEL ENVÍO</p>
+            <div class="row">
+              <div class="col-md-4">
+                <input type="date" class="fix-input" placeholder="yyyy-mm-dd" [(ngModel)]="fechaEntrega"
+                  [ngModelOptions]="{ standalone: true }" />
+                <p class="alerta small-font"> <strong>Fecha de entrega</strong>, recuerda colocarla correctamente, Japi
+                  Express no se hace responsable por el mal llenado de datos. </p>
+              </div>
+              <div class="col-md-4">
+                <select class="fix-input" id="entrega" style="display: block"
+                  (change)="selectOption($event.target.value)">
+                  <option [value]="o.id" *ngFor="let o of options"> {{ o.value }} </option>
                 </select>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Fecha de Entrega</label>
-                <input
-                  type="date"
-                  class="form-control form-main-input"
-                  placeholder="yyyy-mm-dd"
-                  [(ngModel)]="fechaEntrega"
-                  [ngModelOptions]="{ standalone: true }"
-                />
-              </div>
-              <p class="alerta">
-                Recuerda colocar correctamente la fecha de entrega, Japi Express
-                no se hace responsable por el mal llenado de datos.
-              </p>
-            </div>
-          </div>
-
-          <p class="margenTop">DATOS DEL PRODUCTO</p>
-          <div>
-            <label>
-              <input type="checkbox" class="tamanio" (change)="eventCheck($event)" />
-              <span class="sizeSpan"> Este producto se encuentra en almacén</span>
-            </label>
-            <div *ngIf="spinner.length === 0 && check">
-              <p class="text-primary">
-                No tienes productos registrados en tu almacén
-              </p>
-            </div>
-            <div *ngIf="spinner.length !== 0 && check">
-              <select
-                class="form-control form-main-select"
-                id="entrega"
-                (change)="selectSpinner($event.target.value)"
-              >
-                <option value="0">--- Seleccione ---</option>
-                <option [value]="o.id" *ngFor="let o of spinner">
-                  {{ o.descripcion }} - {{ o.cantidad }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div *ngIf="!check" class="col-md-12">
-              <div class="form-group">
-                <label>Descripción del producto</label>
-                <input
-                  type="text"
-                  class="form-control form-main-input"
-                  [(ngModel)]="descripcion"
-                  [ngModelOptions]="{ standalone: true }"
-                />
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Cantidad de Envios</label>
-                <input
-                  type="number"
-                  class="form-control form-main-input"
-                  [(ngModel)]="cantidad"
-                  [ngModelOptions]="{ standalone: true }"
-                />
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div *ngIf="condi == 0" class="form-group">
-                <label>Importe a cobrar(SIN DELIVERY)</label>
-                <input
-                  type="number"
-                  class="form-control form-main-input"
-                  [(ngModel)]="precioProducto"
-                  [ngModelOptions]="{ standalone: true }"
-                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                  maxlength="6"
-                />
-              </div>
-            </div>
-          </div>
-          <div *ngIf="validator === 1" class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Metodo de Pago 2</label>
-                <select
-                  class="form-control form-main-select"
-                  id="entrega"
-                  (change)="paymentOption($event.target.value)"
-                >
-                  <option [value]="o.id" *ngFor="let o of paymentMethod">
-                    {{ o.value }}
-                  </option>
+              <div *ngIf="validator === 1" class="col-md-4">
+                <select class="fix-input" id="entrega" placeholder="Método de pago"
+                  (change)="paymentOption($event.target.value)">
+                  <option [value]="o.id" *ngFor="let o of paymentMethod"> {{ o.value }} </option>
                 </select>
-                <p *ngIf="tarjeta == 1" class="text-primary">
-                  El cobro con tarjeta es con recargo del 5%.
-                </p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Servicio</label>
-                <select
-                  class="form-control form-main-select"
-                  id="servicio"
-                  (change)="serviceOption($event.target.value)"
-                >
-                  <option [value]="o.id" *ngFor="let o of servicio">
-                    {{ o.value }}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Rango de Horario</label>
-                <select
-                  class="form-control form-main-select"
-                  id="rango"
-                  (change)="horarioOption($event.target.value)"
-                >
-                  <option [value]="o.id" *ngFor="let o of horario">
-                    {{ o.value }}
-                  </option>
-                </select>
-                <p class="text-primary">Previa comunicación con su cliente</p>
+                <p *ngIf="tarjeta == 1" class="text-primary small-font"> El cobro con tarjeta es con recargo del 5%.</p>
               </div>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>Observaciones</label>
-                <textarea
-                  rows="4"
-                  cols="80"
-                  class="form-control form-main-input"
-                  placeholder="Escribe aqui tus observaciones"
-                  [(ngModel)]="observacion"
-                  [ngModelOptions]="{ standalone: true }"
-                ></textarea>
+          <hr class="hr-estilo">
+          <div *ngIf="verificarCamposLlenosEnvio()">
+            <p class="margenTop bold">DATOS DEL PRODUCTO</p>
+            <div class="row">
+              <div class="col-md-12">
+                <label class="label-producto">
+                  <input type="checkbox" class="tamanio" (change)="eventCheck($event)" />
+                  <span class="sizeSpan"> Este producto se encuentra en almacén</span>
+                </label>
+              </div>
+              <div *ngIf="spinner.length === 0 && check">
+                <p class="text-primary small-font"> No tienes productos registrados en tu almacén </p>
+              </div>
+              <div *ngIf="spinner.length !== 0 && check" class="row col-md-12">
+                <div class="col-md-9">
+                  <select class="fix-input margenTop" id="entrega" (change)="selectSpinner($event.target.value)">
+                    <option value="0">Elige el producto</option>
+                    <option [value]="o.id" *ngFor="let o of spinner"> {{ o.descripcion }} - {{ o.cantidad }} </option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <input type="number" class="fix-input margenTop" placeholder="Cant. envíos" [(ngModel)]="cantidad"
+                    [ngModelOptions]="{ standalone: true }" />
+                </div>
+              </div>
+              <div *ngIf="!check" class="row col-md-12">
+                <div class="col-md-9">
+                  <div class="form-group">
+                    <input type="text" class="fix-input margenTop" placeholder="Descripción del producto"
+                      [(ngModel)]="descripcion" [ngModelOptions]="{ standalone: true }" />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <input type="number" class="fix-input margenTop" placeholder="Cantidad de envíos"
+                    [(ngModel)]="cantidad" [ngModelOptions]="{ standalone: true }" />
+                </div>
+                <div class="col-md-12">
+                  <div *ngIf="condi == 0">
+                    <label class="label-producto">
+                      <input type="checkbox" class="tamanio" (change)="eventCheckIncludesDelivery($event)" />
+                      <span class="sizeSpan"> Incluye delivery</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div *ngIf="condi == 0" class="form-group">
+                    <input type="number" class="fix-input margenTop"
+                      [placeholder]="checkDelivery? 'Importe a cobrar (Sin delivery)': 'Importe a cobrar (Con delivery)'"
+                      [(ngModel)]="precioProducto" [ngModelOptions]="{ standalone: true }" maxlength="6" />
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <textarea rows="4" cols="80" class="fix-input margenTop" placeholder="Escribe aqui tus observaciones"
+                    [(ngModel)]="observacion" [ngModelOptions]="{ standalone: true }"></textarea>
+                </div>
+                <div class="col-md-12">
+                  <div class="fix-add">
+                    <i class="uil uil-plus-circle"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-3">
-              <button class="btn btn-green" (click)="registroEnvio()">
-                Registrar Envío
-              </button>
-              <span
-                id="button-message"
-                class="form-main-input-error text-center"
-              >
-              </span>
-            </div>
+          <div class="test2">
+            <button class="btn btn-green test" (click)="registroEnvio()"> Registrar Envío </button>
+            <span id="button-message" class="form-main-input-error text-center">
+            </span>
           </div>
         </form>
       </div>
@@ -272,29 +134,19 @@
   </div>
   <div class="col-md-4">
     <div class="card card-add">
-      <p>SUBIR VARIOS PRODUCTOS(A partir de 10 ENVIOS)</p>
-      <input
-        type="file"
-        hidden
-        id="file-input"
-        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        (change)="changeInputEvent($event)"
-      />
-      <a
-        class="btn btn-yellow"
-        target="_blank"
-        href="https://drive.google.com/file/d/1DEf6JztnL1qovDvzRmmZ69OPzUx0uxv5/view?usp=sharing"
-        >Descargar plantilla
-      </a>
-      <button
-        class="btn btn-primary mr-3"
-        id="file-button"
-        (click)="uploadFile()"
-      >
-        Cargar archivo
-      </button>
+      <p class="margenTop bold">SUBIR VARIOS PRODUCTOS <br> <span class="light">A partir de 10 envíos</span></p>
+      <div class="row col-md-12">
+        <input type="file" hidden id="file-input"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          (change)="changeInputEvent($event)" />
+        <button class="col-md-5 button-index-yellow white button-envio-fix " target="_blank"
+          href="https://drive.google.com/file/d/1DEf6JztnL1qovDvzRmmZ69OPzUx0uxv5/view?usp=sharing"> Descargar plantilla
+        </button>
+        <button class="col-md-5 button-index-green white button-envio-fix x" id="file-button" (click)="uploadFile()">
+          Cargar archivo </button>
+      </div>
     </div>
-    <div class="col-md-12 card card-user border margin">
+    <div class="col-md-12 card card-user border">
       <div class="image">
         <img src="../assets/img/metodos-de-envio.jpg" alt="..." />
       </div>
@@ -306,33 +158,19 @@
           <p class="description">Celular: {{ number }}</p>
           <p class="description">Dirección de entrega: {{ direction }}</p>
         </div>
-        <hr />
+        <hr class="hr-estilo">
         <div class="margenTop">
           <h5>DATOS DEL PRODUCTO</h5>
-          <p *ngIf="condi == 0" class="description">
-            SubTotal: {{ precioProducto * cantidad | currency: "S/" || "" }}
+          <p *ngIf="condi == 0" class="description"> SubTotal: {{ precioProducto * cantidad | currency: "S/" || "" }}
           </p>
           <p *ngIf="condi == 1" class="description">SubTotal: S/0.00</p>
-          <p class="description">
-            Delivery: {{ deliveryPrecio | currency: "S/" || "" }}
-          </p>
-          <p class="description">
-            Comisión (pago con tarjeta): {{ comision | currency: "S/" || "" }}
-          </p>
-          <p *ngIf="condi == 0" class="description">
-            Monto Total a cobrar:
-            {{
-              precioProducto * cantidad + deliveryPrecio + comision
-                | currency: "S/" || ""
-            }}
-          </p>
-          <p *ngIf="condi == 1" class="description">
-            Monto Total a cobrar: S/0.00
-          </p>
-          <p *ngIf="condi == 1">
-            Al elegir la opción SOLO ENTREGAR no cobraremos ni el delivery ni el
-            costo del producto.
-          </p>
+          <p class="description"> Delivery: {{ deliveryPrecio | currency: "S/" || "" }} </p>
+          <p class="description"> Comisión (pago con tarjeta): {{ comision | currency: "S/" || "" }} </p>
+          <p *ngIf="condi == 0" class="description"> Monto Total a cobrar: {{ precioProducto * cantidad + deliveryPrecio
+            + comision | currency: "S/" || "" }} </p>
+          <p *ngIf="condi == 1" class="description"> Monto Total a cobrar: S/0.00 </p>
+          <p *ngIf="condi == 1"> Al elegir la opción SOLO ENTREGAR no cobraremos ni el delivery ni el costo del
+            producto. </p>
           <p class="description">Descripción: {{ descripcion }}</p>
           <p class="description">Modo de entrega: {{ modoEntrega }}</p>
           <p class="description">Fecha: {{ fechaEntrega }}</p>

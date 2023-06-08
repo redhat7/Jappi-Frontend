@@ -2,31 +2,87 @@
 button.btn {
   min-width: 10.93rem;
 }
-.card-add{
+
+.card-add {
   padding: 1rem 0.1rem 1rem 0.4rem;
 }
-.alerta{
-  font-weight: bold;
-  font-size: 12px;
+
+.alerta {
+  font-size: 10px;
   color: red;
 }
-.negrita{
+
+.negrita {
   font-weight: bold;
   font-size: 30px;
   text-align: center;
 }
-.border{
-  border:20px solid #fecc2b !important;
+
+.border {
+  border: 20px solid #fecc2b !important;
 }
-.margin{
+
+.margin {
   margin-top: 18rem;
 }
-.sizeSpan{
-  font-size: 17px;
+
+.sizeSpan {
+  align-items: center;
+  font-size: 14px;
   color: black;
-  font-weight: bold;
+  font-weight: 500;
 }
-.tamanio{
+
+.tamanio {
   width: 1rem;
   height: 1rem;
+}
+
+.fix-input {
+  width: 100%;
+  padding: 4px;
+  border: none;
+  border-bottom: 1px solid #9A9A9A;
+  outline: none;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.light {
+  font-weight: 400;
+}
+
+.margenTop {
+  margin-top: 10px;
+}
+
+.small-font {
+  font-size: 11px;
+  line-height: 15px;
+  margin-bottom: 0px;
+}
+
+.label-producto {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hr-estilo {
+  border-style: dashed;
+}
+
+.button-envio-fix {
+  border-color: white !important;
+  font-size: 12px;
+}
+
+.fix-add {
+  width: 40px;
+}
+
+.test {
+  margin-bottom: 32px;
 }

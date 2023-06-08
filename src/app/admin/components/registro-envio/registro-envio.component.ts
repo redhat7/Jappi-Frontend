@@ -34,7 +34,7 @@ export class RegistroEnvioComponent implements OnInit {
   @Input() latitud: number = 0;
   @Input() longitud: number = 0;
   @Input() nombreProducto: string;
-  @Input() precioProducto: number = 0;
+  @Input() precioProducto: number;
   @Input() descripcion: string;
   @Input() cantidad: number;
   @Input() modoEntrega: string;
@@ -44,6 +44,7 @@ export class RegistroEnvioComponent implements OnInit {
   @Input() fechaEntrega: string;
   @Input() observacion: string;
   @Input() check: boolean = false;
+  @Input() checkDelivery: boolean = false;
   @Input() spinner: any = [];
   @Input() spinnerTxt: string;
   @Input() almacen: number;
@@ -53,14 +54,14 @@ export class RegistroEnvioComponent implements OnInit {
   @Output() tarjeta: number;
 
   options: any[] = [
-    { id: 0, value: "--- Seleccione ---" },
-    { id: 1, value: "contra-entrega" },
-    { id: 2, value: "solo Entregar" },
-    { id: 3, value: "cambio con costo" },
-    { id: 4, value: "cambio sin costo" },
+    { id: 0, value: "Elige modo de entrega" },
+    { id: 1, value: "Contra entrega" },
+    { id: 2, value: "Solo entregar" },
+    { id: 3, value: "Cambio con costo" },
+    { id: 4, value: "Cambio sin costo" },
   ];
   paymentMethod: any[] = [
-    { id: 0, value: "--- Seleccione ---" },
+    { id: 0, value: "Elige método de pago" },
     { id: 1, value: "Efectivo" },
     { id: 2, value: "Tarjeta" },
     { id: 3, value: "Abono a vendedor" },
@@ -92,7 +93,7 @@ export class RegistroEnvioComponent implements OnInit {
       .post(
         `${environment.url_api}/usuario/almacencb`,
         // "https://backend-japi.herokuapp.com/usuario/almacencb",
-       data, {
+        data, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Methods": "POST",
@@ -157,6 +158,26 @@ export class RegistroEnvioComponent implements OnInit {
     this.check = event.target.checked;
   }
 
+  eventCheckIncludesDelivery(event) {
+    this.checkDelivery = event.target.checked;
+  }
+
+  verificarCamposLlenosReceptor(): boolean {
+    if (this.distrito == 0) {
+      return false;
+    }
+
+    return !!(this.name && this.number && this.distrito && this.direction);
+  }
+
+  verificarCamposLlenosEnvio(): boolean {
+    if (this.modoEntrega === 'Elige modo de entrega') {
+      return false;
+    }
+
+    return !!(this.fechaEntrega && this.modoEntrega);
+  }
+
   selectSpinner(e: number) {
     for (let u of this.spinner) {
       if (u["id"] == e) {
@@ -184,9 +205,9 @@ export class RegistroEnvioComponent implements OnInit {
         zona.zonas.forEach(({ id, precio, name }) => {
           if (zonaDistrito === id) {
             deliveryPrice = precio;
-            console.log("Zona del distrito seleccionado: ", id);
-            console.log("Distrito de envio: ", name);
-            console.log("Precio del distrito: ", precio);
+            // console.log("Zona del distrito seleccionado: ", id);
+            // console.log("Distrito de envio: ", name);
+            // console.log("Precio del distrito: ", precio);
             return;
           }
         });
@@ -201,9 +222,8 @@ export class RegistroEnvioComponent implements OnInit {
     if (navigatorVendor.toLowerCase().includes("apple")) {
       return date.replace(/[/]/g, "-");
     } else {
-      return `${date.split("-")[2]}-${date.split("-")[1]}-${
-        date.split("-")[0]
-      }`;
+      return `${date.split("-")[2]}-${date.split("-")[1]}-${date.split("-")[0]
+        }`;
     }
   }
 
@@ -267,10 +287,8 @@ export class RegistroEnvioComponent implements OnInit {
         this.spinnerService.show();
 
         if (this.check) {
-          let montoTotal =
-            parseFloat(this.cantidad.toString()) *
-            parseFloat(this.precioProducto.toString());
-          
+          let montoTotal = parseFloat(this.cantidad.toString()) * parseFloat(this.precioProducto.toString());
+
           montoTotal += this.deliveryPrecio;
           montoTotal += this.comision;
           let fechaFinal = this.convertDateToString(this.fechaEntrega);
@@ -326,9 +344,8 @@ export class RegistroEnvioComponent implements OnInit {
           montoTotal += this.deliveryPrecio;
           montoTotal += this.comision;
 
-          let fechaFinal = `${this.fechaEntrega.split("-")[2]}-${
-            this.fechaEntrega.split("-")[1]
-          }-${this.fechaEntrega.split("-")[0]}`;
+          let fechaFinal = `${this.fechaEntrega.split("-")[2]}-${this.fechaEntrega.split("-")[1]
+            }-${this.fechaEntrega.split("-")[0]}`;
 
           let data = JSON.stringify({
             token: this.token,
@@ -394,7 +411,7 @@ export class RegistroEnvioComponent implements OnInit {
   }
 
   // This function is to handle input file change event
-  changeInputEvent(e:any) {
+  changeInputEvent(e: any) {
     const fileInput = this.fileInput.files[0];
     const reader: FileReader = new FileReader();
 
@@ -449,12 +466,12 @@ export class RegistroEnvioComponent implements OnInit {
             longitudValue = longitud;
           }
           let montoTotal = Number(dato[7]) * Number(dato[1]);
-          let modo1='cambio con costo';
-          let modo2='contra-entrega';
-          if (modo1===String(dato[9]) || modo2===String(dato[9]) ) {
+          let modo1 = 'cambio con costo';
+          let modo2 = 'contra-entrega';
+          if (modo1 === String(dato[9]) || modo2 === String(dato[9])) {
             montoTotal += deliveryPrice;
           }
-         
+
           const metodoPago = String(dato[8]) || "";
           if (metodoPago.toLowerCase() === "tarjeta") {
             montoTotal += montoTotal * 0.05;
@@ -462,16 +479,16 @@ export class RegistroEnvioComponent implements OnInit {
 
           if (
             (dato[0] != null,
-            dato[1] != null,
-            dato[2] != null,
-            dato[3] != null,
-            dato[4] != null,
-            dato[5] != null,
-            dato[7] != null,
-            dato[9] != null,
-            deliveryPrice != null,
-            montoTotal != null,
-            distritoValue != null)
+              dato[1] != null,
+              dato[2] != null,
+              dato[3] != null,
+              dato[4] != null,
+              dato[5] != null,
+              dato[7] != null,
+              dato[9] != null,
+              deliveryPrice != null,
+              montoTotal != null,
+              distritoValue != null)
           ) {
             const valueObject = {
               [keysData[0]]: dato[0],
@@ -520,13 +537,13 @@ export class RegistroEnvioComponent implements OnInit {
         if (result["success"]) {
           this.router.navigate(["/mis-envios"]);
         } else {
-          console.log("Error al registrar envío"); 
+          console.log("Error al registrar envío");
         }
       });
   }
 
 
-  alertaEnvio():any{
+  alertaEnvio(): any {
     alert('Limite maximo de envíoss.')
   }
 }

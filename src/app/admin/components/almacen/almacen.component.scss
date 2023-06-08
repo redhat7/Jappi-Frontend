@@ -1,3 +1,28 @@
-.table-responsive{
-    height: 38rem;
+.table-responsive {
+  height: 38rem;
+}
+
+.overview-fix {
+  padding: 0px;
+}
+
+.button-overview {
+  border-radius: 5px;
+  color: #FFF !important;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0.5rem;
+  padding: 0.3rem;
+}
+
+.green {
+  background-color: #3CBEA9;
+}
+
+.yellow {
+  background-color: #F8D000;
+}
+
+.gap-0 {
+  gap: 0px;
 }
