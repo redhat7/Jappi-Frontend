@@ -2,7 +2,9 @@ import { Component, OnInit } from "@angular/core";
 
 // Rutas (Model & Service)
 import { Routes } from "../../../utils/models/routes.model";
+
 import { RoutesService } from "../../../utils/services/routes/routes.service";
+import { SharedDataService } from "../../../utils/services/shared-data.service";
 
 enum UserTypes {
   User1 = 1,
@@ -21,12 +23,15 @@ enum UserTypes {
 export class SidebarComponent implements OnInit {
   public menuItems: Routes[];
 
-  constructor(private routesService: RoutesService) { }
+  constructor(
+    private routesService: RoutesService,
+    private sharedDataService: SharedDataService
+  ) { }
 
   ngOnInit(): void {
     const currentUser = JSON.parse(localStorage.getItem("auth"));
 
-    switch(currentUser.tipo) {
+    switch (currentUser.tipo) {
       case UserTypes.User1:
         this.menuItems = this.routesService.getRutasUsuario();
         break;
@@ -46,8 +51,12 @@ export class SidebarComponent implements OnInit {
         this.menuItems = this.routesService.getRutasRecursosHumanos();
         break;
       default:
-        // handle invalid user type
+      // handle invalid user type
     }
+  }
+
+  toggleNavClass() {
+    this.sharedDataService.toggleNavClass();
   }
 
   isMobileMenu() {

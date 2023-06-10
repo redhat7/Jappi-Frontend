@@ -1,44 +1,12 @@
-.center {
-  align-items: center;
-}
-
-.size {
-  min-width: 110px;
-}
-
-.contain_fecha {
-  display: flex;
-}
-
-thead th {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background-color: #ffffff;
-}
-
-.table-responsive {
-  height: 600px;
-  overflow: scroll;
-}
-
-.estado {
-  font-weight: bold;
-  text-align: center;
-}
-
-.verde {
-  color: #3CBEA9;
-}
-
-.amarillo {
-  color: #ffc107;
-}
-
-.red {
-  color: red;
+.size-110 {
+  min-width: 100px;
 }
 
 .white {
   color: white !important;
 }
+
+.tabla-scroll {
+  overflow-y: auto;
+}
+

@@ -647,7 +647,7 @@ section .text-search {
 .button-index-blue,
 .button-index-yellow {
   display: inline-block;
-  min-width: 100px;
+  min-width: 70px;
   text-align: center;
   color: #FFF;
   padding: .1rem;
@@ -736,7 +736,7 @@ section table tbody td {
 .tabla__content tbody tr td {
   font-size: 0.8rem;
   letter-spacing: 0.35px;
-  padding: 0.5rem;
+  padding: 0.15rem;
   text-align: center;
   border: 1px solid var(--color-info-light);
 }
@@ -891,6 +891,18 @@ section table tbody td {
 
 /*----- Customizados xanadu -----*/
 
+.top-fix {
+  padding-top: 16px;
+  padding-bottom: 0px;
+}
+
+.header-icon {
+  color: #677483;
+  cursor: pointer;
+  padding-right: 6px;
+  transform: scale(2.8);
+}
+
 .div-column {
   display: flex;
   flex-direction: column;
@@ -906,6 +918,10 @@ section table tbody td {
 
 .pad-2 {
   padding: 2px;
+}
+
+.pad-top-12 {
+  padding: 12px;
 }
 
 .mar-top-12 {
