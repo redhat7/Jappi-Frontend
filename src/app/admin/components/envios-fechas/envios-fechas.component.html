@@ -5,11 +5,9 @@
   <svg xmlns="http://www.w3.org/2000/svg" width="170" height="24" viewBox="150 0 10 50"><text x="4" y="40"
       font-family="Arial, sans-serif" font-size="36" fill="black">ENVÍOS POR FECHA</text>
   </svg>
-  <div class="header-icon pad-top-12">
-    <i class="uil uil-file-export"></i>
-  </div>
-  <div class="header-icon pad-top-12">
-    <i class="uil uil-user-square"></i>
+  <div>
+    <span class="user-title">Bienvenido: {{userName | capitalizefirstletter}}</span>
+    <img src="assets/img/foto1.jpg" alt="">
   </div>
 </div>
 <div class="dash-content">
@@ -78,8 +76,8 @@
           <td data-label="Comprador"> {{envio.nombres | uppercase}} </td>
           <td data-label="Telefono"> {{envio.tele_entrega}} </td>
           <td data-label="Monto total"> {{envio.monto_total | currency: " "}} </td>
-          <td data-label="Método de pago"> {{envio.metodo_pago || "No tiene"}} </td>
-          <td data-label="Modo de entrega"> {{envio.modo_entrega | capitalizefirstletter}} </td>
+          <td data-label="Método de pago"> {{envio.metodo_pago}} </td>
+          <td data-label="Modo de entrega"> {{envio.modo_entrega}} </td>
           <td data-label="Producto"> {{envio.observacion | capitalizefirstletter}} </td>
           <td data-label="Cantidad"> {{envio.distritoName}} </td>
           <td data-label="Estado">

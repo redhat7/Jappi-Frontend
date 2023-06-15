@@ -7,7 +7,6 @@ import { Zona } from "../../models/zonas.model";
 })
 export class FormService {
   private distritos: Distrito[] = [
-    { name: "Seleccione un distrito", value: 0, zona: 0 },
     { name: "Ate Vitarte", value: 1, zona: 1 },
     { name: "Ate-Salamanca", value: 2, zona: 1 },
     { name: "Ate-Santa Clara", value: 3, zona: 6 },
@@ -50,7 +49,7 @@ export class FormService {
     { name: "Surquillo", value: 40, zona: 2 },
     { name: "Ventanilla", value: 41, zona: 6 },
     { name: "Villa el Salvador", value: 42, zona: 5 },
-    { name: "Villa María del Triunfo", value: 43, zona: 5 },
+    { name: "Villa María del Triunfo", value: 43, zona: 5 }
   ];
 
   private zonas: Zona[] = [
@@ -58,181 +57,61 @@ export class FormService {
       id: 1,
       distritos: [1, 2, 14, 18, 33, 38],
       zonas: [
-        {
-          id: 1,
-          precio: 8,
-          name: "este",
-        },
-        {
-          id: 2,
-          precio: 9,
-          name: "centro",
-        },
-        {
-          id: 3,
-          precio: 10,
-          name: "norte",
-        },
-        {
-          id: 4,
-          precio: 11,
-          name: "oeste",
-        },
-        {
-          id: 5,
-          precio: 12,
-          name: "sur",
-        },
-        {
-          id: 6,
-          precio: 15,
-          name: "alejados",
-        },
-      ],
+        { id: 1, precio: 8, name: "este" },
+        { id: 2, precio: 9, name: "centro" },
+        { id: 3, precio: 10, name: "norte" },
+        { id: 4, precio: 11, name: "oeste" },
+        { id: 5, precio: 12, name: "sur" },
+        { id: 6, precio: 15, name: "alejados" }
+      ]
     },
     {
       id: 2,
       distritos: [5, 7, 11, 17, 21, 22, 23, 25, 26, 28, 31, 32, 35, 37, 40],
       zonas: [
-        {
-          id: 1,
-          precio: 11,
-          name: "este",
-        },
-        {
-          id: 2,
-          precio: 8,
-          name: "centro",
-        },
-        {
-          id: 3,
-          precio: 10,
-          name: "norte",
-        },
-        {
-          id: 4,
-          precio: 9,
-          name: "oeste",
-        },
-        {
-          id: 5,
-          precio: 12,
-          name: "sur",
-        },
-        {
-          id: 6,
-          precio: 15,
-          name: "alejados",
-        },
-      ],
+        { id: 1, precio: 11, name: "este" },
+        { id: 2, precio: 8, name: "centro" },
+        { id: 3, precio: 10, name: "norte" },
+        { id: 4, precio: 9, name: "oeste" },
+        { id: 5, precio: 12, name: "sur" },
+        { id: 6, precio: 15, name: "alejados" }
+      ]
     },
     {
       id: 3,
       distritos: [13, 16, 24, 30, 36],
       zonas: [
-        {
-          id: 1,
-          precio: 11,
-          name: "este",
-        },
-        {
-          id: 2,
-          precio: 9,
-          name: "centro",
-        },
-        {
-          id: 3,
-          precio: 8,
-          name: "norte",
-        },
-        {
-          id: 4,
-          precio: 10,
-          name: "oeste",
-        },
-        {
-          id: 5,
-          precio: 12,
-          name: "sur",
-        },
-        {
-          id: 6,
-          precio: 15,
-          name: "alejados",
-        },
-      ],
+        { id: 1, precio: 11, name: "este" },
+        { id: 2, precio: 9, name: "centro" },
+        { id: 3, precio: 8, name: "norte" },
+        { id: 4, precio: 10, name: "oeste" },
+        { id: 5, precio: 12, name: "sur" },
+        { id: 6, precio: 15, name: "alejados" }
+      ]
     },
     {
       id: 4,
       distritos: [6, 8, 9, 19, 20],
       zonas: [
-        {
-          id: 1,
-          precio: 11,
-          name: "este",
-        },
-        {
-          id: 2,
-          precio: 9,
-          name: "centro",
-        },
-        {
-          id: 3,
-          precio: 10,
-          name: "norte",
-        },
-        {
-          id: 4,
-          precio: 8,
-          name: "oeste",
-        },
-        {
-          id: 5,
-          precio: 12,
-          name: "sur",
-        },
-        {
-          id: 6,
-          precio: 15,
-          name: "alejados",
-        },
-      ],
+        { id: 1, precio: 11, name: "este" },
+        { id: 2, precio: 9, name: "centro" },
+        { id: 3, precio: 10, name: "norte" },
+        { id: 4, precio: 8, name: "oeste" },
+        { id: 5, precio: 12, name: "sur" },
+        { id: 6, precio: 15, name: "alejados" }
+      ]
     },
     {
       id: 5,
       distritos: [12, 34, 39, 42, 43],
       zonas: [
-        {
-          id: 1,
-          precio: 11,
-          name: "este",
-        },
-        {
-          id: 2,
-          precio: 9,
-          name: "centro",
-        },
-        {
-          id: 3,
-          precio: 12,
-          name: "norte",
-        },
-        {
-          id: 4,
-          precio: 10,
-          name: "oeste",
-        },
-        {
-          id: 5,
-          precio: 8,
-          name: "sur",
-        },
-        {
-          id: 6,
-          precio: 15,
-          name: "alejados",
-        },
-      ],
+        { id: 1, precio: 11, name: "este" },
+        { id: 2, precio: 9, name: "centro" },
+        { id: 3, precio: 12, name: "norte" },
+        { id: 4, precio: 10, name: "oeste" },
+        { id: 5, precio: 8, name: "sur" },
+        { id: 6, precio: 15, name: "alejados" }
+      ]
     },
     {
       id: 6,
@@ -241,45 +120,18 @@ export class FormService {
   ];
 
   private estadoRecojo = [
-    {
-      estado: "pendiente",
-      value: 0,
-    },
-    {
-      estado: "programado",
-      value: 1,
-    },
-    {
-      estado: "en ruta",
-      value: 2,
-    },
-    {
-      estado: "recogido",
-      value: 3,
-    },
-    {
-      estado: "caída",
-      value: 4,
-    },
-    {
-      estado: "Recibido",
-      value: 5,
-    },
+    { estado: "pendiente", value: 0 },
+    { estado: "programado", value: 1 },
+    { estado: "en ruta", value: 2 },
+    { estado: "recogido", value: 3 },
+    { estado: "caída", value: 4 },
+    { estado: "Recibido", value: 5 }
   ];
 
   private estadoRecojoModal = [
-    {
-      estado: "en ruta",
-      value: 2,
-    },
-    {
-      estado: "recogido",
-      value: 3,
-    },
-    {
-      estado: "caída",
-      value: 4,
-    },
+    { estado: "en ruta", value: 2 },
+    { estado: "recogido", value: 3 },
+    { estado: "caída", value: 4 }
   ];
 
   private estadoEntrega = [
@@ -295,84 +147,41 @@ export class FormService {
   ];
 
   private estadoEntregaModalAdmin = [
-    {
-      estado: "en ruta",
-      value: 2,
-    },
-    {
-      estado: "entregado",
-      value: 3,
-    },
-    {
-      estado: "caída",
-      value: 4,
-    },
-    {
-      estado: "reprogramado",
-      value: 5,
-    },
-    {
-      estado: "repro. por cobrar",
-      value: 6,
-    },
-    {
-      estado: "Observado",
-      value: 7,
-    },
-    {
-      estado: "Caida por cobrar",
-      value: 8,
-    },
+    { estado: "en ruta", value: 2 },
+    { estado: "entregado", value: 3 },
+    { estado: "caída", value: 4 },
+    { estado: "reprogramado", value: 5 },
+    { estado: "repro. por cobrar", value: 6 },
+    { estado: "Observado", value: 7 },
+    { estado: "Caida por cobrar", value: 8 }
   ];
 
   private estadoEntregaModal = [
-    {
-      estado: "en ruta",
-      value: 2,
-    },
-    {
-      estado: "entregado",
-      value: 3,
-    },
-    {
-      estado: "Observado",
-      value: 7,
-    },
+    { estado: "en ruta", value: 2 },
+    { estado: "entregado", value: 3 },
+    { estado: "Observado", value: 7 }
   ];
 
   private estadoAlmacen = [
-    {
-      estado: "pendiente",
-      value: 0,
-    },
-    {
-      estado: "aceptado",
-      value: 1,
-    },
-    {
-      estado: "en recojo",
-      value: 2,
-    },
-    {
-      estado: "en stock",
-      value: 3,
-    },
+    { estado: "pendiente", value: 0 },
+    { estado: "aceptado", value: 1 },
+    { estado: "en recojo", value: 2 },
+    { estado: "en stock", value: 3 }
   ];
 
   private modoEntrega: any[] = [
-    { id: 0, value: "--- Seleccione ---" },
-    { id: 1, value: "Contra-entrega" },
-    { id: 2, value: "Solo Entregar" },
+    { id: 1, value: "Contra entrega" },
+    { id: 2, value: "Solo entregar" },
     { id: 3, value: "Cambio con costo" },
     { id: 4, value: "Cambio sin costo" },
+    { id: 5, value: "Servicio express" }
   ];
 
   private metodoPago: any[] = [
-    { id: 0, value: "--- Seleccione ---" },
     { id: 1, value: "Efectivo" },
     { id: 2, value: "Tarjeta" },
     { id: 3, value: "Abono a vendedor" },
-    { id: 4, value: "Abono a Japi" },
+    { id: 4, value: "Abono a Japi" }
   ];
 
   constructor() { }

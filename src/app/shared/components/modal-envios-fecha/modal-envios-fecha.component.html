@@ -24,7 +24,6 @@
           <label for="modo" class="form-main-label">Modo Entrega</label>
           <select class="form-select form-main-select" name="modo" id="modo" [(ngModel)]="idModoEntrega"
             (change)="changeModoEntrega($event)">
-            <option value="0">Selecciona un método</option>
             <option [value]="modo.id" *ngFor="let modo of modoEntrega"> {{ modo.value }} </option>
           </select>
         </div>
@@ -32,7 +31,6 @@
           <label for="metodo" class="form-main-label">Método de pago</label>
           <select class="form-select form-main-select" name="metodo" id="metodo" [(ngModel)]="idMetodoPago"
             (change)="changeMetodoPago($event)">
-            <option value="0">Selecciona un método</option>
             <option [value]="metodo.id" *ngFor="let metodo of metodoPago"> {{ metodo.value }} </option>
           </select>
         </div>
@@ -62,6 +60,18 @@
           <span *ngIf="IDDistrito != 0" id="delivery-price" class="d-block mt-1"> Precio de Delivery: <span>{{ delivery
               | currency: "S/" }}</span>
           </span>
+        </div>
+        <div class="col-md-6">
+          <label class="form-main-label"> Celular cliente </label>
+          <input type="string" class="form-control form-main-input" name="phoneCustomer" id="phoneCustomer"
+            [(ngModel)]="celularReceptor" [ngModelOptions]="{ standalone: true }"
+            (change)="changePhoneCustomer($event)" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-main-label"> Dirección entrega </label>
+          <input type="string" class="form-control form-main-input" name="address" id="address"
+            [(ngModel)]="direccionReceptor" [ngModelOptions]="{ standalone: true }"
+            (change)="changeAddressCustomer($event)" />
         </div>
         <div class="col-md-12">
           <div class="form-group">

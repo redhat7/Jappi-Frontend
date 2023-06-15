@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-md-8">
     <div class="card">
-      <div class="card-body">
+      <div class="card-body fix-card-body">
         <h3 class="card-title">Registro de Envíos</h3>
         <form>
           <div>
@@ -35,7 +35,7 @@
               </div>
             </div>
           </div>
-          <hr class="hr-estilo">
+          <hr *ngIf="verificarCamposLlenosReceptor()" class="hr-estilo">
           <div *ngIf="verificarCamposLlenosReceptor()">
             <p class="margenTop bold">DATOS DEL ENVÍO</p>
             <div class="row">
@@ -60,7 +60,7 @@
               </div>
             </div>
           </div>
-          <hr class="hr-estilo">
+          <hr *ngIf="verificarCamposLlenosEnvio()" class="hr-estilo">
           <div *ngIf="verificarCamposLlenosEnvio()">
             <p class="margenTop bold">DATOS DEL PRODUCTO</p>
             <div class="row">
@@ -107,7 +107,7 @@
                 <div class="col-md-6">
                   <div *ngIf="condi == 0" class="form-group">
                     <input type="number" class="fix-input margenTop"
-                      [placeholder]="checkDelivery? 'Importe a cobrar (Sin delivery)': 'Importe a cobrar (Con delivery)'"
+                      [placeholder]="checkDelivery? 'Importe a cobrar (Con delivery)': 'Importe a cobrar (Sin delivery)'"
                       [(ngModel)]="precioProducto" [ngModelOptions]="{ standalone: true }" maxlength="6" />
                   </div>
                 </div>
@@ -123,16 +123,16 @@
               </div>
             </div>
           </div>
-          <div class="test2">
+          <!-- <div class="test2">
             <button class="btn btn-green test" (click)="registroEnvio()"> Registrar Envío </button>
             <span id="button-message" class="form-main-input-error text-center">
             </span>
-          </div>
+          </div> -->
         </form>
       </div>
     </div>
   </div>
-  <div class="col-md-4">
+  <!-- <div class="col-md-4">
     <div class="card card-add">
       <p class="margenTop bold">SUBIR VARIOS PRODUCTOS <br> <span class="light">A partir de 10 envíos</span></p>
       <div class="row col-md-12">
@@ -178,5 +178,5 @@
         <hr />
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

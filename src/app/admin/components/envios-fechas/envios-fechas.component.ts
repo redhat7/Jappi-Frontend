@@ -29,6 +29,7 @@ export class EnviosFechasComponent implements OnInit {
   distritos: Distrito[];
   estadoEntrega: any[];
   zonas: any[];
+  userName: string;
 
   @ViewChild('dateStartInput', { static: true }) dateStartInput: ElementRef<HTMLInputElement>;
   @ViewChild('dateEndInput', { static: true }) dateEndInput: ElementRef<HTMLInputElement>;
@@ -58,6 +59,7 @@ export class EnviosFechasComponent implements OnInit {
     this.zonas = this.formService.getZonas();
     this.estadoEntrega = this.formService.getEstadoEntrega();
     this.getDataByDate(this.token, this.currentDate, this.currentDate);
+    this.userName = currentUser.nombres;
   }
 
   getCurrentDate() {
@@ -207,10 +209,9 @@ export class EnviosFechasComponent implements OnInit {
 
     modalRef.afterClosed().subscribe((result) => {
       console.log("cerrando modal");
-      const currentDate = this.currentDate;
 
       if (result) {
-        this.getDataByDate(this.token, currentDate, currentDate);
+        this.searchByDate();
       } else {
         console.log("Error al actualizar o cancelaste el modal");
       }
@@ -218,8 +219,8 @@ export class EnviosFechasComponent implements OnInit {
   }
 
   openModalDelete(envio: any) {
-    // console.log(envio);
     const param = { id_envio: envio.id_envio, token: this.token };
+
     this.deleteEntrega(param);
   }
 
@@ -234,11 +235,9 @@ export class EnviosFechasComponent implements OnInit {
     });
     modalRef.afterClosed().subscribe((result) => {
       console.log("cerrando modal");
-      // console.log(result);
-      const currentDate = this.currentDate;
 
       if (result) {
-        this.getDataByDate(this.token, currentDate, currentDate);
+        this.searchByDate();
       } else {
         console.log("Error al actualizar o cancelaste el modal");
       }

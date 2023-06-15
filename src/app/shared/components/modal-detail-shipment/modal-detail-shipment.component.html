@@ -1,6 +1,6 @@
-<div class="detail__mod-content">
+<div>
   <div class="detail__mod-title-container">
-    <p class="detail__mod-title">DETALLE</p>
+    <p class="detail__mod-title">Detalle del envío</p>
     <button mat-dialog-close class="mat-dialog-close">
       <i class="uil uil-times detail__mod-title-close"></i>
     </button>
@@ -11,7 +11,7 @@
         <p class="detail__title">Datos generales</p>
         <div class="space__h4 date-grid">
           <p>Producto</p>
-          <p>{{ envio.descripcion | uppercase }}</p>
+          <p>{{ envio.descripcion }}</p>
           <p>Cantidad</p>
           <p>{{ envio.cantidad }}</p>
           <p>Fecha de entrega</p>
@@ -25,13 +25,13 @@
           <p>Delivery</p>
           <p>S/ {{ envio.delivery }}</p>
           <p>Motivo</p>
-          <p>{{ envio.motivo || '' }}</p>
+          <p>{{ envio.motivo || '-' }}</p>
           <p>Asesor</p>
-          <p>{{ envio.motivo || 'xanadu' }}</p>
+          <p>{{ envio.asesor || 'xanadu' }}</p>
           <p>Última modificación</p>
-          <p>{{ envio.nomb_modif || '' }}</p>
+          <p>{{ envio.nomb_modif ? envio.nomb_modif + ' -' : '' }} {{ envio.fecha_modifica || '' }}</p>
           <p>Hora y fecha de creación</p>
-          <p>{{ envio.fecha_registro || '' }}</p>
+          <p>{{ envio.fecha_registro || '' }} </p>
         </div>
       </div>
     </div>

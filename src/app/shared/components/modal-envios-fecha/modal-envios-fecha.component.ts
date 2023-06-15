@@ -35,6 +35,9 @@ export class ModalEnviosFechaComponent implements OnInit {
   idEnvio: string;
   zonas: any[];
   zonaEmpresa: any = 0;
+  haCambiadoClienteDato: boolean = false; //Si cambia distrito, direccion o telefono receptor
+  celularReceptor: any;
+  direccionReceptor: string;
   @Input() IDDistrito: any = 0;
 
   IDDistritoEmpresa: any = 0;
@@ -57,6 +60,8 @@ export class ModalEnviosFechaComponent implements OnInit {
     this.modoe = envio.modo_entrega;
     this.idEnvio = envio.id_envio;
     this.idEstadoEntrega = envio.estado;
+    this.celularReceptor = envio.tele_entrega;
+    this.direccionReceptor = envio.d_entrega;
 
     this.idMotorizado = envio.moto || parseInt("0");
 
@@ -83,12 +88,39 @@ export class ModalEnviosFechaComponent implements OnInit {
 
     this.getMotorizados(this.token);
   }
-  changeDistrito() {
-    const distritoSelected = this.distritos.find(
-      (distrito) => distrito.value == this.IDDistrito
-    );
-    this.delivery = this.getPriceByZona(distritoSelected.zona);
+
+  changeDistrito(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+
+    if (value !== '') {
+      this.haCambiadoClienteDato = true;
+      const distritoSelected = this.distritos.find((distrito) => distrito.value == this.IDDistrito);
+      this.delivery = this.getPriceByZona(distritoSelected.zona);
+    }
   }
+
+  changePhoneCustomer(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+
+    if (value !== '') {
+      this.haCambiadoClienteDato = true;
+      this.celularReceptor = value;
+    } else {
+      this.celularReceptor = null;
+    }
+  }
+
+  changeAddressCustomer(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+
+    if (value !== '') {
+      this.haCambiadoClienteDato = true;
+      this.direccionReceptor = value;
+    } else {
+      this.direccionReceptor = null;
+    }
+  }
+
   getPriceByZona(zonaDistrito: number): number {
     let deliveryPrice: number = 0;
     this.zonas.forEach((zona) => {
@@ -195,13 +227,14 @@ export class ModalEnviosFechaComponent implements OnInit {
       id_envio: this.idEnvio,
       modo_entrega: this.modoe,
       fecha: newFechaEntrega,
-      distrito: distritoToNumber
+      distrito: this.haCambiadoClienteDato ? distritoToNumber : null,
+      tele_entrega: this.haCambiadoClienteDato ? this.celularReceptor : null,
+      d_entrega: this.haCambiadoClienteDato ? this.direccionReceptor : null,
     };
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Methods': 'POST'
-    });
+    this.haCambiadoClienteDato == false;
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Methods': 'POST' });
 
     this.http.post(`${environment.url_api}/empresa/UpdateEnviosFecha`, data, { headers }).subscribe(
       (result: any) => {
