@@ -981,6 +981,12 @@ section table tbody td {
   background-color: var(--color-page);
 }
 
+.user-title {
+  padding-right: 12px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
 @media screen and (max-width:1280px) {
   section .text-search {
     grid-template-columns: repeat(2, 1fr);

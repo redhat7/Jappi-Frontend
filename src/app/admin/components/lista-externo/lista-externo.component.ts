@@ -16,14 +16,17 @@ export class ListaExternoComponent implements OnInit {
   token: string;
   data: any[] = [];
   datos: any[] = [];
-
   distritos: Distrito[];
+  userName: string;
+  tipoUsuario: string;
 
   @Input() valorSpinner: string;
   @Input() spinner = [
-    { descripcion: "--- Elige un campo ---", id: "" },
+    { descripcion: "Elige un campo", id: "" },
     { descripcion: "Nombre del dueño", id: "duenio" },
     { descripcion: "Nombre de la empresa", id: "nombre" },
+    { descripcion: "Teléfono", id: "telefono" },
+    { descripcion: "DNI", id: "dni" }
   ];
   @Input() searchTxt: string;
   constructor(
@@ -31,23 +34,26 @@ export class ListaExternoComponent implements OnInit {
     private spinnerService: NgxSpinnerService,
     public dialog: MatDialog,
     private formService: FormService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const currentUser = JSON.parse(localStorage.getItem("auth"));
+    this.userName = currentUser.nombres;
+    this.tipoUsuario = currentUser.tipo;
     this.token = currentUser.token;
     this.distritos = this.formService.getDistritos();
     this.getData(this.token);
   }
   selectSpinner(value: string) {
     this.valorSpinner = value;
-    console.log(this.valorSpinner);
   }
   filterList() {
     this.data = [];
+
     for (let element of this.datos) {
       ("use strict");
       let varia: string = element[this.valorSpinner];
+
       if (varia.toLowerCase().includes(this.searchTxt.toLowerCase())) {
         this.data.push(element);
       }
@@ -56,41 +62,36 @@ export class ListaExternoComponent implements OnInit {
 
   getData(token: string) {
     this.spinnerService.show();
-    this.http
-      .post(
-        `${environment.url_api}/empresa/ListarUsuarios`,
-        // "https://backend-japi.herokuapp.com/empresa/ListarUsuarios",
-        { token: token },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Methods": "POST",
-            "Access-Control-Allow-Credentials": "true",
-            "Access-Control-Allow-Origin": "http://localhost:4200/*",
-          },
-        }
-      )
-      .subscribe((result: any) => {
-        if (result.success) {
-          const dataFormat = result.data.map((usuario) => {
-            const distrito = this.distritos.find(
-              (distrito) => distrito.value == usuario.distrito
-            );
-            return {
-              nombreDistrito: distrito.name,
-              ...usuario,
-            };
-          });
-         
-          this.datos = dataFormat;
-          this.data = dataFormat;
-          console.log(this.data);
-        } else {
-          console.log("Error al traer los productos en almacen");
-        }
-        this.spinnerService.hide();
-      });
+
+    const headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Methods": "POST",
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Origin": "http://localhost:4200"
+    };
+
+    this.http.post(`${environment.url_api}/empresa/ListarUsuarios`, { token: token, tipo: this.tipoUsuario }, { headers }).subscribe((result: any) => {
+      if (result.success) {
+        const dataFormat = result.data.map((usuario) => {
+          const distrito = this.distritos.find(
+            (distrito) => distrito.value == usuario.distrito
+          );
+
+          return {
+            nombreDistrito: distrito.name,
+            ...usuario,
+          };
+        });
+
+        this.datos = dataFormat;
+        this.data = dataFormat;
+      } else {
+        console.log("Error al traer la lista de usuarios");
+      }
+      this.spinnerService.hide();
+    });
   }
+
   editSolicitud(usuario) {
     const param = {
       id_persona: usuario.id_persona,
@@ -102,29 +103,27 @@ export class ListaExternoComponent implements OnInit {
     this.openModalSolicitud(param);
     console.log(usuario, this.token);
   }
-  deleteUsuario({ id_persona, id_duenio, id_empresa }) {
+
+  cambiarEstadoUsuario({ id_persona, activo }) {
     const data = {
       token: this.token,
       id_persona: id_persona,
-      id_duenio: id_duenio,
-      id_empresa: id_empresa,
+      activo: activo
     };
-    this.http
-      .post(
-        `${environment.url_api}/empresa/deleteUsuario`,
-        // "https://backend-japi.herokuapp.com/empresa/deleteUsuario",
-       data, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Methods": "POST",
-        },
-      })
-      .subscribe((result: any) => {
-        result.success
-          ? this.getData(this.token)
-          : console.log("Error al eliminar");
-      });
+
+    this.http.post(`${environment.url_api}/empresa/cambiarEstadoUsuario`,
+      data, {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Methods": "POST",
+      },
+    }).subscribe((result: any) => {
+      result.success
+        ? this.getData(this.token)
+        : console.log("Error al eliminar");
+    });
   }
+
   openModalSolicitud({ id_persona, id_duenio, id_empresa, usuario, token }) {
     const modalRef = this.dialog.open(ModalEditUsuarioComponent, {
       data: {
