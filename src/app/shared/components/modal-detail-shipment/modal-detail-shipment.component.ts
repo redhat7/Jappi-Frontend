@@ -13,12 +13,15 @@ export class ModalDetailShipmentComponent implements OnInit {
   id: number;
   token: string;
   envio: any;
+  tipoUsuario: number;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<ModalDetailShipmentComponent>
   ) { }
 
   ngOnInit(): void {
+    const currentUser = JSON.parse(localStorage.getItem("auth"));
     this.envio = this.data.envio;
+    this.tipoUsuario = currentUser.tipo;
   }
 }

@@ -147,13 +147,13 @@ export class FormService {
   ];
 
   private estadoEntregaModalAdmin = [
-    { estado: "en ruta", value: 2 },
-    { estado: "entregado", value: 3 },
-    { estado: "caída", value: 4 },
-    { estado: "reprogramado", value: 5 },
-    { estado: "repro. por cobrar", value: 6 },
+    { estado: "En ruta", value: 2 },
+    { estado: "Entregado", value: 3 },
+    { estado: "Caída", value: 4 },
+    { estado: "Reprogramado", value: 5 },
+    { estado: "Repro. por cobrar", value: 6 },
     { estado: "Observado", value: 7 },
-    { estado: "Caida por cobrar", value: 8 }
+    { estado: "Caída por cobrar", value: 8 }
   ];
 
   private estadoEntregaModal = [

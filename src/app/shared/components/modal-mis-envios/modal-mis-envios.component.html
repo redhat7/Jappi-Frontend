@@ -4,21 +4,8 @@
     <div *ngIf="data.validate === 0">
       <p>Cargando datos ...</p>
     </div>
-    <section *ngIf="data.validate !== 0">
+    <section >
       <div class="row">
-        <div class="col-md-6">
-          <label for="motorizado" class="form-main-label">Motorizado</label>
-          <select class="form-select form-main-select" name="motorizado" id="motorizado" [(ngModel)]="idMotorizado">
-            <option value="0">Selecciona un motorizado</option>
-            <option [value]="motorizado.id" *ngFor="let motorizado of motorizados"> {{ motorizado.nombres }} </option>
-          </select>
-        </div>
-        <div class="col-md-6">
-          <label for="estado" class="form-main-label">Estado</label>
-          <select class="form-select form-main-select" name="estado" id="estado" [(ngModel)]="idEstadoEntrega">
-            <option [value]="estado.value" *ngFor="let estado of estadosEntrega"> {{ estado.estado }} </option>
-          </select>
-        </div>
         <div class="col-md-6">
           <label for="modo" class="form-main-label">Modo Entrega</label>
           <select class="form-select form-main-select" name="modo" id="modo" [(ngModel)]="idModoEntrega"
@@ -71,14 +58,6 @@
           <input type="string" class="form-control form-main-input" name="address" id="address"
             [(ngModel)]="direccionReceptor" [ngModelOptions]="{ standalone: true }"
             (change)="changeAddressCustomer($event)" />
-        </div>
-        <div class="col-md-12">
-          <div class="form-group">
-            <label for="obs" class="form-main-label">Motivo</label>
-            <textarea rows="4" cols="80" id="obs" class="form-control border-aqua form-main-input"
-              placeholder="Escribe aqui tus observaciones" [(ngModel)]="motivo"
-              [ngModelOptions]="{ standalone: true }"></textarea>
-          </div>
         </div>
       </div>
     </section>

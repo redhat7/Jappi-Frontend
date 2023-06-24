@@ -1,18 +1,19 @@
 import { Component, OnInit, Input, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { MatDialog } from "@angular/material/dialog";
 
-import { formatApiDate, formatApiToNativeDate } from '../../../shared/helpers/helpers';
+import { formatApiDate, formatApiToNativeDate } from '../../helpers/helpers';
 
 import { FormService } from "../../../utils/services/form/form.service";
-import { environment } from './../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: "app-modal-envios-fecha",
-  templateUrl: "./modal-envios-fecha.component.html",
-  styleUrls: ["./modal-envios-fecha.component.css"],
+  selector: "app-modal-mis-envios",
+  templateUrl: "./modal-mis-envios.component.html",
+  styleUrls: ["./modal-mis-envios.component.css"],
 })
-export class ModalEnviosFechaComponent implements OnInit {
+export class ModalMisEnviosComponent implements OnInit {
   token: string;
 
   @Input() idMotorizado: number;
@@ -44,7 +45,8 @@ export class ModalEnviosFechaComponent implements OnInit {
   deliveryPrecio: any = 0;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
-    public dialogRef: MatDialogRef<ModalEnviosFechaComponent>,
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<ModalMisEnviosComponent>,
     private http: HttpClient,
     private formService: FormService
   ) { }
@@ -59,8 +61,7 @@ export class ModalEnviosFechaComponent implements OnInit {
     this.pago = envio.metodo_pago;
     this.modoe = envio.modo_entrega;
     this.idEnvio = envio.id_envio;
-    this.getEstadoEnvio(envio.estado);
-    // this.idEstadoEntrega = envio.estado;
+    this.idEstadoEntrega = envio.estado;
     this.celularReceptor = envio.tele_entrega;
     this.direccionReceptor = envio.d_entrega;
 
@@ -76,7 +77,7 @@ export class ModalEnviosFechaComponent implements OnInit {
     const distritoEmpresa = this.distritos.find(
       (distrito) => distrito.value == this.IDDistritoEmpresa
     );
-    this.IDDistrito = envio.distrito_entrega;
+    this.IDDistrito = envio.distrito;
     const distritoBase = this.distritos.find(
       (distrito) => distrito.value == this.IDDistrito
     );
@@ -86,16 +87,6 @@ export class ModalEnviosFechaComponent implements OnInit {
     // this.delivery = envio.delivery;
     this.montoTotal = envio.monto_total;
     this.motivo = envio.motivo || "";
-
-    this.getMotorizados(this.token);
-  }
-
-  getEstadoEnvio(estado: any) {
-    const estadoEncontrado = this.estadosEntrega.find(item => item.estado === estado);
-    
-    if (estadoEncontrado) {
-      this.idEstadoEntrega = estadoEncontrado.value;
-    }
   }
 
   changeDistrito(event: Event) {
@@ -190,29 +181,6 @@ export class ModalEnviosFechaComponent implements OnInit {
     }
   }
 
-
-  getMotorizados(token: string) {
-    this.http
-      .post(
-        `${environment.url_api}/empresa/ListarMotorizados`,
-        // "https://backend-japi.herokuapp.com/empresa/ListarMotorizados",
-        { token },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Methods": "POST",
-          },
-        }
-      )
-      .subscribe(({ success, data }: any) => {
-        if (success) {
-          this.data.validate = 1;
-          this.motorizados = data;
-        } else {
-          console.log("error al traer motorizados");
-        }
-      });
-  }
   validateComision(currentMetodo: number, montoTotal: number) {
     if (currentMetodo == 2) {
       return montoTotal * 0.05;

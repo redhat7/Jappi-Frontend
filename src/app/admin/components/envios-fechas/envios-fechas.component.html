@@ -4,7 +4,7 @@
 <div class="top">
   <span class="user-title">ENVÍOS POR FECHA</span>
   <div>
-    <span class="user-title">Bienvenido: {{userName | capitalizefirstletter}}</span>
+    <span class="user-title">¡Bienvenido! <a class="green-primary">{{userName | capitalizefirstletter}}</a></span>
     <img src="assets/img/foto1.jpg" alt="">
   </div>
 </div>
@@ -34,8 +34,8 @@
               <option value="distritoName">Distrito</option>
               <option value="nombre_estado">Estado</option>
               <option value="modo_entrega">Modo de entrega</option>
-              <option value="nombre">Nombre de la empresa</option>
-              <option value="nombres">Nombre del comprador</option>
+              <option value="vendedor">Nombre de la empresa</option>
+              <option value="comprador">Nombre del comprador</option>
               <option value="nombre_motorizado">Nombre del motorizado</option>
               <option value="tele_entrega">Teléfono del comprador</option>
             </select>
@@ -71,16 +71,14 @@
         <tr *ngFor="let envio of data; index as i">
           <td data-label="N°"> {{i+1}} </td>
           <td data-label="Vendedor"> {{envio.vendedor | uppercase}} </td>
-          <td data-label="Comprador"> {{envio.nombres | uppercase}} </td>
+          <td data-label="Comprador"> {{envio.comprador | uppercase}} </td>
           <td data-label="Telefono"> {{envio.tele_entrega}} </td>
           <td data-label="Monto total"> {{envio.monto_total | currency: " "}} </td>
           <td data-label="Método de pago"> {{envio.metodo_pago}} </td>
           <td data-label="Modo de entrega"> {{envio.modo_entrega}} </td>
           <td data-label="Producto"> {{envio.observacion | capitalizefirstletter}} </td>
           <td data-label="Cantidad"> {{envio.distritoName}} </td>
-          <td data-label="Estado">
-            <span [ngClass]="getStateClass(envio.nombre_estado)">{{ envio.nombre_estado }}</span>
-          </td>
+          <td data-label="Estado"><span [ngClass]="getStateClass(envio.estado)">{{ envio.estado }}</span></td>
           <td data-label="Motorizado"> {{envio.nombre_motorizado}} </td>
           <td data-label="Opciones" class="td-button">
             <a class="button-index-green white" (click)="editarEnvio(envio)"> Editar </a>

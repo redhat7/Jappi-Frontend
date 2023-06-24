@@ -987,6 +987,26 @@ section table tbody td {
   font-size: 18px;
 }
 
+.green-primary {
+  color: var(--primary-color) !important;
+}
+
+.yellow {
+  color: #ffc107 !important;
+}
+
+.white {
+  color: white !important;
+}
+
+.red {
+  color: var(--third-color) !important;
+}
+
+.font-weight-600 {
+  font-weight: 600 !important;
+}
+
 @media screen and (max-width:1280px) {
   section .text-search {
     grid-template-columns: repeat(2, 1fr);

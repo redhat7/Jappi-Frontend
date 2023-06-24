@@ -9,7 +9,7 @@
     <div class="division-grid">
       <div>
         <p class="detail__title">Datos generales</p>
-        <div class="space__h4 date-grid">
+        <div *ngIf="tipoUsuario == 2" class="space__h4 date-grid">
           <p>Producto</p>
           <p>{{ envio.descripcion }}</p>
           <p>Cantidad</p>
@@ -33,6 +33,26 @@
           <p>Hora y fecha de creación</p>
           <p>{{ envio.fecha_registro || '' }} </p>
         </div>
+      </div>
+      <div *ngIf="tipoUsuario == 1" class="space__h4 date-grid">
+        <p>Dirección</p>
+        <p>{{ envio.d_entrega }}</p>
+        <p>Método pago</p>
+        <p>{{ envio.metodo_pago}}</p>
+        <p>Modo entrega</p>
+        <p>{{ envio.modo_entrega }}</p>
+        <p>Delivery</p>
+        <p>{{ envio.delivery | currency: "S/" }}</p>
+        <p>DNI Motorizado</p>
+        <p>{{ envio.dni_motorizado || "No tiene" }}</p>
+        <p>Nombre motorizado</p>
+        <p>{{ envio.nombre_motorizado || "No tiene" }}</p>
+        <p>Placa moto</p>
+        <p>{{ (envio.placaMoto | uppercase ) || "No tiene" }}</p>
+        <p>Motivo</p>
+        <p>{{ envio.motivo || "No tiene" }}</p>
+        <p>Observaciones</p>
+        <p>{{ envio.observaciones || "" }}</p>
       </div>
     </div>
   </mat-dialog-content>

@@ -132,7 +132,7 @@ export class EnviosFechasComponent implements OnInit {
 
             return {
               ...distritoData,
-              nombre_estado: estado,
+              estado: estado,
               distritoName: name,
             };
           });
@@ -151,15 +151,15 @@ export class EnviosFechasComponent implements OnInit {
   }
 
   getStateClass(nombreEstado: string): string {
-    let classNames = ['estado'];
+    let classNames = ['font-weight-600 estado'];
 
     switch (nombreEstado) {
       case 'Entregado':
-        classNames.push('verde');
+        classNames.push('green-primary');
         break;
       case 'Reprogramado':
       case 'Repro. por cobrar':
-        classNames.push('amarillo');
+        classNames.push('yellow');
         break;
       case 'Caída':
       case 'Caída por cobrar':

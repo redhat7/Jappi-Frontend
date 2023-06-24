@@ -21,6 +21,7 @@ import { ModalEditUsuarioComponent } from './components/modal-edit-usuario/modal
 import { ModalEditMotoComponent } from './components/modal-edit-moto/modal-edit-moto.component';
 import { ModalEditAlmacenComponent } from './components/modal-edit-almacen/modal-edit-almacen.component';
 import { ModalEnviosFechaComponent } from './components/modal-envios-fecha/modal-envios-fecha.component';
+import { ModalMisEnviosComponent } from './components/modal-mis-envios/modal-mis-envios.component';
 import { ModalEstadoRecojoComponent } from './components/modal-estado-recojo/modal-estado-recojo.component';
 import { ModalDeleteEnvioComponent } from './components/modal-delete-envio/modal-delete-envio.component';
 import { ModalDetailShipmentComponent } from "./components/modal-detail-shipment/modal-detail-shipment.component";
@@ -48,6 +49,7 @@ const sharedComponents = [
     ModalEditMotoComponent,
     ModalEditAlmacenComponent,
     ModalEnviosFechaComponent,
+    ModalMisEnviosComponent,
     ModalEstadoRecojoComponent,
     ModalDeleteEnvioComponent,
     ModalDetailShipmentComponent,
