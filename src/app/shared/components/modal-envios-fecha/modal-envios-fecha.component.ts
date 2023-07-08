@@ -26,6 +26,7 @@ export class ModalEnviosFechaComponent implements OnInit {
   @Input() fechaEntrega: string;
 
   estadosEntrega: any[];
+  estadosEntregaUpdate: any[];
   motorizados: any[];
   metodoPago: any[];
   distritos: any[];
@@ -53,7 +54,8 @@ export class ModalEnviosFechaComponent implements OnInit {
     const { envio, token, distritos, zonas } = this.data;
 
     this.token = token;
-    this.estadosEntrega = this.formService.getEstadoEntregaModalAdmin();
+    this.estadosEntrega = this.formService.getEstadoEntrega();
+    this.estadosEntregaUpdate = this.formService.getEstadoEntregaModalAdmin();
     this.metodoPago = this.formService.getMetodoPago();
     this.modoEntrega = this.formService.getModoEntrega();
     this.pago = envio.metodo_pago;
@@ -92,9 +94,41 @@ export class ModalEnviosFechaComponent implements OnInit {
 
   getEstadoEnvio(estado: any) {
     const estadoEncontrado = this.estadosEntrega.find(item => item.estado === estado);
-    
+
+    let estadoPendiente = { "estado": "Pendiente", "value": 0 }
+    let estadoProgramado = { "estado": "Programado", "value": 1 }
+
     if (estadoEncontrado) {
       this.idEstadoEntrega = estadoEncontrado.value;
+
+      const pendienteExistente = this.estadosEntregaUpdate.find((estado) => estado.estado === estadoPendiente.estado && estado.value === estadoPendiente.value);
+      const programadoExistente = this.estadosEntregaUpdate.find((estado) => estado.estado === estadoProgramado.estado && estado.value === estadoProgramado.value);
+
+      if (estadoEncontrado.estado == 'Pendiente' || estadoEncontrado.estado == 'Programado') {
+        if (estadoEncontrado.estado == 'Pendiente') {
+          if (programadoExistente) {
+            this.estadosEntregaUpdate.pop();
+          }
+
+          if (!pendienteExistente) {
+            this.estadosEntregaUpdate.push(estadoPendiente);
+          }
+        }
+
+        if (estadoEncontrado.estado == 'Programado') {
+          if (pendienteExistente) {
+            this.estadosEntregaUpdate.pop();
+          }
+
+          if (!programadoExistente) {
+            this.estadosEntregaUpdate.push(estadoProgramado);
+          }
+        }
+      } else {
+        if (programadoExistente || pendienteExistente) {
+          this.estadosEntregaUpdate.pop();
+        }
+      }
     }
   }
 
