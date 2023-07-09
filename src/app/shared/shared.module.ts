@@ -25,6 +25,8 @@ import { ModalMisEnviosComponent } from './components/modal-mis-envios/modal-mis
 import { ModalEstadoRecojoComponent } from './components/modal-estado-recojo/modal-estado-recojo.component';
 import { ModalDeleteEnvioComponent } from './components/modal-delete-envio/modal-delete-envio.component';
 import { ModalDetailShipmentComponent } from "./components/modal-detail-shipment/modal-detail-shipment.component";
+import { ModalRegistrarAdminComponent } from "./components/modal-registrar-admin/modal-registrar-admin.component";
+import { ModalEditarAdminComponent } from "./components/modal-editar-admin/modal-editar-admin.component";
 
 const sharedComponents = [
   NavbarComponent,
@@ -53,6 +55,8 @@ const sharedComponents = [
     ModalEstadoRecojoComponent,
     ModalDeleteEnvioComponent,
     ModalDetailShipmentComponent,
+    ModalRegistrarAdminComponent,
+    ModalEditarAdminComponent,
   ],
   imports: [CommonModule, RouterModule, MaterialModule, FormsModule],
   exports: [sharedComponents],

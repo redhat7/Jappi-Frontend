@@ -81,7 +81,9 @@
           <td data-label="Estado"><span [ngClass]="getStateClass(envio.estado)">{{ envio.estado }}</span></td>
           <td data-label="Motorizado"> {{envio.nombre_motorizado}} </td>
           <td data-label="Opciones" class="td-button">
-            <a class="button-index-green white" (click)="editarEnvio(envio)"> Editar </a>
+            <ng-template [ngIf]="tipoUser!=4">
+              <a class="button-index-green white" (click)="editarEnvio(envio)"> Editar </a>
+            </ng-template>
             <a class="button-index-red white" (click)="openModalDelete(envio)"> Eliminar </a>
           </td>
           <td data-label="Detalle">

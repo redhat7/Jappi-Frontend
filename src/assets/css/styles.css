@@ -518,10 +518,6 @@ div form {
 
 }
 
-div form {
-  /* padding-top: 1.2rem; */
-}
-
 section .date {
   margin-right: 2rem;
 }
@@ -912,6 +908,7 @@ section table tbody td {
 .div-row {
   display: flex;
   flex-direction: row;
+  width: 100%;
   gap: 12px;
 }
 
@@ -997,6 +994,7 @@ section table tbody td {
 
 .white {
   color: white !important;
+  border: none !important;
 }
 
 .red {

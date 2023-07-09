@@ -184,6 +184,14 @@ export class FormService {
     { id: 4, value: "Abono a Japi" }
   ];
 
+  private tipoAdmin: any[] = [
+    { id: 1, value: "Cliente" },
+    { id: 2, value: "Administrador" },
+    { id: 3, value: "Motorizado" },
+    { id: 4, value: "Almacén" },
+    { id: 5, value: "Coordinación" }
+  ]
+
   constructor() { }
 
   getModoEntrega(): any[] {
@@ -227,5 +235,9 @@ export class FormService {
 
   getEstadoEntregaModal() {
     return this.estadoEntregaModal;
+  }
+
+  getTipoAdmin() {
+    return this.tipoAdmin;
   }
 }

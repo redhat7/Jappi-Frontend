@@ -1,0 +1,39 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <span style="font-size: 20px; color: white">Cargando ...</span>
+</ngx-spinner>
+<mat-dialog-content>
+  <section>
+    <div *ngIf="data.validate === 0">
+      <span>Cargando datos ...</span>
+    </div>
+    <span class="delete__mod-title">EDITAR ADMINISTRADOR</span>
+    <section *ngIf="data.validate !== 0">
+      <div class="div-admin">
+        <div class="col-md-12">
+          <select class="fix-input" [(ngModel)]="tipo">
+            <option value="" disabled selected hidden>Tipo</option>
+            <option [value]="tipo.id" *ngFor="let tipo of tipoAdmin">{{ tipo.value }}</option>
+          </select>
+        </div>
+        <div class="col-md-12">
+          <input type="string" class="fix-input" [(ngModel)]="nombres" placeholder="Nombre" />
+        </div>
+        <div class="col-md-12">
+          <input type="string" class="fix-input" [(ngModel)]="correo" placeholder="Correo" disabled/>
+        </div>
+        <div class="col-md-12">
+          <input type="string" class="fix-input" [(ngModel)]="password" placeholder="Contraseña" />
+        </div>
+      </div>
+    </section>
+  </section>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="actions-container">
+  <button class="button-index-yellow" mat-button mat-dialog-close> Cancelar </button>
+  <button class="button-index-green" mat-button (click)="editAdmin()" [disabled]="!nombreValid || !emailValid ">
+    Guardar </button>
+</mat-dialog-actions>
+<div *ngIf="!nombreValid" class="error-message"> El nombre es requerido. </div>
+<div *ngIf="!emailValid" class="error-message"> El correo debe existir y tener un formato válido. </div>
+<div *ngIf="!passwordValid" class="error-message"> La contraseña debe tener al menos 5 caracteres. </div>
+<div *ngIf="emailExistError" class="error-message">El correo ya existe.</div>

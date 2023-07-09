@@ -30,6 +30,7 @@ export class EnviosFechasComponent implements OnInit {
   estadoEntrega: any[];
   zonas: any[];
   userName: string;
+  tipoUser: number;
 
   @ViewChild('dateStartInput', { static: true }) dateStartInput: ElementRef<HTMLInputElement>;
   @ViewChild('dateEndInput', { static: true }) dateEndInput: ElementRef<HTMLInputElement>;
@@ -60,6 +61,7 @@ export class EnviosFechasComponent implements OnInit {
     this.estadoEntrega = this.formService.getEstadoEntrega();
     this.getDataByDate(this.token, this.currentDate, this.currentDate);
     this.userName = currentUser.nombres;
+    this.tipoUser = currentUser.tipo;
   }
 
   getCurrentDate() {
