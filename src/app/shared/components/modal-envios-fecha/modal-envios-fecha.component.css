@@ -1,8 +1,16 @@
 .delete__mod-title {
-    text-align: left;
-    font-size: 16px;
-    font-weight: var(--font-bold);
-    font-weight: var(--font-semi-bold);
-    margin-bottom: 0px !important;
-    color: var(--text-color-title);
-  }
+  text-align: left;
+  font-size: 16px;
+  font-weight: var(--font-bold);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: 0px !important;
+  color: var(--text-color-title);
+}
+
+.fix-input {
+  width: 100%;
+  padding: 4px;
+  border: none;
+  border-bottom: 1px solid #9A9A9A;
+  outline: none;
+}

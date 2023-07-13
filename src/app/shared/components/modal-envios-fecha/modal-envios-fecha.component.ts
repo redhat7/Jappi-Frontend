@@ -52,44 +52,43 @@ export class ModalEnviosFechaComponent implements OnInit {
 
   ngOnInit(): void {
     const { envio, token, distritos, zonas } = this.data;
-
     this.token = token;
-    this.estadosEntrega = this.formService.getEstadoEntrega();
-    this.estadosEntregaUpdate = this.formService.getEstadoEntregaModalAdmin();
-    this.metodoPago = this.formService.getMetodoPago();
-    this.modoEntrega = this.formService.getModoEntrega();
-    this.pago = envio.metodo_pago;
-    this.modoe = envio.modo_entrega;
-    this.idEnvio = envio.id_envio;
-    this.getEstadoEnvio(envio.estado);
-    // this.idEstadoEntrega = envio.estado;
-    this.celularReceptor = envio.tele_entrega;
-    this.direccionReceptor = envio.d_entrega;
 
-    this.idMotorizado = envio.moto || parseInt("0");
+    this.getMotorizados(this.token).then(() => {
+      this.estadosEntrega = this.formService.getEstadoEntrega();
+      this.estadosEntregaUpdate = this.formService.getEstadoEntregaModalAdmin();
+      this.metodoPago = this.formService.getMetodoPago();
+      this.modoEntrega = this.formService.getModoEntrega();
+      this.pago = envio.metodo_pago;
+      this.modoe = envio.modo_entrega;
+      this.idEnvio = envio.id_envio;
+      this.getEstadoEnvio(envio.estado);
+      this.celularReceptor = envio.tele_entrega;
+      this.direccionReceptor = envio.d_entrega;
+      this.idMotorizado = this.motorizados.find(item => item.nombres === envio.nombre_motorizado).id || '0';
+      this.idModoEntrega = this.findModoEntrega("value", envio.modo_entrega).id;
+      this.idMetodoPago = this.findMetodoPago("value", envio.metodo_pago).id;
+      this.fechaEntrega = formatApiToNativeDate(envio.fecha_entrega)
+      this.zonas = zonas;
+      this.distritos = distritos;
+      this.IDDistritoEmpresa = envio.distrito;
+      const distritoEmpresa = this.distritos.find(
+        (distrito) => distrito.value == this.IDDistritoEmpresa
+      );
+      this.IDDistrito = envio.distrito_entrega;
+      const distritoBase = this.distritos.find(
+        (distrito) => distrito.value == this.IDDistrito
+      );
+      this.zonaEmpresa = distritoEmpresa.zona;
+      this.delivery = envio.delivery;
 
-    this.idModoEntrega = this.findModoEntrega("value", envio.modo_entrega).id;
-    this.idMetodoPago = this.findMetodoPago("value", envio.metodo_pago).id;
-    this.fechaEntrega = formatApiToNativeDate(envio.fecha_entrega)
-
-    this.zonas = zonas;
-    this.distritos = distritos;
-    this.IDDistritoEmpresa = envio.distrito;
-    const distritoEmpresa = this.distritos.find(
-      (distrito) => distrito.value == this.IDDistritoEmpresa
-    );
-    this.IDDistrito = envio.distrito_entrega;
-    const distritoBase = this.distritos.find(
-      (distrito) => distrito.value == this.IDDistrito
-    );
-    this.zonaEmpresa = distritoEmpresa.zona;
-    this.delivery = envio.delivery;
-
-    // this.delivery = envio.delivery;
-    this.montoTotal = envio.monto_total;
-    this.motivo = envio.motivo || "";
-
-    this.getMotorizados(this.token);
+      this.montoTotal = envio.monto_total;
+      this.motivo = envio.motivo || "";
+      // Resto del código...
+    }).catch(error => {
+      console.error('Error en getMotorizados:', error);
+      // Resto del código...
+    });
   }
 
   getEstadoEnvio(estado: any) {
@@ -225,28 +224,29 @@ export class ModalEnviosFechaComponent implements OnInit {
   }
 
 
-  getMotorizados(token: string) {
-    this.http
-      .post(
-        `${environment.url_api}/empresa/ListarMotorizados`,
-        // "https://backend-japi.herokuapp.com/empresa/ListarMotorizados",
-        { token },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Methods": "POST",
-          },
-        }
-      )
-      .subscribe(({ success, data }: any) => {
+  getMotorizados(token: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.http.post(`${environment.url_api}/empresa/ListarMotorizados`, { token }, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Methods": "POST",
+        },
+      }).subscribe(({ success, data }: any) => {
         if (success) {
           this.data.validate = 1;
           this.motorizados = data;
+          resolve();
         } else {
-          console.log("error al traer motorizados");
+          console.error("Error al traer motorizados:");
+          reject("Error al traer motorizados");
         }
+      }, error => {
+        console.error('Error en llamada HTTP:', error);
+        reject(error);
       });
+    });
   }
+
   validateComision(currentMetodo: number, montoTotal: number) {
     if (currentMetodo == 2) {
       return montoTotal * 0.05;
