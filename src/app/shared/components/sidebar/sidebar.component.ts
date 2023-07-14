@@ -12,7 +12,8 @@ enum UserTypes {
   User3 = 3,
   User4 = 4,
   User5 = 5,
-  User6 = 6
+  User6 = 6,
+  User7 = 7,
 }
 
 @Component({
@@ -49,6 +50,9 @@ export class SidebarComponent implements OnInit {
         break;
       case UserTypes.User6:
         this.menuItems = this.routesService.getRutasRecursosHumanos();
+        break;
+      case UserTypes.User7:
+        this.menuItems = this.routesService.getRutasVentas();
         break;
       default:
       // handle invalid user type

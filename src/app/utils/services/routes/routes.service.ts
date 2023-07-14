@@ -236,6 +236,39 @@ export class RoutesService {
     },
   ];
 
+  private rutasVentas: Routes[] = [
+    {
+      path: "/envios-fecha",
+      title: "ENVÍOS POR FECHA",
+      class: "",
+      icon: "uil uil-calendar-alt",
+    },
+    {
+      path: "/recojos",
+      title: "ADMINISTRAR RECOJOS",
+      class: "",
+      icon: "uil uil-truck",
+    },
+    {
+      path: "/solicitudes-almacen",
+      title: "SOLICITUD DE ALMACÉN",
+      class: "",
+      icon: "uil uil-store-alt",
+    },
+    {
+      path: "/activacion",
+      title: "ACTIVACIÓN DE CUENTAS",
+      class: "",
+      icon: "uil uil-check-circle",
+    },
+    {
+      path: "/lista-externo",
+      title: "USUARIOS EXTERNOS",
+      class: "",
+      icon: "uil uil-user-exclamation",
+    },
+  ]
+
   constructor() { }
 
   getRutasUsuario() { return this.rutasUsuario; }
@@ -249,4 +282,6 @@ export class RoutesService {
   getRutasCoordinacion() { return this.rutasCoordinacion; }
 
   getRutasRecursosHumanos() { return this.rutasRecursosHumanos }
+
+  getRutasVentas() { return this.rutasVentas }
 }

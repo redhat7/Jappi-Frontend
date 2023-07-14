@@ -87,6 +87,7 @@ export class LoginComponent implements OnInit {
       case 4:
       case 5:
       case 6:
+      case 7:
         this.router.navigate(["/envios-fecha"]);
         break;
       case 3:

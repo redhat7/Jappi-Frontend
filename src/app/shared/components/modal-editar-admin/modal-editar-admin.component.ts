@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { NgxSpinnerService } from "ngx-spinner";
 
-import { FormService } from "../../../utils/services/form/form.service";
 import { environment } from "../../../../environments/environment";
 
 @Component({
@@ -30,7 +29,6 @@ export class ModalEditarAdminComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ModalEditarAdminComponent>,
     private http: HttpClient,
-    private formService: FormService,
     private spinnerService: NgxSpinnerService
   ) {
     this.dialogRef.disableClose = true;
@@ -39,7 +37,7 @@ export class ModalEditarAdminComponent implements OnInit {
   ngOnInit(): void {
     const { token, admin } = this.data;
     this.token = token;
-    this.tipoAdmin = this.formService.getTipoAdmin();
+    this.tipoAdmin = JSON.parse(localStorage.getItem('roles'))
     this.tipo = admin.tipo;
     this.nombres = admin.nombres;
     this.correo = admin.correo;

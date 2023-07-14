@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MatDialog } from "@angular/material/dialog";
 
@@ -26,6 +26,7 @@ export class ListaAdminComponent implements OnInit {
   data: AdminData[] = [];
   datos: AdminData[];
   userName: string;
+  roles: any;
 
   @Input() valorSpinner = "";
   @Input() spinner: { descripcion: string; id: string }[] = [
@@ -48,9 +49,20 @@ export class ListaAdminComponent implements OnInit {
 
   ngOnInit(): void {
     const currentUser = JSON.parse(localStorage.getItem("auth"));
+    const hasRoles = JSON.parse(localStorage.getItem('roles')) || undefined;
     this.userName = currentUser?.nombres || "";
     this.token = currentUser?.token || "";
     this.getData(this.token);
+
+    if (!hasRoles) {
+      this.getRolesAdmin(this.token);
+    } else {
+      this.roles = JSON.parse(localStorage.getItem('roles'));
+    }
+  }
+
+  ngOnDestroy(): void {
+    localStorage.removeItem('roles');
   }
 
   selectSpinner(value: string): void {
@@ -62,6 +74,22 @@ export class ListaAdminComponent implements OnInit {
       const varia = element[this.valorSpinner]?.toLowerCase() || "";
       return varia.includes(this.searchTxt.toLowerCase());
     });
+  }
+
+  getRolesAdmin(token: string): void {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.post<any[]>(`${environment.url_api}/empresa/roles`, { token }, { headers }).subscribe(
+      (result: any) => {
+        if (result.success) {
+          this.roles = result.data.map(rol => ({ id: rol.id, nombre: rol.nombre }));
+          localStorage.setItem('roles', JSON.stringify(this.roles));
+        }
+      }, (error) => {
+        console.error('Error al obtener los roles de admin', error);
+        this.spinnerService.hide();
+      }
+    );
   }
 
   getData(token: string): void {
@@ -90,21 +118,9 @@ export class ListaAdminComponent implements OnInit {
     );
   }
 
-  getTipo(tipo: number): string {
-    switch (tipo) {
-      case 1:
-        return "Cliente";
-      case 2:
-        return "Administrador";
-      case 3:
-        return "Motorizado";
-      case 4:
-        return "Almacén";
-      case 5:
-        return "Coordinación";
-      default:
-        return "";
-    }
+  getTipoAdmin(tipo: number): any {
+    const foundItem = this.roles.find(item => item.id === tipo);
+    return foundItem.nombre;
   }
 
   registrarAdmin(): void {
@@ -130,9 +146,8 @@ export class ListaAdminComponent implements OnInit {
   }
 
   editarAdmin(admin: any): void {
-    console.log('editando admin...', admin);
     const token = this.token;
-    
+
     const modalRef = this.dialog.open(ModalEditarAdminComponent, {
       data: {
         token,

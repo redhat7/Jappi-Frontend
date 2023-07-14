@@ -46,7 +46,7 @@
       <tbody>
         <tr *ngFor="let admin of data; index as i">
           <td>{{ i + 1 }}</td>
-          <td>{{ getTipo(admin.tipo) }}</td>
+          <td>{{ getTipoAdmin(admin.tipo) }}</td>
           <td>{{ admin.nombres | uppercase }}</td>
           <td>{{ admin.correo }}</td>
           <td>{{ admin.pass }}</td>
